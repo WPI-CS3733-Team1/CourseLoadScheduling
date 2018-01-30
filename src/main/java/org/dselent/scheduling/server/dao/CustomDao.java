@@ -14,8 +14,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CustomDao
 {
-	// custom queries here
-	public int harsh = 0;
 	
 	public List<User> getAllUsersWithRole(int roleId);
 }
