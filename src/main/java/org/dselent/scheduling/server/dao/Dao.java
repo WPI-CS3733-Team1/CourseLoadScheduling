@@ -25,6 +25,7 @@ public interface Dao<M extends Model>
 	 * Only meant for basic SQL statements
 	 * More complicated statements should use custom scripts
 	 */
+	public int harsh = 0;
 
 	
 	public int insert(M model, List<String> insertColumnNameList, List<String> keyHolderColumnNameList) throws SQLException;
