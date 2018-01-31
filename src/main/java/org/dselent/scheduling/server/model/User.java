@@ -21,7 +21,7 @@ public class User extends Model
 		USER_NAME,
 		FIRST_NAME,
 		LAST_NAME,
-		EMAIL,
+		EMAIL,	
 		ENCRYPTED_PASSWORD,
 		SALT,
 		USER_STATE_ID,
