@@ -1,4 +1,4 @@
-package org.dselent.scheduling.server.extractor;
+	package org.dselent.scheduling.server.extractor;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -40,7 +40,12 @@ public class UsersRolesLinksExtractor extends Extractor<List<UsersRolesLink>>
 				result.setRoleId(null);
 			}
 			
+			if(rs.wasNull())
+			{
+				result.setDeleted(null);
+			}
 			result.setCreatedAt(rs.getTimestamp(User.getColumnName(User.Columns.CREATED_AT)));
+			
 		
 			resultList.add(result);
 		}
