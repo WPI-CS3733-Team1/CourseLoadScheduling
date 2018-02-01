@@ -78,7 +78,7 @@ public class UsersRolesLinksDaoImpl extends BaseDaoImpl<UsersRolesLink> implemen
 	public UsersRolesLink findById(int id) throws SQLException
 	{
 		String columnName = QueryStringBuilder.convertColumnName(UsersRolesLink.getColumnName(UsersRolesLink.Columns.ID), false);
-		List<String> selectColumnNames = User.getColumnNameList();
+		List<String> selectColumnNames = UsersRolesLink.getColumnNameList();
 		
 		List<QueryTerm> queryTermList = new ArrayList<>();
 		QueryTerm idTerm = new QueryTerm(columnName, ComparisonOperator.EQUAL, id, null);
