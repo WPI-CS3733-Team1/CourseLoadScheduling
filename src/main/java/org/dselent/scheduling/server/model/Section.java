@@ -1,13 +1,12 @@
 package org.dselent.scheduling.server.model;
 
 import java.sql.JDBCType;
+import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.dselent.scheduling.server.model.User.Columns;
 
 public class Section extends Model
 {
@@ -67,7 +66,7 @@ public class Section extends Model
 	// attributes
 	
 	private Integer id;
-	private Integer courseID;
+	private Integer courseId;
 	private Integer CRN;
 	private String sectionName;
 	private Integer sectionId;
@@ -114,12 +113,12 @@ public class Section extends Model
 		this.id = id;
 	}
 
-	public Integer getCourseID() {
-		return courseID;
+	public Integer getCourseId() {
+		return courseId;
 	}
 
-	public void setCourseID(Integer courseID) {
-		this.courseID = courseID;
+	public void setCourseId(Integer courseId) {
+		this.courseId = courseId;
 	}
 
 	public Integer getCRN() {
@@ -217,6 +216,14 @@ public class Section extends Model
 	public void setCreatedAt(Instant createdAt) {
 		this.createdAt = createdAt;
 	}
+	
+	public void setCreatedAt(Timestamp createdAt) 
+	{
+		if (createdAt != null)
+		{
+			this.createdAt = createdAt.toInstant();
+		}
+	}
 
 	public Instant getUpdatedAt() {
 		return updatedAt;
@@ -224,6 +231,14 @@ public class Section extends Model
 
 	public void setUpdatedAt(Instant updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+	
+	public void setUpdatedAt(Timestamp updatedAt) 
+	{
+		if (updatedAt != null)
+		{
+			this.updatedAt = updatedAt.toInstant();
+		}
 	}
 
 	@Override
@@ -233,7 +248,7 @@ public class Section extends Model
 		result = prime * result + ((CRN == null) ? 0 : CRN.hashCode());
 		result = prime * result + ((academicTerm == null) ? 0 : academicTerm.hashCode());
 		result = prime * result + ((academicYear == null) ? 0 : academicYear.hashCode());
-		result = prime * result + ((courseID == null) ? 0 : courseID.hashCode());
+		result = prime * result + ((courseId == null) ? 0 : courseId.hashCode());
 		result = prime * result + ((courseLocation == null) ? 0 : courseLocation.hashCode());
 		result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
 		result = prime * result + ((daysPerWeek == null) ? 0 : daysPerWeek.hashCode());
@@ -272,10 +287,10 @@ public class Section extends Model
 				return false;
 		} else if (!academicYear.equals(other.academicYear))
 			return false;
-		if (courseID == null) {
-			if (other.courseID != null)
+		if (courseId == null) {
+			if (other.courseId != null)
 				return false;
-		} else if (!courseID.equals(other.courseID))
+		} else if (!courseId.equals(other.courseId))
 			return false;
 		if (courseLocation == null) {
 			if (other.courseLocation != null)
@@ -337,7 +352,7 @@ public class Section extends Model
 
 	@Override
 	public String toString() {
-		return "Section [id=" + id + ", courseID=" + courseID + ", CRN=" + CRN + ", sectionName=" + sectionName
+		return "Section [id=" + id + ", courseID=" + courseId + ", CRN=" + CRN + ", sectionName=" + sectionName
 				+ ", sectionId=" + sectionId + ", expectedPop=" + expectedPop + ", requiredFreq=" + requiredFreq
 				+ ", academicYear=" + academicYear + ", academicTerm=" + academicTerm + ", startTime=" + startTime
 				+ ", endTime=" + endTime + ", daysPerWeek=" + daysPerWeek + ", courseLocation=" + courseLocation

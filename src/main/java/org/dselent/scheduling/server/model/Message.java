@@ -59,20 +59,27 @@ public class Message extends Model
 	private Integer deptId;
 
 	// methods
+	public Integer getId() {
+		return id;
+	}
+	
+	public void setId(Integer id) {
+		this.id = id;
+	}
 		
-	public Integer getuserId() {
+	public Integer getUserId() {
 		return userId;
 	}
 
-	public void setuserId(Integer userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 
-	public String getauthorUserName() {
+	public String getAuthorUserName() {
 		return authorUserName;
 	}
 
-	public void setauthorUserName(String authorUserName) {
+	public void setAuthorUserName(String authorUserName) {
 		this.authorUserName = authorUserName;
 	}
 
@@ -92,19 +99,27 @@ public class Message extends Model
 		this.resolved = resolved;
 	}
 
-	public Instant getreceivedAt() {
+	public Instant getReceivedAt() {
 		return receivedAt;
 	}
+	
+	public void setReceivedAt(Timestamp receivedAt) 
+	{
+		if (receivedAt != null)
+		{
+			this.receivedAt = receivedAt.toInstant();
+		}
+	}
 
-	public void setreceivedAt(Instant receivedAt) {
+	public void setReceivedAt(Instant receivedAt) {
 		this.receivedAt = receivedAt;
 	}
 
-	public Integer getdeptId() {
+	public Integer getDeptId() {
 		return deptId;
 	}
 
-	public void setdeptId(Integer deptId) {
+	public void setDeptId(Integer deptId) {
 		this.deptId = deptId;
 	}
 

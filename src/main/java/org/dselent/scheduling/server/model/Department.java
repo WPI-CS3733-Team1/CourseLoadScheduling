@@ -1,13 +1,10 @@
 package org.dselent.scheduling.server.model;
 
 import java.sql.JDBCType;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.dselent.scheduling.server.model.User.Columns;
 
 public class Department extends Model
 {
