@@ -7,11 +7,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.dselent.scheduling.server.dao.SectionsDao;
+import org.dselent.scheduling.server.extractor.SectionsExtractor;
 import org.dselent.scheduling.server.miscellaneous.Pair;
 import org.dselent.scheduling.server.miscellaneous.QueryStringBuilder;
 import org.dselent.scheduling.server.model.Section;
-import org.dselent.scheduling.server.model.UsersRolesLink;
 import org.dselent.scheduling.server.sqlutils.ColumnOrder;
+import org.dselent.scheduling.server.sqlutils.ComparisonOperator;
 import org.dselent.scheduling.server.sqlutils.QueryTerm;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -129,26 +130,85 @@ public class SectionsDaoImpl extends BaseDaoImpl<Section> implements SectionsDao
 	@Override
 	public List<Section> select(List<String> selectColumnNameList, List<QueryTerm> queryTermList,
 			List<Pair<String, ColumnOrder>> orderByList) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+			SectionsExtractor extractor = new SectionsExtractor();
+			
+			String queryTemplate = QueryStringBuilder.generateSelectString(Section.TABLE_NAME, selectColumnNameList, queryTermList, orderByList);
+			List<Object> objectList = new ArrayList<Object>();
+
+			for(QueryTerm queryTerm : queryTermList)
+			{
+				objectList.add(queryTerm.getValue());
+			}
+			
+		    Object[] parameters = objectList.toArray();
+			
+		    List<Section> sectionsList = jdbcTemplate.query(queryTemplate, extractor, parameters);
+		    
+		    return sectionsList;
 	}
 
 	@Override
 	public Section findById(int id) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		String columnName = QueryStringBuilder.convertColumnName(Section.getColumnName(Section.Columns.ID), false);
+		List<String> selectColumnNames = Section.getColumnNameList();
+		
+		List<QueryTerm> queryTermList = new ArrayList<>();
+		QueryTerm idTerm = new QueryTerm(columnName, ComparisonOperator.EQUAL, id, null);
+		queryTermList.add(idTerm);
+		
+		List<Pair<String, ColumnOrder>> orderByList = new ArrayList<>();
+		Pair<String, ColumnOrder> order = new Pair<String, ColumnOrder>(columnName, ColumnOrder.ASC);
+		orderByList.add(order);
+		
+		List<Section> sectionsList = select(selectColumnNames, queryTermList, orderByList);
+		
+		Section section = null;
+		
+		if(!sectionsList.isEmpty()) {
+			section = sectionsList.get(0);
+		}
+		
+		return section;
 	}
 
 	@Override
 	public int update(String columnName, Object newValue, List<QueryTerm> queryTermList) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+
+		String queryTemplate = QueryStringBuilder.generateUpdateString(Section.TABLE_NAME, columnName, queryTermList);
+
+		List<Object> objectList = new ArrayList<Object>();
+		objectList.add(newValue);
+		
+		for(QueryTerm queryTerm : queryTermList)
+		{
+			objectList.add(queryTerm.getValue());
+		}
+		
+	    Object[] parameters = objectList.toArray();
+		 
+	    int rowsAffected = jdbcTemplate.update(queryTemplate, parameters);
+	    
+		return rowsAffected;
 	}
 
 	@Override
 	public int delete(List<QueryTerm> queryTermList) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		String queryTemplate = QueryStringBuilder.generateDeleteString(Section.TABLE_NAME, queryTermList);
+
+		List<Object> objectList = new ArrayList<Object>();
+		
+		for(QueryTerm queryTerm : queryTermList)
+		{
+			objectList.add(queryTerm.getValue());
+		}
+		
+	    Object[] parameters = objectList.toArray();
+		 
+	    int rowsAffected = jdbcTemplate.update(queryTemplate, parameters);
+
+		return rowsAffected;
 	}
 
 	@Override
