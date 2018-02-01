@@ -54,7 +54,7 @@ public class SectionsDaoImpl extends BaseDaoImpl<Section> implements SectionsDao
 		if(keyHolderColumnName.equals(Section.getColumnName(Section.Columns.ID))) {
 			model.setId((Integer) keyMap.get(keyHolderColumnName));
 		}else if(keyHolderColumnName.equals(Section.getColumnName(Section.Columns.COURSE_ID))) {
-			model.setCourseID((Integer) keyMap.get(keyHolderColumnName));
+			model.setCourseId((Integer) keyMap.get(keyHolderColumnName));
 		}else if(keyHolderColumnName.equals(Section.getColumnName(Section.Columns.CRN))) {
 			model.setCRN((Integer) keyMap.get(keyHolderColumnName));
 		}else if(keyHolderColumnName.equals(Section.getColumnName(Section.Columns.SECTION_NAME))) {
@@ -94,7 +94,7 @@ public class SectionsDaoImpl extends BaseDaoImpl<Section> implements SectionsDao
 		if(insertColumnName.equals(Section.getColumnName(Section.Columns.ID))) {
 			parameters.addValue(parameterName,  model.getId());
 		}else if(insertColumnName.equals(Section.getColumnName(Section.Columns.COURSE_ID))) {
-			parameters.addValue(parameterName,  model.getCourseID());
+			parameters.addValue(parameterName,  model.getCourseId());
 		}else if(insertColumnName.equals(Section.getColumnName(Section.Columns.CRN))) {
 			
 		}else if(insertColumnName.equals(Section.getColumnName(Section.Columns.SECTION_NAME))) {
