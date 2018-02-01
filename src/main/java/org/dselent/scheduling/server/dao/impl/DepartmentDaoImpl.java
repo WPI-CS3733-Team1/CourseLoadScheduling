@@ -10,7 +10,6 @@ import org.dselent.scheduling.server.extractor.DepartmentsExtractor;
 import org.dselent.scheduling.server.miscellaneous.Pair;
 import org.dselent.scheduling.server.miscellaneous.QueryStringBuilder;
 import org.dselent.scheduling.server.model.Department;
-import org.dselent.scheduling.server.model.User;
 import org.dselent.scheduling.server.sqlutils.ColumnOrder;
 import org.dselent.scheduling.server.sqlutils.ComparisonOperator;
 import org.dselent.scheduling.server.sqlutils.QueryTerm;
