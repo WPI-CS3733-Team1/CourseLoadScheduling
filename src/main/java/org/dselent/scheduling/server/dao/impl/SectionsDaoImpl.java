@@ -54,7 +54,7 @@ public class SectionsDaoImpl extends BaseDaoImpl<Section> implements SectionsDao
 		if(keyHolderColumnName.equals(Section.getColumnName(Section.Columns.ID))) {
 			model.setId((Integer) keyMap.get(keyHolderColumnName));
 		}else if(keyHolderColumnName.equals(Section.getColumnName(Section.Columns.COURSE_ID))) {
-			model.setCourseID((Integer) keyMap.get(keyHolderColumnName));
+			model.setCourseId((Integer) keyMap.get(keyHolderColumnName));
 		}else if(keyHolderColumnName.equals(Section.getColumnName(Section.Columns.CRN))) {
 			model.setCRN((Integer) keyMap.get(keyHolderColumnName));
 		}else if(keyHolderColumnName.equals(Section.getColumnName(Section.Columns.SECTION_NAME))) {
@@ -78,9 +78,9 @@ public class SectionsDaoImpl extends BaseDaoImpl<Section> implements SectionsDao
 		}else if(keyHolderColumnName.equals(Section.getColumnName(Section.Columns.COURSE_LOCATION))) {
 			model.setCourseLocation((String) keyMap.get(keyHolderColumnName));
 		}else if(keyHolderColumnName.equals(Section.getColumnName(Section.Columns.CREATED_AT))) {
-			//model.setCreatedAt((Timestamp) keyMap.get(keyHolderColumnName));
+			model.setCreatedAt((Timestamp) keyMap.get(keyHolderColumnName));
 		}else if(keyHolderColumnName.equals(Section.getColumnName(Section.Columns.UPDATED_AT))) {
-			//model.setUpdatedAt((Timestamp) keyMap.get(keyHolderColumnName));
+			model.setUpdatedAt((Timestamp) keyMap.get(keyHolderColumnName));
 		}else {
 			throw new IllegalArgumentException("Invalid column name provided: " + keyHolderColumnName);
 		}
@@ -94,33 +94,33 @@ public class SectionsDaoImpl extends BaseDaoImpl<Section> implements SectionsDao
 		if(insertColumnName.equals(Section.getColumnName(Section.Columns.ID))) {
 			parameters.addValue(parameterName,  model.getId());
 		}else if(insertColumnName.equals(Section.getColumnName(Section.Columns.COURSE_ID))) {
-			parameters.addValue(parameterName,  model.getCourseID());
+			parameters.addValue(parameterName,  model.getCourseId());
 		}else if(insertColumnName.equals(Section.getColumnName(Section.Columns.CRN))) {
-			
+			parameters.addValue(parameterName, model.getCRN());
 		}else if(insertColumnName.equals(Section.getColumnName(Section.Columns.SECTION_NAME))) {
-			
+			parameters.addValue(parameterName, model.getSectionName());
 		}else if(insertColumnName.equals(Section.getColumnName(Section.Columns.SECTION_ID))) {
-			
+			parameters.addValue(parameterName, model.getSectionId());
 		}else if(insertColumnName.equals(Section.getColumnName(Section.Columns.EXPECTED_POPULATION))) {
-			
+			parameters.addValue(parameterName, model.getExpectedPop());
 		}else if(insertColumnName.equals(Section.getColumnName(Section.Columns.REQUIRED_FREQUENCY))) {
-			
+			parameters.addValue(parameterName, model.getRequiredFreq());
 		}else if(insertColumnName.equals(Section.getColumnName(Section.Columns.ACADEMIC_YEAR))) {
-			
+			parameters.addValue(parameterName, model.getAcademicYear());
 		}else if(insertColumnName.equals(Section.getColumnName(Section.Columns.ACADEMIC_TERM))) {
-			
+			parameters.addValue(parameterName, model.getAcademicTerm());
 		}else if(insertColumnName.equals(Section.getColumnName(Section.Columns.START_TIME))) {
-			
+			parameters.addValue(parameterName, model.getStartTime());
 		}else if(insertColumnName.equals(Section.getColumnName(Section.Columns.END_TIME))) {
-			
+			parameters.addValue(parameterName, model.getEndTime());
 		}else if(insertColumnName.equals(Section.getColumnName(Section.Columns.DAYS_PER_WEEK))) {
-			
+			parameters.addValue(parameterName, model.getDaysPerWeek());
 		}else if(insertColumnName.equals(Section.getColumnName(Section.Columns.COURSE_LOCATION))) {
-			
+			parameters.addValue(parameterName, model.getCourseLocation());
 		}else if(insertColumnName.equals(Section.getColumnName(Section.Columns.CREATED_AT))) {
-			
+			parameters.addValue(parameterName, model.getCreatedAt());
 		}else if(insertColumnName.equals(Section.getColumnName(Section.Columns.UPDATED_AT))) {
-			
+			parameters.addValue(parameterName, model.getUpdatedAt());
 		}else {
 			throw new IllegalArgumentException("Invalid column name provided: " + insertColumnName);
 		}
