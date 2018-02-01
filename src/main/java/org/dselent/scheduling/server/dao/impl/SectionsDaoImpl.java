@@ -47,7 +47,7 @@ public class SectionsDaoImpl extends BaseDaoImpl<Section> implements SectionsDao
 	    }
 	    
 
-		return 0;
+		return rowsAffected;
 	}
 
 	private void addObjectValue(Map<String, Object> keyMap, String keyHolderColumnName, Section model) {
