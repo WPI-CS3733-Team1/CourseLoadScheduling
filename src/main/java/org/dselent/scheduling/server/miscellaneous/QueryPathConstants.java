@@ -27,7 +27,20 @@ public class QueryPathConstants
 	private static String REQUEST_CHANGE_PATH = BASE_QUERY_PATH + "RequestChange" + SQL_EXTENSION;
 	private static String RESOLVE_MESSAGE_PATH = BASE_QUERY_PATH + "ResolveMessage" + SQL_EXTENSION;
 	private static String SEARCH_ACADEMIC_TERM_PATH = BASE_QUERY_PATH + "SearchAcademicTerm" + SQL_EXTENSION;
-	
+	private static String SEARCH_ACADEMIC_YEAR_PATH = BASE_QUERY_PATH + "SearchAcademicYear" + SQL_EXTENSION;
+	private static String SEARCH_COURSE_NAME_PATH = BASE_QUERY_PATH + "SearchCourseName" + SQL_EXTENSION;
+	private static String SEARCH_COURSE_NUMBER_PATH = BASE_QUERY_PATH + "SearchCourseNumber" + SQL_EXTENSION;
+	private static String SEARCH_CRN_PATH = BASE_QUERY_PATH + "SearchCRN" + SQL_EXTENSION;
+	private static String SEARCH_DAYS_PER_WEEK_PATH = BASE_QUERY_PATH + "SearchDaysPerWeek" + SQL_EXTENSION;
+	private static String SEARCH_DEPT_ID_PATH = BASE_QUERY_PATH + "SearchDeptId" + SQL_EXTENSION;
+	private static String SEARCH_END_TIME_PATH = BASE_QUERY_PATH + "SearchEndTime" + SQL_EXTENSION;
+	private static String SEARCH_EXPECTED_POPULATION_PATH = BASE_QUERY_PATH + "SearchExpectedPopulation" + SQL_EXTENSION;
+	private static String SEARCH_REQUIRED_FREQUENCY_PATH = BASE_QUERY_PATH + "SearchRequiredFrequency" + SQL_EXTENSION;
+	private static String SEARCH_START_TIME_PATH = BASE_QUERY_PATH + "SearchStartTime" + SQL_EXTENSION;
+	private static String SEARCH_USERS_PATH = BASE_QUERY_PATH + "SearchUsers" + SQL_EXTENSION;
+	private static String VIEW_INBOX_PATH = BASE_QUERY_PATH + "ViewInbox" + SQL_EXTENSION;
+	private static String VIEW_SCHEDULE_PATH = BASE_QUERY_PATH + "ViewSchedule" + SQL_EXTENSION;
+			
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 	
 
@@ -37,6 +50,19 @@ public class QueryPathConstants
 	public static String REQUEST_CHANGE_QUERY = readFile(REQUEST_CHANGE_PATH);
 	public static String RESOLVE_MESSAGE_QUERY = readFile(RESOLVE_MESSAGE_PATH);
 	public static String SEARCH_ACADEMIC_TERM_QUERY = readFile(SEARCH_ACADEMIC_TERM_PATH);
+	public static String SEARCH_ACADEMIC_YEAR_QUERY = readFile(SEARCH_ACADEMIC_YEAR_PATH);
+	public static String SEARCH_COURSE_NAME_QUERY = readFile(SEARCH_COURSE_NAME_PATH);
+	public static String SEARCH_COURSE_NUMBER_QUERY = readFile(SEARCH_COURSE_NUMBER_PATH);
+	public static String SEARCH_CRN_QUERY = readFile(SEARCH_CRN_PATH);
+	public static String SEARCH_DAYS_PER_WEEK_QUERY = readFile(SEARCH_DAYS_PER_WEEK_PATH);
+	public static String SEARCH_DEPT_ID_QUERY = readFile(SEARCH_DEPT_ID_PATH);
+	public static String SEARCH_END_TIME_QUERY = readFile(SEARCH_END_TIME_PATH);
+	public static String SEARCH_EXPECTED_POPULATION_QUERY = readFile(SEARCH_EXPECTED_POPULATION_PATH);
+	public static String SEARCH_REQUIRED_FREQUENCY_QUERY = readFile(SEARCH_REQUIRED_FREQUENCY_PATH);
+	public static String SEARCH_START_TIME_QUERY = readFile(SEARCH_START_TIME_PATH);
+	public static String SEARCH_USERS_QUERY = readFile(SEARCH_USERS_PATH);
+	public static String VIEW_INBOX_QUERY = readFile(VIEW_INBOX_PATH);
+	public static String VIEW_SCHEDULE_QUERY = readFile(VIEW_SCHEDULE_PATH);
 	
 	private QueryPathConstants()
 	{
