@@ -179,7 +179,7 @@ public class User extends Model
 	{
 		return deptId;
 	}
-	public void setDeptId()
+	public void setDeptId(Integer deptId)
 	{
 		this.deptId = deptId;
 	}
