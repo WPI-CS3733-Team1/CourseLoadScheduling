@@ -189,6 +189,10 @@ public class UsersDaoImpl extends BaseDaoImpl<User> implements UsersDao
     	{
     		parameters.addValue(parameterName, userModel.getUserStateId());
     	}
+    	else if(insertColumnName.equals(User.getColumnName(User.Columns.DEPT_ID)))
+    	{
+    		parameters.addValue(parameterName, userModel.getDeptId());
+    	}
     	else if(insertColumnName.equals(User.getColumnName(User.Columns.CREATED_AT)))
     	{
     		parameters.addValue(parameterName, userModel.getCreatedAt());
@@ -238,6 +242,10 @@ public class UsersDaoImpl extends BaseDaoImpl<User> implements UsersDao
     	else if(keyHolderColumnName.equals(User.getColumnName(User.Columns.USER_STATE_ID)))
     	{
     		userModel.setUserStateId((Integer) keyMap.get(keyHolderColumnName));
+    	}
+    	else if(keyHolderColumnName.equals(User.getColumnName(User.Columns.DEPT_ID)))
+    	{
+    		userModel.setDeptId((Integer) keyMap.get(keyHolderColumnName));
     	}
     	else if(keyHolderColumnName.equals(User.getColumnName(User.Columns.CREATED_AT)))
     	{

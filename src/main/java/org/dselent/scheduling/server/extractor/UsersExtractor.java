@@ -39,6 +39,13 @@ public class UsersExtractor extends Extractor<List<User>>
 				result.setUserStateId(null);
 			}
 			
+			result.setDeptId(rs.getInt(User.getColumnName(User.Columns.DEPT_ID)));
+			
+			if(rs.wasNull())
+			{
+				result.setDeptId(null);
+			}
+			
 			result.setCreatedAt(rs.getTimestamp(User.getColumnName(User.Columns.CREATED_AT)));
 			result.setUpdatedAt(rs.getTimestamp(User.getColumnName(User.Columns.UPDATED_AT)));
 		
