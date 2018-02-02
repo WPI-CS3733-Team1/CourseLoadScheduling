@@ -22,11 +22,13 @@ public class QueryPathConstants
 	private static String USERS_WITH_ROLE_PATH = BASE_QUERY_PATH + "CustomUsersWithRole" + SQL_EXTENSION;
 
 	
+	
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 	
 
 	public static String USERS_WITH_ROLE_QUERY = readFile(USERS_WITH_ROLE_PATH);
 
+	
 	
 	private QueryPathConstants()
 	{
