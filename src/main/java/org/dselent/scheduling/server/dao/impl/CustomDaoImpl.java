@@ -3,8 +3,10 @@ package org.dselent.scheduling.server.dao.impl;
 import java.util.List;
 
 import org.dselent.scheduling.server.dao.CustomDao;
+import org.dselent.scheduling.server.extractor.SectionsExtractor;
 import org.dselent.scheduling.server.extractor.UsersExtractor;
 import org.dselent.scheduling.server.miscellaneous.QueryPathConstants;
+import org.dselent.scheduling.server.model.Section;
 import org.dselent.scheduling.server.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -31,4 +33,13 @@ public class CustomDaoImpl implements CustomDao
 	    return usersWithRoleList;
 	}
 	
+	public List<Section> getAvailableSectionsInDept(int deptID) {
+		SectionsExtractor extractor = new SectionsExtractor();
+		String queryTemplate = new String(QueryPathConstants.FETCH_SECTIONS_QUERY);
+		MapSqlParameterSource parameters = new MapSqlParameterSource();
+		parameters.addValue("deptID", deptID);
+		List<Section> availableSections = namedParameterJdbcTemplate.query(queryTemplate, extractor);
+		
+		return availableSections;
+	}
 }
