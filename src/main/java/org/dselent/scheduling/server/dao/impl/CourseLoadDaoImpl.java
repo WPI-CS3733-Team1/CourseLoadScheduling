@@ -51,8 +51,6 @@ public class CourseLoadDaoImpl extends BaseDaoImpl<CourseLoad> implements Course
 
 		if(insertColumnName.equals(CourseLoad.getColumnName(CourseLoad.Columns.ID))) {
 			parameters.addValue(parameterName, model.getId());
-		} else if(insertColumnName.equals(CourseLoad.getColumnName(CourseLoad.Columns.COURSE_LOAD_TYPE))) {
-			parameters.addValue(parameterName, model.getLoadType());
 		} else if(insertColumnName.equals(CourseLoad.getColumnName(CourseLoad.Columns.USER_ID))){
 			parameters.addValue(parameterName, model.getUserId());
 		} else if(insertColumnName.equals(CourseLoad.getColumnName(CourseLoad.Columns.AMOUNT))) {
@@ -69,8 +67,6 @@ public class CourseLoadDaoImpl extends BaseDaoImpl<CourseLoad> implements Course
 	private void addObjectValue(Map<String, Object> keyMap, String keyHolderColumnName, CourseLoad model) {
 		if(keyHolderColumnName.equals(CourseLoad.getColumnName(CourseLoad.Columns.ID))) {
 			model.setId((Integer) keyMap.get(keyHolderColumnName));
-		} else if(keyHolderColumnName.equals(CourseLoad.getColumnName(CourseLoad.Columns.COURSE_LOAD_TYPE))) {
-			model.setLoadType((String) keyMap.get(keyHolderColumnName));
 		} else if(keyHolderColumnName.equals(CourseLoad.getColumnName(CourseLoad.Columns.USER_ID))) {
 			model.setUserId((Integer) keyMap.get(keyHolderColumnName));
 		} else if(keyHolderColumnName.equals(CourseLoad.getColumnName(CourseLoad.Columns.AMOUNT))) {

@@ -25,7 +25,6 @@ public class CourseLoadExtractor extends Extractor<List<CourseLoad>>
 				result.setId(null);
 			}
 			
-			result.setLoadType(rs.getString(CourseLoad.getColumnName(CourseLoad.Columns.COURSE_LOAD_TYPE)));
 			result.setUserId(rs.getInt(CourseLoad.getColumnName(CourseLoad.Columns.USER_ID)));
 			result.setAmount(rs.getInt(CourseLoad.getColumnName(CourseLoad.Columns.AMOUNT)));
 			result.setCreatedAt(rs.getTimestamp(CourseLoad.getColumnName(CourseLoad.Columns.CREATED_AT)));
