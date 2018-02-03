@@ -32,7 +32,7 @@ public class CustomDaoImpl implements CustomDao
 	    List<User> usersWithRoleList = namedParameterJdbcTemplate.query(queryTemplate, parameters, extractor);
 	    return usersWithRoleList;
 	}
-	
+
 	public List<Section> getAvailableSectionsInDept(int deptID) {
 		SectionsExtractor extractor = new SectionsExtractor();
 		String queryTemplate = new String(QueryPathConstants.FETCH_SECTIONS_QUERY);
