@@ -33,4 +33,13 @@ public class CustomDaoImpl implements CustomDao
 	    return usersWithRoleList;
 	}
 
+	public List<Section> getAvailableSectionsInDept(int deptID) {
+		SectionsExtractor extractor = new SectionsExtractor();
+		String queryTemplate = new String(QueryPathConstants.FETCH_SECTIONS_QUERY);
+		MapSqlParameterSource parameters = new MapSqlParameterSource();
+		parameters.addValue("deptID", deptID);
+		List<Section> availableSections = namedParameterJdbcTemplate.query(queryTemplate, extractor);
+		
+		return availableSections;
+	}
 }
