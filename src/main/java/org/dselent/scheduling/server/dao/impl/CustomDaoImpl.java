@@ -42,4 +42,16 @@ public class CustomDaoImpl implements CustomDao
 		
 		return availableSections;
 	}
+	
+	public List<Section> getSectionByDeptId(int deptID) {
+		SectionsExtractor extractor = new SectionsExtractor();
+		String queryTemplate = new String(QueryPathConstants.SEARCH_DEPT_ID_QUERY);
+		MapSqlParameterSource parameters = new MapSqlParameterSource();
+		parameters.addValue("deptID", deptID);
+		List<Section> availableSections = namedParameterJdbcTemplate.query(queryTemplate, extractor);
+		
+		return availableSections;
+	}
+	
+	
 }
