@@ -8,7 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+//Model to represent a result of a custom query over courses/sections
+//Includes ALL relevent sections data, with accompanying relevant course data
 public class CompleteSection extends Model
 {
 	// table name

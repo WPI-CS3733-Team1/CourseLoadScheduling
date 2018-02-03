@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.dselent.scheduling.server.model.CompleteSection;
-
+//TODO: Add getSection() -> returns a section model from an instance of this class
 public class CompleteSectionsExtractor extends Extractor<List<CompleteSection>>
 {
 	@Override

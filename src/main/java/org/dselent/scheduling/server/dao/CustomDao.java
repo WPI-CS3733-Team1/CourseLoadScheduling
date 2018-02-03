@@ -2,6 +2,7 @@ package org.dselent.scheduling.server.dao;
 
 import java.util.List;
 
+import org.dselent.scheduling.server.model.CompleteSection;
 import org.dselent.scheduling.server.model.Course;
 import org.dselent.scheduling.server.model.Section;
 import org.dselent.scheduling.server.model.User;
@@ -19,29 +20,31 @@ public interface CustomDao
 	
 	public List<User> getAllUsersWithRole(int roleId);
 
-	public List<Course> getAllCourseWithNumber(String courseNumber);
+	public List<CompleteSection> getAllCourseWithNumber(String courseNumber);
 
 	List<Section> getAvailableSectionsInDept(int deptID);
 
-	List<Section> getSectionByDeptId(int deptID);
+	List<CompleteSection> getSectionByDeptId(int deptID);
 
 	List<User> searchUserByUsername(String userName);
 
-	List<Section> getAllSectionsInAcademicTerm(String academicTerm);
+	List<CompleteSection> getAllSectionsInAcademicTerm(String academicTerm);
 
-	List<Section> getSectionsWithStartTime(int startTime);
+	List<CompleteSection> getSectionsWithStartTime(int startTime);
 
-	List<Section> getAllSectionsInAcademicYear(int academicYear);
+	List<CompleteSection> getAllSectionsInAcademicYear(int academicYear);
 
-	List<Section> getSectionsWithReqFreq(int reqFreq);
+	List<CompleteSection> getSectionsWithReqFreq(int reqFreq);
 
-	List<Course> getCourseByName(String courseName);
+	List<CompleteSection> getCourseByName(String courseName);
 
-	List<Section> getByCrn(int CRN);
+	List<CompleteSection> getByCrn(int CRN);
 
-	List<Section> getAllSectionsWithEndTime(int endTime);
+	List<CompleteSection> getAllSectionsWithEndTime(int endTime);
 
-	List<Section> getAllSectionsWithExpectedPopulation(int expectedPopulation);
+	List<CompleteSection> getAllSectionsWithExpectedPopulation(int expectedPopulation);
 
 	List<User> getUser(String userName);
+
+	List<Section> viewSchedule(int userID);
 }
