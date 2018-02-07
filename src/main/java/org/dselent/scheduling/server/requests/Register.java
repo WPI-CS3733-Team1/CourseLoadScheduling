@@ -37,6 +37,7 @@ public class Register
 		FIRST_NAME,
 		LAST_NAME,
 		EMAIL,
+		USERNAME,
 		PASSWORD;
 	}
 	
