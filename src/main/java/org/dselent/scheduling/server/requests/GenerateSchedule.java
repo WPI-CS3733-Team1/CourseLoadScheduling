@@ -34,8 +34,8 @@ public class GenerateSchedule
 	public static enum BodyKey
 	{
 		USER_NAME,
-		academicTerm,
-		deptID;
+		ACADEMIC_TERM,
+		DEPT_ID;
 	}
 	
 
