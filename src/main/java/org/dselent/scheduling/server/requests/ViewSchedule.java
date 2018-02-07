@@ -6,14 +6,16 @@ import java.util.List;
 import org.dselent.scheduling.server.miscellaneous.RequestParameterConverter;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-/**
+/*
+ * 
  * Defines information for the view own schedule request including the keys for the
  * header, parameters, and body and the request type (RequestMethod).
  * 
  * @author aralvarez
  *
  */
-public class ViewOwnSchedule
+
+public class ViewSchedule 
 {
 	public static final RequestMethod REQUEST_TYPE = RequestMethod.POST;
 	public static final String REQUEST_NAME = "view_schedule";
@@ -62,7 +64,7 @@ public class ViewOwnSchedule
 		
 	};
 	
-	private ViewOwnSchedule()
+	private ViewSchedule()
 	{
 		
 	};
