@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.dselent.scheduling.server.miscellaneous.RequestParameterConverter;
+import org.dselent.scheduling.server.requests.CreateCourse.BodyKey;
+import org.dselent.scheduling.server.requests.CreateCourse.HeaderKey;
+import org.dselent.scheduling.server.requests.CreateCourse.ParameterKey;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-public class CreateCourse {
+public class CreateAdmin {
 	public static final RequestMethod REQUEST_TYPE = RequestMethod.POST;
-	public static final String REQUEST_NAME = "create_course";
+	public static final String REQUEST_NAME = "create_admin";
 	private static final List<HeaderKey> HEADER_KEY_LIST;
 	private static final List<ParameterKey> PARAMETER_KEY_LIST;
 	private static final List<BodyKey> BODY_KEY_LIST;
@@ -22,11 +25,10 @@ public class CreateCourse {
 	}
 
 	public static enum BodyKey {
-		NAME,
-		COURSE_NUMBER,
-		NUMBER_OF_LECTURES,
-		NUMBER_OF_LABS,
-		NUMBER_OF_CONFERENCES
+		USERNAME, 
+		FIRST_NAME,
+		LAST_NAME,
+		EMAIL
 	}
 
 	static {
@@ -51,7 +53,7 @@ public class CreateCourse {
 		
 	};
 
-	private CreateCourse() {
+	private CreateAdmin() {
 
 	};
 
