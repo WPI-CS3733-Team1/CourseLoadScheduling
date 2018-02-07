@@ -51,7 +51,7 @@ public class UsersControllerTest
     	jsonObject.put(Register.getBodyName(Register.BodyKey.EMAIL), "dselent@wpi.edu");
     	String jsonString = jsonObject.toString();
         
-    	// System.out.println(jsonString);
+    	System.out.println(jsonString);
     	
         this.mockMvc.perform(post("/user/register").content(jsonString)
         .contentType(MediaType.APPLICATION_JSON_VALUE)
