@@ -7,7 +7,7 @@ import org.dselent.scheduling.server.miscellaneous.RequestParameterConverter;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * Defines information for the Create Section request including the keys for the
+ * Defines information for the Access Inbox request including the keys for the
  * header, parameters, and body and the request type (RequestMethod).
  * 
  * @author noah
