@@ -7,16 +7,16 @@ import org.dselent.scheduling.server.miscellaneous.RequestParameterConverter;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * Defines information for the Get Courses request including the keys for the
+ * Defines information for the Resolve Message request including the keys for the
  * header, parameters, and body and the request type (RequestMethod).
  * 
  * @author noah
  *
  */
-public class GetCourses
+public class ResolveMessage
 {
 	public static final RequestMethod REQUEST_TYPE = RequestMethod.POST;
-	public static final String REQUEST_NAME = "view_course_creation";
+	public static final String REQUEST_NAME = "resolve_message";
 	private static final List<HeaderKey> HEADER_KEY_LIST;
 	private static final List<ParameterKey> PARAMETER_KEY_LIST;
 	private static final List<BodyKey> BODY_KEY_LIST;
@@ -33,7 +33,8 @@ public class GetCourses
 	
 	public static enum BodyKey
 	{
-		USERNAME;
+		USERNAME,
+		MESSAGE_ID;
 	}
 	
 
@@ -61,7 +62,7 @@ public class GetCourses
 		
 	};
 	
-	private GetCourses()
+	private ResolveMessage()
 	{
 		
 	};
