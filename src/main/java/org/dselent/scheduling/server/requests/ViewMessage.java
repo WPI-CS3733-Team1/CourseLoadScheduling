@@ -5,31 +5,37 @@ import java.util.List;
 
 import org.dselent.scheduling.server.miscellaneous.RequestParameterConverter;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-public class CreateCourse {
+/*
+ * View mesasge request class
+ * @author Surya (svadivazhagu)
+ */
+public class ViewMessage {
 	public static final RequestMethod REQUEST_TYPE = RequestMethod.POST;
-	public static final String REQUEST_NAME = "create_course";
+	public static final String REQUEST_NAME = "view_message";
 	private static final List<HeaderKey> HEADER_KEY_LIST;
 	private static final List<ParameterKey> PARAMETER_KEY_LIST;
 	private static final List<BodyKey> BODY_KEY_LIST;
 	
-	public static enum HeaderKey {
+	public static enum HeaderKey
+	{
 		
 	}
 	
-	public static enum ParameterKey {
+	public static enum ParameterKey
+	{
 
 	}
-
-	public static enum BodyKey {
-		NAME,
-		COURSE_NUMBER,
-		NUMBER_OF_LECTURES,
-		NUMBER_OF_LABS,
-		NUMBER_OF_CONFERENCES
+	
+	public static enum BodyKey
+	{
+		MESSAGE_AUTHOR,
+		MESSAGE_CONTENT
 	}
+	
 
-	static {
+	
+	static
+	{
 		HEADER_KEY_LIST = new ArrayList<HeaderKey>();
 		BODY_KEY_LIST = new ArrayList<BodyKey>();
 		PARAMETER_KEY_LIST = new ArrayList<ParameterKey>();
@@ -50,16 +56,19 @@ public class CreateCourse {
 		}
 		
 	};
-
-	private CreateCourse() {
-
+	
+	private ViewMessage()
+	{
+		
 	};
-
-	public static String getHeaderName(HeaderKey key) {
+	
+	public static String getHeaderName(HeaderKey key)
+	{
 		return RequestParameterConverter.convertKeyName(key);
 	}
 		
-	public static List<String> getHeaderNameList() {
+	public static List<String> getHeaderNameList()
+	{
 		List<String> headerNameList = new ArrayList<>();
 		
 		for(HeaderKey key : HEADER_KEY_LIST)
@@ -70,11 +79,13 @@ public class CreateCourse {
 		return headerNameList;
 	}
 	
-	public static String getParameterName(ParameterKey key) {
+	public static String getParameterName(ParameterKey key)
+	{
 		return RequestParameterConverter.convertKeyName(key);
 	}
 	
-	public static List<String> getParameterNameList() {
+	public static List<String> getParameterNameList()
+	{
 		List<String> parameterNameList = new ArrayList<>();
 		
 		for(ParameterKey key : PARAMETER_KEY_LIST)
@@ -85,11 +96,13 @@ public class CreateCourse {
 		return parameterNameList;
 	}
 	
-	public static String getBodyName(BodyKey key) {
+	public static String getBodyName(BodyKey key)
+	{
 		return RequestParameterConverter.convertKeyName(key);
 	}
 	
-	public static List<String> getBodyNameList() {
+	public static List<String> getBodyNameList()
+	{
 		List<String> bodyNameList = new ArrayList<>();
 		
 		for(BodyKey key : BODY_KEY_LIST)
@@ -99,4 +112,5 @@ public class CreateCourse {
 		
 		return bodyNameList;
 	}
+
 }
