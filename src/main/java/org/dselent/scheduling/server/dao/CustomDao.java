@@ -3,7 +3,6 @@ package org.dselent.scheduling.server.dao;
 import java.util.List;
 
 import org.dselent.scheduling.server.model.CompleteSection;
-import org.dselent.scheduling.server.model.Course;
 import org.dselent.scheduling.server.model.Section;
 import org.dselent.scheduling.server.model.User;
 import org.springframework.stereotype.Repository;
