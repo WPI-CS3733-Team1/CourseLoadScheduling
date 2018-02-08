@@ -27,9 +27,9 @@ public interface UserService
 	 * @throws SQLException
 	 */
 	public List<Integer> registerUser(RegisterUserDto registerUserDto) throws SQLException;
-    public User loginUser(String userName, String password);
-    public Message getMessage(Integer messageID);
-	void addMessage(String author, String content, Integer deptID);
-	
-	
+    	public User loginUser(String userName, String password);
+    	public Message getMessage(Integer messageID);
+	void addMessage(String author, String content, Integer deptID);	
+	void resetPassword(String userName, String newPassword);
+	void resetPasswordEmail(String userName, String email);
 }
