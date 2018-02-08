@@ -71,9 +71,11 @@ public class UsersControllerImpl implements UsersController
 		
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
-		
+		 
 		
 		String messageID = request.get(GetMessage.getBodyName(GetMessage.BodyKey.MESSAGE_ID));
+		
+		Integer id = Integer.parseInt(messageID);
 		
 		//method call to service layer to pull message, no DTO required.
 		//success.add(return from service layer call);

@@ -4,12 +4,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.dselent.scheduling.server.dao.MessagesDao;
 import org.dselent.scheduling.server.dao.UsersDao;
 import org.dselent.scheduling.server.dao.UsersRolesLinksDao;
 import org.dselent.scheduling.server.dto.RegisterUserDto;
+import org.dselent.scheduling.server.miscellaneous.Pair;
 import org.dselent.scheduling.server.model.User;
 import org.dselent.scheduling.server.model.UsersRolesLink;
+import org.dselent.scheduling.server.model.Message;
 import org.dselent.scheduling.server.service.UserService;
+import org.dselent.scheduling.server.sqlutils.ColumnOrder;
+import org.dselent.scheduling.server.sqlutils.ComparisonOperator;
+import org.dselent.scheduling.server.sqlutils.QueryTerm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.keygen.KeyGenerators;
@@ -23,6 +29,9 @@ public class UserServiceImpl implements UserService
 {
 	@Autowired
 	private UsersDao usersDao;
+	
+	@Autowired
+	private MessagesDao messagesDao;
 	
 	@Autowired
 	private UsersRolesLinksDao usersRolesLinksDao;
@@ -109,8 +118,67 @@ public class UserServiceImpl implements UserService
 	@Override
 	public User loginUser(String userName, String password)
 	{
-		// TODO Auto-generated method stub
+		
+		
 		return null;
+	}
+
+	@Override
+	public void addMessage(String author, String content, Integer deptID) {
+		// TODO Auto-generated method stub
+		Message message = new Message();
+		message.setAuthorUserName(author);
+		message.setMessage(content);
+		message.setDeptId(deptID);
+		
+		List<String> insertColumnNameList = new ArrayList<>();
+		List<String> keyHolderColumnNameList = new ArrayList<>();
+		
+		insertColumnNameList.add(Message.getColumnName(Message.Columns.AUTHOR_USER_NAME));
+		insertColumnNameList.add(Message.getColumnName(Message.Columns.MESSAGE));
+		insertColumnNameList.add(Message.getColumnName(Message.Columns.DEPT_ID));
+		
+		keyHolderColumnNameList.add(Message.getColumnName(Message.Columns.ID));
+		keyHolderColumnNameList.add(Message.getColumnName(Message.Columns.RECEIVED_AT));
+		keyHolderColumnNameList.add(Message.getColumnName(Message.Columns.RESOLVED));
+		
+		try {
+			messagesDao.insert(message, insertColumnNameList, keyHolderColumnNameList);
+		} catch (SQLException e) {
+			System.out.println("[UserService] something went wrong when trying to push message! author: "+author);
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public Message getMessage(Integer messageID) {
+		Message message = new Message();
+		String selectColumnName = Message.getColumnName(Message.Columns.ID);
+		
+		List<QueryTerm> selectQueryTermList = new ArrayList<>();
+		QueryTerm selectIDTerm = new QueryTerm();
+		selectIDTerm.setColumnName(selectColumnName);
+		selectIDTerm.setComparisonOperator(ComparisonOperator.EQUAL);
+		selectIDTerm.setValue(messageID);
+		selectQueryTermList.add(selectIDTerm);
+		
+		List<String> selectColumnNameList = Message.getColumnNameList();
+		
+		List<Pair<String, ColumnOrder>> orderByList = new ArrayList<>();
+		Pair<String, ColumnOrder> orderPair1 = new Pair<String, ColumnOrder>(selectColumnName, ColumnOrder.ASC);
+    	orderByList.add(orderPair1);
+    	
+    	List<Message> selectedMessage = null;
+    	try {
+			selectedMessage = messagesDao.select(selectColumnNameList, selectQueryTermList, orderByList);
+		} catch (SQLException e) {
+			System.out.println("Something went horribly wrong when attempting to fetch message with ID: "+messageID);
+			e.printStackTrace();
+		}
+		
+		
+		return selectedMessage.get(0);
 	}   
 
 }

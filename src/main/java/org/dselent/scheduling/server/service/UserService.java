@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.dselent.scheduling.server.dto.RegisterUserDto;
+import org.dselent.scheduling.server.model.Message;
 import org.dselent.scheduling.server.model.User;
 import org.springframework.stereotype.Service;
 
@@ -27,4 +28,6 @@ public interface UserService
 	 */
 	public List<Integer> registerUser(RegisterUserDto registerUserDto) throws SQLException;
     public User loginUser(String userName, String password);
+    public Message getMessage(Integer messageID);
+	void addMessage(String author, String content, Integer deptID);
 }
