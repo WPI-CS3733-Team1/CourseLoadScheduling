@@ -33,12 +33,15 @@ public class SearchesControllerImpl implements SearchesController {
 				//different method/different parameter
 				break;
 			case "crn":
-				
 				break;
 			case "sectionID":
-				
 				break;
-				
+			case "department":
+				break;
+			case "time":
+				break;
+			case "term":
+				break;
 		}
 		
 		return null;
