@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 public class ConfirmSchedule {
 	public static final RequestMethod REQUEST_TYPE = RequestMethod.POST;
-	public static final String REQUEST_NAME = "confirm schedule";
+	public static final String REQUEST_NAME = "confirm_schedule";
 	private static final List<HeaderKey> HEADER_KEY_LIST;
 	private static final List<ParameterKey> PARAMETER_KEY_LIST;
 	private static final List<BodyKey> BODY_KEY_LIST;
