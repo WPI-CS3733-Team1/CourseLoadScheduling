@@ -45,5 +45,5 @@ public interface CustomDao
 
 	List<User> getUser(String userName);
 
-	List<Section> viewSchedule(int userID);
+	List<Section> getSchedule(int userID);
 }
