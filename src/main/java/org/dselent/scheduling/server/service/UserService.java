@@ -30,4 +30,6 @@ public interface UserService
     public User loginUser(String userName, String password);
     public Message getMessage(Integer messageID);
 	void addMessage(String author, String content, Integer deptID);
+	
+	
 }

@@ -34,7 +34,8 @@ public class ScheduleChangeRequest
 	public static enum BodyKey
 	{
 		USER_NAME,
-		MESSAGE;
+		MESSAGE,
+		DEPT_ID;
 	}
 	
 

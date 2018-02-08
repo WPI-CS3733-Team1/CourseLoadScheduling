@@ -7,6 +7,7 @@ import java.util.Map;
 import org.dselent.scheduling.server.controller.UsersController;
 import org.dselent.scheduling.server.dto.RegisterUserDto;
 import org.dselent.scheduling.server.miscellaneous.JsonResponseCreator;
+import org.dselent.scheduling.server.model.Message;
 import org.dselent.scheduling.server.requests.GetMessage;
 import org.dselent.scheduling.server.requests.Register;
 import org.dselent.scheduling.server.requests.ScheduleChangeRequest;
@@ -75,10 +76,12 @@ public class UsersControllerImpl implements UsersController
 		
 		String messageID = request.get(GetMessage.getBodyName(GetMessage.BodyKey.MESSAGE_ID));
 		
-		Integer id = Integer.parseInt(messageID);
+		Integer id = (Integer) Integer.parseInt(messageID);
 		
 		//method call to service layer to pull message, no DTO required.
 		//success.add(return from service layer call);
+		Message fetchedMessage = userService.getMessage(id);
+		success.add(fetchedMessage);
 		
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 		
@@ -94,8 +97,10 @@ public class UsersControllerImpl implements UsersController
 		
 		String messageAuthor = request.get(ScheduleChangeRequest.getBodyName(ScheduleChangeRequest.BodyKey.USER_NAME));
 		String messageContent = request.get(ScheduleChangeRequest.getBodyName(ScheduleChangeRequest.BodyKey.MESSAGE));
-		
+		String departmentID = request.get(ScheduleChangeRequest.getBodyName(ScheduleChangeRequest.BodyKey.DEPT_ID));
 		//method call to service layer to push message, no DTO required.
+		
+		userService.addMessage(messageAuthor, messageContent, (Integer) Integer.parseInt(departmentID));
 		
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 		
