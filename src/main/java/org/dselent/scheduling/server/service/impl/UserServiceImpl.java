@@ -179,6 +179,34 @@ public class UserServiceImpl implements UserService
 		
 		
 		return selectedMessage.get(0);
-	}   
+	} 
+	
+	@Override
+	public void resetPassword(String userName, String newPassword) {
+		
+		String selectColumnName = User.getColumnName(User.Columns.USER_NAME);
+		String updateColumnName = User.getColumnName(User.Columns.ENCRYPTED_PASSWORD);
+		
+		List<QueryTerm> selectQueryTermList = new ArrayList<>();
+		QueryTerm updateUNTerm = new QueryTerm();
+		updateUNTerm.setColumnName(selectColumnName);
+		updateUNTerm.setComparisonOperator(ComparisonOperator.EQUAL);
+		updateUNTerm.setValue(userName);
+		selectQueryTermList.add(updateUNTerm);
+		
+    	try {
+			usersDao.update(updateColumnName, newPassword, selectQueryTermList);
+		} catch (SQLException e) {
+			System.out.println("Something went horribly wrong when attempting to update password for User: "+userName);
+			e.printStackTrace();
+		}
+
+	}
+
+	@Override
+	public void resetPasswordEmail(String userName, String email) {
+		// Fill in when proper method has been determined. -Alex
+		
+	}
 
 }
