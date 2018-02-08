@@ -33,7 +33,8 @@ public class Search
 	
 	public static enum BodyKey
 	{
-		REQUEST_TYPE;
+		SEARCH_TYPE,
+		KEY_VALUE;
 	}
 	
 
