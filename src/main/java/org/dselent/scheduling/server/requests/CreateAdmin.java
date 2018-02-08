@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.dselent.scheduling.server.miscellaneous.RequestParameterConverter;
-import org.dselent.scheduling.server.requests.CreateCourse.BodyKey;
-import org.dselent.scheduling.server.requests.CreateCourse.HeaderKey;
-import org.dselent.scheduling.server.requests.CreateCourse.ParameterKey;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+/*
+ * Create Admin request 
+ * @author Surya (svadivazhagu)
+ */
 public class CreateAdmin {
 	public static final RequestMethod REQUEST_TYPE = RequestMethod.POST;
 	public static final String REQUEST_NAME = "create_admin";

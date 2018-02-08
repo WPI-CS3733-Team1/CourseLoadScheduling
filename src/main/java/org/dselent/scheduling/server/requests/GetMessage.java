@@ -6,7 +6,7 @@ import java.util.List;
 import org.dselent.scheduling.server.miscellaneous.RequestParameterConverter;
 import org.springframework.web.bind.annotation.RequestMethod;
 /*
- * View mesasge request class
+ * View message request class
  * @author Surya (svadivazhagu)
  */
 public class GetMessage {
