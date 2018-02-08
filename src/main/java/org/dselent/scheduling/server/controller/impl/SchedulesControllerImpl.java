@@ -13,4 +13,10 @@ public class SchedulesControllerImpl implements SchedulesController {
 		return null;
 	}
 
+	@Override
+	public ResponseEntity<String> getSchedule(Map<String, String> request) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
