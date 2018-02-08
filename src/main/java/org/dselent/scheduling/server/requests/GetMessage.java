@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * View message request class
  * @author Surya (svadivazhagu)
  */
-public class ViewMessage {
+public class GetMessage {
 	public static final RequestMethod REQUEST_TYPE = RequestMethod.POST;
-	public static final String REQUEST_NAME = "view_message";
+	public static final String REQUEST_NAME = "get_message";
 	private static final List<HeaderKey> HEADER_KEY_LIST;
 	private static final List<ParameterKey> PARAMETER_KEY_LIST;
 	private static final List<BodyKey> BODY_KEY_LIST;
@@ -28,8 +28,7 @@ public class ViewMessage {
 	
 	public static enum BodyKey
 	{
-		MESSAGE_AUTHOR,
-		MESSAGE_CONTENT
+		MESSAGE_ID;
 	}
 	
 
@@ -57,7 +56,7 @@ public class ViewMessage {
 		
 	};
 	
-	private ViewMessage()
+	private GetMessage()
 	{
 		
 	};
