@@ -30,8 +30,6 @@ public interface UsersController
     @RequestMapping(method=RequestMethod.POST, value=Login.REQUEST_NAME)
     public ResponseEntity<String> login(@RequestBody Map<String, String> request) throws Exception;
 
-	ResponseEntity<String> Login(Map<String, String> request) throws Exception;
-
     @RequestMapping(method=RequestMethod.POST, value=ResetPassword.REQUEST_NAME)
     public ResponseEntity<String> resetPassword(@RequestBody Map<String, String> request) throws Exception;
     

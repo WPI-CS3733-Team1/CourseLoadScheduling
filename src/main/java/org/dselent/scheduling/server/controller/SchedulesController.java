@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.dselent.scheduling.server.requests.CreateCourse;
 import org.dselent.scheduling.server.requests.GetCourses;
+import org.dselent.scheduling.server.requests.CreateSection;
 import org.dselent.scheduling.server.requests.ConfirmSchedule;
 import org.dselent.scheduling.server.requests.GetSchedule;
 import org.dselent.scheduling.server.requests.Register;
@@ -16,6 +17,9 @@ public interface SchedulesController {
 	@RequestMapping(method=RequestMethod.POST, value=GetCourses.REQUEST_NAME)
 	public ResponseEntity<String> getCourses(@RequestBody Map<String, String> request) throws Exception;
 	
+	@RequestMapping(method=RequestMethod.POST, value=CreateSection.REQUEST_NAME)
+	public ResponseEntity<String> createSection(@RequestBody Map<String, String> request) throws Exception;
+
 	@RequestMapping(method=RequestMethod.POST, value=GetSchedule.REQUEST_NAME)
 	public ResponseEntity<String> getSchedule(@RequestBody Map<String, String> request) throws Exception;
 
