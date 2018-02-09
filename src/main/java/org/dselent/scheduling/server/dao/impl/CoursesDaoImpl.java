@@ -82,11 +82,11 @@ public class CoursesDaoImpl extends BaseDaoImpl<Course> implements CoursesDao {
 		} else if(keyHolderColumnName.equals(Course.getColumnName(Course.Columns.COURSE_NUMBER))) {
 			model.setCourseNum((String) keyMap.get(keyHolderColumnName));
 		} else if(keyHolderColumnName.equals(Course.getColumnName(Course.Columns.NUMBER_OF_LECTURES))) {
-			model.setNumLectures((Integer) keyMap.get(keyHolderColumnName));
+			model.setNumLectures((String) keyMap.get(keyHolderColumnName));
 		} else if(keyHolderColumnName.equals(Course.getColumnName(Course.Columns.NUMBER_OF_LABS))) {
-			model.setNumLabs((Integer) keyMap.get(keyHolderColumnName));
+			model.setNumLabs((String) keyMap.get(keyHolderColumnName));
 		} else if(keyHolderColumnName.equals(Course.getColumnName(Course.Columns.NUMBER_OF_CONFERENCES))) {
-			model.setNumConferences((Integer) keyMap.get(keyHolderColumnName));
+			model.setNumConferences((String) keyMap.get(keyHolderColumnName));
 		} else if(keyHolderColumnName.equals(Course.getColumnName(Course.Columns.CREATED_AT))) {
 			model.setCreatedAt((Timestamp) keyMap.get(keyHolderColumnName));
 		} else if(keyHolderColumnName.equals(Course.getColumnName(Course.Columns.UPDATED_AT))) {

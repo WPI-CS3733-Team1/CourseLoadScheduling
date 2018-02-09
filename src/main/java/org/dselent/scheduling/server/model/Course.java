@@ -58,9 +58,9 @@ public class Course extends Model
 	private String name;
 	private Integer deptId;
 	private String courseNum;
-	private Integer numLectures;
-	private Integer numLabs;
-	private Integer numConferences;
+	private String numLectures;
+	private String numLabs;
+	private String numConferences;
 	private Instant createdAt;
 	private Instant updatedAt;
 
@@ -126,28 +126,28 @@ public class Course extends Model
 		this.courseNum = courseNum;
 	}
 
-	public Integer getNumLectures() {
+	public String getNumLectures() {
 		return numLectures;
 	}
 
-	public void setNumLectures(Integer numLectures) {
-		this.numLectures = numLectures;
+	public void setNumLectures(String string) {
+		this.numLectures = string;
 	}
 
-	public Integer getNumLabs() {
+	public String getNumLabs() {
 		return numLabs;
 	}
 
-	public void setNumLabs(Integer numLabs) {
-		this.numLabs = numLabs;
+	public void setNumLabs(String string) {
+		this.numLabs = string;
 	}
 
-	public Integer getNumConferences() {
+	public String getNumConferences() {
 		return numConferences;
 	}
 
-	public void setNumConferences(Integer numConferences) {
-		this.numConferences = numConferences;
+	public void setNumConferences(String string) {
+		this.numConferences = string;
 	}
 
 	public Instant getCreatedAt()

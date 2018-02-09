@@ -13,6 +13,7 @@ import org.dselent.scheduling.server.requests.Register;
 import org.dselent.scheduling.server.requests.ResetPasswordEmail;
 import org.dselent.scheduling.server.requests.ScheduleChangeRequest;
 import org.dselent.scheduling.server.requests.ResolveMessage;
+import org.dselent.scheduling.server.requests.AccessInbox;
 import org.dselent.scheduling.server.requests.CreateAdmin;
 import org.dselent.scheduling.server.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,7 +108,7 @@ public class UsersControllerImpl implements UsersController
 	}
 
 	@Override
-	public ResponseEntity<String> login(Map<String, String> request) throws Exception {
+	public ResponseEntity<String> loginUser(Map<String, String> request) throws Exception {
 		
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
@@ -178,8 +179,23 @@ public class UsersControllerImpl implements UsersController
 	public ResponseEntity<String> resetPasswordEmail(Map<String, String> request) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
+	
+	
 
 	}
+
+	public ResponseEntity<String> getInbox(Map<String, String> request) throws Exception {
+		String response = "";
+		List<Object> success = new ArrayList<Object>();
+		
+		String userName = request.get(AccessInbox.getBodyName(AccessInbox.BodyKey.USERNAME));
+		
+		userService.getInbox(userName);
+		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
+		
+		return new ResponseEntity<String>(response, HttpStatus.OK);
+	}
+	
 
 }
 

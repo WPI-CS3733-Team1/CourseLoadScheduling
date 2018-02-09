@@ -10,6 +10,7 @@ import org.dselent.scheduling.server.requests.ResetPassword;
 import org.dselent.scheduling.server.requests.ResetPasswordEmail;
 import org.dselent.scheduling.server.requests.ScheduleChangeRequest;
 import org.dselent.scheduling.server.requests.ResolveMessage;
+import org.dselent.scheduling.server.requests.AccessInbox;
 import org.dselent.scheduling.server.requests.CreateAdmin;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,7 +31,7 @@ public interface UsersController
     public ResponseEntity<String> requestScheduleChange(@RequestBody Map<String, String> request) throws Exception;
     
     @RequestMapping(method=RequestMethod.POST, value=Login.REQUEST_NAME)
-    public ResponseEntity<String> login(@RequestBody Map<String, String> request) throws Exception;
+    public ResponseEntity<String> loginUser(@RequestBody Map<String, String> request) throws Exception;
 
     @RequestMapping(method=RequestMethod.POST, value=ResetPassword.REQUEST_NAME)
     public ResponseEntity<String> resetPassword(@RequestBody Map<String, String> request) throws Exception;
@@ -46,4 +47,7 @@ public interface UsersController
     
     @RequestMapping(method=RequestMethod.POST, value=GetSidebarInfo.REQUEST_NAME)
     public ResponseEntity<String> getSidebarInfo(@RequestBody Map<String, String> request) throws Exception;
+    
+    @RequestMapping(method=RequestMethod.POST, value=AccessInbox.REQUEST_NAME)
+    public ResponseEntity<String> getInbox(@RequestBody Map<String, String> request) throws Exception;
 }

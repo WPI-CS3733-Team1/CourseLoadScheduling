@@ -118,9 +118,21 @@ public class UserServiceImpl implements UserService
 	@Override
 	public User loginUser(String userName, String password)
 	{
+		String realUserName = User.getColumnName(User.Columns.USER_NAME);
+		String saltPassword = User.getColumnName(User.Columns.ENCRYPTED_PASSWORD);
+		String theSalt = User.getColumnName(User.Columns.SALT);
+		String saltyPassword = password + theSalt;
 		
 		
+		if (userName.equals(realUserName) && saltyPassword.equals(saltPassword)) {
+			System.out.println("Congratulations on logging in.");
+		}
+			
+			else {	System.out.print(" User credentials failed to authenticate. Please try again or register.");
+			
+		}
 		return null;
+		
 	}
 
 	@Override
@@ -348,5 +360,12 @@ public class UserServiceImpl implements UserService
 		rs = (userRole == admin);
 		}
 		return rs;
+	}
+
+	@Override
+	public void getInbox(String username) {
+		String messagesID = Message.getColumnName(Message.Columns.ID);
+		getMessage(Integer.parseInt(messagesID));
+		
 	}
 }
