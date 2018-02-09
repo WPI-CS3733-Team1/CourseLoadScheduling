@@ -33,11 +33,9 @@ public class ResolveMessage
 	
 	public static enum BodyKey
 	{
-		USERNAME,
+		ADMINISTRATOR_USERNAME,
 		MESSAGE_ID;
 	}
-	
-
 	
 	static
 	{

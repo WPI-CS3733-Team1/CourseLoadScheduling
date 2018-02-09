@@ -8,6 +8,8 @@ import org.dselent.scheduling.server.controller.SchedulesController;
 import org.dselent.scheduling.server.miscellaneous.JsonResponseCreator;
 import org.dselent.scheduling.server.requests.CreateCourse;
 import org.dselent.scheduling.server.requests.Login;
+import org.dselent.scheduling.server.requests.GetCompleteSection;
+import org.dselent.scheduling.server.dto.CreateCourseDto;
 import org.dselent.scheduling.server.dto.CreateSectionDto;
 import org.dselent.scheduling.server.service.ScheduleService;
 import org.dselent.scheduling.server.miscellaneous.JsonResponseCreator;
@@ -45,13 +47,14 @@ public class SchedulesControllerImpl implements SchedulesController {
 
 	@Override
 	public ResponseEntity<String> confirmSchedule(@RequestBody Map<String, String> request) throws Exception {
+		
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
 
 		String userName = request.get(ConfirmSchedule.getBodyName(ConfirmSchedule.BodyKey.USER_NAME));
 		String removeSectionIds = request.get(ConfirmSchedule.getBodyName(ConfirmSchedule.BodyKey.REMOVE_SECTION_IDS));
 		String addSectionIds = request.get(ConfirmSchedule.getBodyName(ConfirmSchedule.BodyKey.ADD_SECTION_IDS));
-
+		System.out.println("List String: "+addSectionIds);
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 		return new ResponseEntity<String>(response, HttpStatus.OK);
 	}
@@ -109,18 +112,44 @@ public class SchedulesControllerImpl implements SchedulesController {
 
 	@Override
 	public ResponseEntity<String> createCourse(Map<String, String> request) throws Exception {
+		// Print is for testing purposes
+		System.out.println("Schedule controller reached; create section being called");
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
 		
-		String name = request.get(CreateCourse.getBodyName(CreateCourse.BodyKey.NAME));
-		String course_number  = request.get(CreateCourse.getBodyName(CreateCourse.BodyKey.COURSE_NUMBER));
-		String number_of_lectures = request.get(CreateCourse.getBodyName(CreateCourse.BodyKey.NUMBER_OF_LECTURES));
-		String number_of_labs = request.get(CreateCourse.getBodyName(CreateCourse.BodyKey.NUMBER_OF_LABS));
-		String number_of_conferences = request.get(CreateCourse.getBodyName(CreateCourse.BodyKey.NUMBER_OF_CONFERENCES));
+		String courseName = request.get(CreateCourse.getBodyName(CreateCourse.BodyKey.NAME));
+		String courseNumber  = request.get(CreateCourse.getBodyName(CreateCourse.BodyKey.COURSE_NUMBER));
+		String numberOfLectures = request.get(CreateCourse.getBodyName(CreateCourse.BodyKey.NUMBER_OF_LECTURES));
+		String numberOfLabs = request.get(CreateCourse.getBodyName(CreateCourse.BodyKey.NUMBER_OF_LABS));
+		String numberOfConferences = request.get(CreateCourse.getBodyName(CreateCourse.BodyKey.NUMBER_OF_CONFERENCES));
+		
+		CreateCourseDto.Builder builder = CreateCourseDto.builder();
+		CreateCourseDto createCourseDto = builder.withCourseName(courseName)
+		.withCourseNumber(courseNumber)
+		.withNumberOfLectures(numberOfLectures)
+		.withNumberOfLabs(numberOfLabs)
+		.withNumberOfConferences(numberOfConferences)
+		.build();
+		
+		scheduleService.createCourse(createCourseDto);
+		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
+		
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 		
 		
 		return null;
 	}
 
+	public ResponseEntity<String> getCompleteSection(@RequestBody Map<String, String> request) throws Exception {
+		String response = "";
+		List<Object> success = new ArrayList<Object>();
+
+		String sectionId = request.get(GetCompleteSection.getBodyName(GetCompleteSection.BodyKey.SECTION_ID));
+
+		Integer id = Integer.parseInt(sectionId);
+
+		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
+
+		return new ResponseEntity<String>(response, HttpStatus.OK);
+	}
 }

@@ -12,6 +12,7 @@ import org.dselent.scheduling.server.miscellaneous.Pair;
 import org.dselent.scheduling.server.model.User;
 import org.dselent.scheduling.server.model.UsersRolesLink;
 import org.dselent.scheduling.server.model.Message;
+import org.dselent.scheduling.server.model.SidebarInfo;
 import org.dselent.scheduling.server.service.UserService;
 import org.dselent.scheduling.server.sqlutils.ColumnOrder;
 import org.dselent.scheduling.server.sqlutils.ComparisonOperator;
@@ -118,9 +119,21 @@ public class UserServiceImpl implements UserService
 	@Override
 	public User loginUser(String userName, String password)
 	{
+		String realUserName = User.getColumnName(User.Columns.USER_NAME);
+		String saltPassword = User.getColumnName(User.Columns.ENCRYPTED_PASSWORD);
+		String theSalt = User.getColumnName(User.Columns.SALT);
+		String saltyPassword = password + theSalt;
 		
 		
+		if (userName.equals(realUserName) && saltyPassword.equals(saltPassword)) {
+			System.out.println("Congratulations on logging in.");
+		}
+			
+			else {	System.out.print(" User credentials failed to authenticate. Please try again or register.");
+			
+		}
 		return null;
+		
 	}
 
 	@Override
@@ -170,6 +183,7 @@ public class UserServiceImpl implements UserService
     	orderByList.add(orderPair1);
     	
     	List<Message> selectedMessage = null;
+    	
     	try {
 			selectedMessage = messagesDao.select(selectColumnNameList, selectQueryTermList, orderByList);
 		} catch (SQLException e) {
@@ -181,7 +195,6 @@ public class UserServiceImpl implements UserService
 		return selectedMessage.get(0);
 	} 
 	
-	@Override
 	public void resetPassword(String userName, String newPassword) {
 		
 		String selectColumnName = User.getColumnName(User.Columns.USER_NAME);
@@ -208,5 +221,158 @@ public class UserServiceImpl implements UserService
 		// Fill in when proper method has been determined. -Alex
 		
 	}
+	@Override
+	public void resolveMessage(String administratorUsername, Integer messageId) {
 
+		if(checkClearanceStatus(administratorUsername, "Administator")){
+			String selectColumnName = Message.getColumnName(Message.Columns.ID);
+			String updateColumnName = Message.getColumnName(Message.Columns.RESOLVED);
+		
+			List<QueryTerm> selectQueryTermList = new ArrayList<>();
+			QueryTerm updateUNTerm = new QueryTerm();
+			updateUNTerm.setColumnName(selectColumnName);
+			updateUNTerm.setComparisonOperator(ComparisonOperator.EQUAL);
+			updateUNTerm.setValue(messageId);
+			selectQueryTermList.add(updateUNTerm);
+			
+			try {
+				usersDao.update(updateColumnName, true, selectQueryTermList);
+			} catch (SQLException e) {
+				System.out.println("Something went horribly wrong when attempting to the message for message number: "+messageId);
+				e.printStackTrace();
+			}
+		}
+		else{
+			System.out.println("Cannot resolve message because user: " +administratorUsername +" is not an Administrator");
+		}
+	}
+
+
+
+	@Override
+	public void createAdmin(String moderatorUsername, String facultyUsername) {
+		Integer userId;
+		Integer administrator = 2;
+		
+		if (checkClearanceStatus(moderatorUsername, "Moderator")){
+			String idSearchColumnName = User.getColumnName(User.Columns.USER_NAME);
+			List<User> selectedUserList = new ArrayList<>();
+			String selectColumnName = UsersRolesLink.getColumnName(UsersRolesLink.Columns.ROLE_ID);
+			
+			List<QueryTerm> selectIdQueryTermList = new ArrayList<>();
+			QueryTerm selectUserId = new QueryTerm();
+			selectUserId.setColumnName(idSearchColumnName);
+			selectUserId.setComparisonOperator(ComparisonOperator.EQUAL);
+			selectUserId.setValue(facultyUsername);
+			selectIdQueryTermList.add(selectUserId);
+    	
+			List<String> idColumnNameList = new ArrayList<>();
+			idColumnNameList.add(User.getColumnName(User.Columns.ID));
+    	
+			List<Pair<String, ColumnOrder>> orderByList = new ArrayList<>();
+			Pair<String, ColumnOrder> orderPair1 = new Pair<String, ColumnOrder>(idSearchColumnName, ColumnOrder.ASC);
+			orderByList.add(orderPair1);
+    	
+			try{
+				selectedUserList = usersDao.select(idColumnNameList, selectIdQueryTermList, orderByList);
+			} catch (SQLException e) {
+				System.out.println("Something went horribly wrong when trying to promote: "+facultyUsername + " to administrator status.");
+				e.printStackTrace();
+			}
+		
+			userId = selectedUserList.get(0).getId();
+				
+			List<QueryTerm> selectQueryTermList = new ArrayList<>();
+			QueryTerm updateUNTerm = new QueryTerm();
+			updateUNTerm.setColumnName(selectColumnName);
+			updateUNTerm.setComparisonOperator(ComparisonOperator.EQUAL);
+			updateUNTerm.setValue(userId);
+			selectQueryTermList.add(updateUNTerm);
+			
+			try {
+				usersDao.update(selectColumnName, administrator, selectQueryTermList);
+			} catch (SQLException e) {
+				System.out.println("Something went horribly wrong when trying to promote: "+facultyUsername + " to administrator status.");
+				e.printStackTrace();
+			}	
+		}else{
+			System.out.println("Cannot promote user: "+ facultyUsername +" to role of Admin, because user: " +moderatorUsername +" is not a  Moderator.");
+		}
+	}
+	
+	@Override
+	public boolean checkClearanceStatus(String username, String role){
+		boolean rs = false;
+		Integer admin = 2;
+		Integer moderator = 3;
+		String selectColumnName = User.getColumnName(User.Columns.USER_NAME);
+    	
+    	List<QueryTerm> selectQueryTermList = new ArrayList<>();
+    	
+    	QueryTerm selectUseNameTerm = new QueryTerm();
+    	selectUseNameTerm.setColumnName(selectColumnName);
+    	selectUseNameTerm.setComparisonOperator(ComparisonOperator.EQUAL);
+    	selectUseNameTerm.setValue(username);
+    	selectQueryTermList.add(selectUseNameTerm);
+    	
+    	List<String> selectColumnNameList = User.getColumnNameList();
+    	
+    	List<Pair<String, ColumnOrder>> orderByList = new ArrayList<>();
+    	Pair<String, ColumnOrder> orderPair1 = new Pair<String, ColumnOrder>(selectColumnName, ColumnOrder.ASC);
+    	orderByList.add(orderPair1);
+    	
+    	List<User> selectedUserList = new ArrayList<>();
+    	
+		try {
+		selectedUserList = usersDao.select(selectColumnNameList, selectQueryTermList, orderByList);
+		} catch (SQLException e) {
+			System.out.println("Something went wrong getting the Id for: " +username +".");
+			e.printStackTrace();
+		}
+		
+		Integer idToTest = selectedUserList.get(0).getId();
+    	
+		String selectRoleColumnName = UsersRolesLink.getColumnName(UsersRolesLink.Columns.ROLE_ID);
+    	
+    	List<QueryTerm> selectRoleQueryList = new ArrayList<>();
+    	
+    	QueryTerm selectUserRoleTerm = new QueryTerm();
+    	selectUserRoleTerm.setColumnName(selectRoleColumnName);
+    	selectUserRoleTerm.setComparisonOperator(ComparisonOperator.EQUAL);
+    	selectUserRoleTerm.setValue(idToTest);
+    	selectRoleQueryList.add(selectUseNameTerm);
+    	
+    	List<String> selectUserRoleColumnList = UsersRolesLink.getColumnNameList();
+    	
+    	List<UsersRolesLink> selectedUserRoleList = new ArrayList<>();
+    	
+		try {
+		selectedUserRoleList = usersRolesLinksDao.select(selectUserRoleColumnList, selectQueryTermList, orderByList);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		Integer userRole = selectedUserRoleList.get(0).getRoleId();
+		
+		if(role.equals("Moderator")){
+		rs = (userRole == moderator);		
+		}else if(role.equals("Administrator")){
+		rs = (userRole == admin);
+		}
+		return rs;
+	}
+
+	@Override
+	public void getInbox(String username) {
+		String messagesID = Message.getColumnName(Message.Columns.ID);
+		getMessage(Integer.parseInt(messagesID));
+		
+	}
+
+	@Override
+	public SidebarInfo getSidebarInfo(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

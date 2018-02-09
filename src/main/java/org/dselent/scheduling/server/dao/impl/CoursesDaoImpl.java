@@ -17,7 +17,9 @@ import org.dselent.scheduling.server.sqlutils.QueryTerm;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class CoursesDaoImpl extends BaseDaoImpl<Course> implements CoursesDao {
 
 	@Override
@@ -51,6 +53,8 @@ public class CoursesDaoImpl extends BaseDaoImpl<Course> implements CoursesDao {
 
 		if(insertColumnName.equals(Course.getColumnName(Course.Columns.ID))) {
 			parameters.addValue(parameterName, model.getId());
+		} else if(insertColumnName.equals(Course.getColumnName(Course.Columns.COLUMN_ABRV))){
+			parameters.addValue(parameterName, model.getColumnAbrv());
 		} else if(insertColumnName.equals(Course.getColumnName(Course.Columns.NAME))) {
 			parameters.addValue(parameterName, model.getName());
 		} else if(insertColumnName.equals(Course.getColumnName(Course.Columns.DEPT_ID))) {
@@ -82,11 +86,11 @@ public class CoursesDaoImpl extends BaseDaoImpl<Course> implements CoursesDao {
 		} else if(keyHolderColumnName.equals(Course.getColumnName(Course.Columns.COURSE_NUMBER))) {
 			model.setCourseNum((String) keyMap.get(keyHolderColumnName));
 		} else if(keyHolderColumnName.equals(Course.getColumnName(Course.Columns.NUMBER_OF_LECTURES))) {
-			model.setNumLectures((Integer) keyMap.get(keyHolderColumnName));
+			model.setNumLectures((String) keyMap.get(keyHolderColumnName));
 		} else if(keyHolderColumnName.equals(Course.getColumnName(Course.Columns.NUMBER_OF_LABS))) {
-			model.setNumLabs((Integer) keyMap.get(keyHolderColumnName));
+			model.setNumLabs((String) keyMap.get(keyHolderColumnName));
 		} else if(keyHolderColumnName.equals(Course.getColumnName(Course.Columns.NUMBER_OF_CONFERENCES))) {
-			model.setNumConferences((Integer) keyMap.get(keyHolderColumnName));
+			model.setNumConferences((String) keyMap.get(keyHolderColumnName));
 		} else if(keyHolderColumnName.equals(Course.getColumnName(Course.Columns.CREATED_AT))) {
 			model.setCreatedAt((Timestamp) keyMap.get(keyHolderColumnName));
 		} else if(keyHolderColumnName.equals(Course.getColumnName(Course.Columns.UPDATED_AT))) {

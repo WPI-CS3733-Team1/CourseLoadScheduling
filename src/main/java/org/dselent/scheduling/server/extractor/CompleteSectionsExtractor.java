@@ -39,6 +39,7 @@ public class CompleteSectionsExtractor extends Extractor<List<CompleteSection>>
 			result.setSectionName(rs.getString(CompleteSection.getColumnName(CompleteSection.Columns.SECTION_NAME)));
 			result.setStartTime(rs.getInt(CompleteSection.getColumnName(CompleteSection.Columns.START_TIME)));
 			result.setName(rs.getString(CompleteSection.getColumnName(CompleteSection.Columns.NAME)));
+			result.setName(rs.getString(CompleteSection.getColumnName(CompleteSection.Columns.COLUMN_ABRV)));
 			
 		
 			resultList.add(result);
