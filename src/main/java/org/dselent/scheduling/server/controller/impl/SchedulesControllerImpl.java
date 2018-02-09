@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.dselent.scheduling.server.controller.SchedulesController;
-import org.dselent.scheduling.server.dao.CustomDao;
+import org.dselent.scheduling.server.service.ScheduleService;
 import org.dselent.scheduling.server.miscellaneous.JsonResponseCreator;
 import org.dselent.scheduling.server.model.Course;
 import org.dselent.scheduling.server.requests.GetCourses;
@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 public class SchedulesControllerImpl implements SchedulesController {
 
+	@Autowired
+	private ScheduleService scheduleService;
+
 	@Override
 	public ResponseEntity<String> getCourses(@RequestBody Map<String, String> request) throws Exception {
 		String response = "";
@@ -25,7 +28,11 @@ public class SchedulesControllerImpl implements SchedulesController {
 
 		String userName = request.get(GetCourses.getBodyName(GetCourses.BodyKey.USERNAME));
 
+		List<Course> courses = scheduleService.getCoursesBySection(userName);
 
+		for(int i = 0; i < courses.size(); i++) {
+			success.add(courses.get(i).getName());
+		}
 
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 		return new ResponseEntity<String>(response, HttpStatus.OK);

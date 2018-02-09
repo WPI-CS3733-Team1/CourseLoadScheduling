@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.dselent.scheduling.server.dao.CustomDao;
+import org.dselent.scheduling.server.dao.CoursesDao;
 import org.dselent.scheduling.server.model.CompleteSection;
+import org.dselent.scheduling.server.model.Course;
 import org.dselent.scheduling.server.model.Section;
 import org.dselent.scheduling.server.model.User;
 import org.dselent.scheduling.server.service.ScheduleService;
@@ -19,6 +21,8 @@ public class ScheduleServiceImpl implements ScheduleService
 	@Autowired
 	private CustomDao customDao;
 
+	@Autowired
+	private CoursesDao coursesDao;
 	
     public ScheduleServiceImpl()
     {
@@ -36,5 +40,32 @@ public class ScheduleServiceImpl implements ScheduleService
 		return outputSections;
 	}
 
+	@Override
+	public List<Course> getCoursesBySection(String userName) {
+		List<User> fetchedUser = customDao.getUser(userName);
+		Integer userID = fetchedUser.get(0).getId();
+		List<Section> courseSections = customDao.getSchedule(userID);
+		List<Course> outputCourses = new ArrayList<Course>(); 
 
+		for(int i = 0; i < courseSections.size(); i++) {
+			boolean courseNotListed = true;
+			for(int j = 0; j < outputCourses.size(); j++) {
+				if(courseSections.get(i).getCourseId() == outputCourses.get(j).getId()) {
+					courseNotListed = false;
+					break;
+				}
+			}
+
+			if(courseNotListed) {
+				try {
+					outputCourses.add(coursesDao.findById(courseSections.get(i).getCourseId()));
+				} catch(SQLException e) {
+					
+				}
+			}
+		}
+
+		return outputCourses;
 	}
+
+}
