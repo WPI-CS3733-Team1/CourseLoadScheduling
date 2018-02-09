@@ -18,6 +18,7 @@ public class Course extends Model
 	public static enum Columns
 	{
 		ID,
+		COLUMN_ABRV,
 		NAME,
 		DEPT_ID,
 		COURSE_NUMBER, 
@@ -42,6 +43,7 @@ public class Course extends Model
 		}
 		
 		COLUMN_TYPE_MAP.put(Columns.ID, JDBCType.INTEGER);
+		COLUMN_TYPE_MAP.put(Columns.COLUMN_ABRV, JDBCType.VARCHAR);
 		COLUMN_TYPE_MAP.put(Columns.NAME, JDBCType.VARCHAR);
 		COLUMN_TYPE_MAP.put(Columns.DEPT_ID, JDBCType.INTEGER);
 		COLUMN_TYPE_MAP.put(Columns.COURSE_NUMBER, JDBCType.VARCHAR);
@@ -55,12 +57,13 @@ public class Course extends Model
 	// attributes
 	
 	private Integer id;
+	private String columnAbrv;
 	private String name;
 	private Integer deptId;
 	private String courseNum;
-	private Integer numLectures;
-	private Integer numLabs;
-	private Integer numConferences;
+	private String numLectures;
+	private String numLabs;
+	private String numConferences;
 	private Instant createdAt;
 	private Instant updatedAt;
 
@@ -100,8 +103,14 @@ public class Course extends Model
 		this.id = id;
 	}
 
-	
+	public String getColumnAbrv(){
+		return columnAbrv;
+	}
 
+	public void setColumnAbrv(String columnAbrv){
+		this.columnAbrv = columnAbrv;
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -126,28 +135,28 @@ public class Course extends Model
 		this.courseNum = courseNum;
 	}
 
-	public Integer getNumLectures() {
+	public String getNumLectures() {
 		return numLectures;
 	}
 
-	public void setNumLectures(Integer numLectures) {
-		this.numLectures = numLectures;
+	public void setNumLectures(String string) {
+		this.numLectures = string;
 	}
 
-	public Integer getNumLabs() {
+	public String getNumLabs() {
 		return numLabs;
 	}
 
-	public void setNumLabs(Integer numLabs) {
-		this.numLabs = numLabs;
+	public void setNumLabs(String string) {
+		this.numLabs = string;
 	}
 
-	public Integer getNumConferences() {
+	public String getNumConferences() {
 		return numConferences;
 	}
 
-	public void setNumConferences(Integer numConferences) {
-		this.numConferences = numConferences;
+	public void setNumConferences(String string) {
+		this.numConferences = string;
 	}
 
 	public Instant getCreatedAt()
@@ -192,6 +201,7 @@ public class Course extends Model
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((columnAbrv == null) ? 0 : columnAbrv.hashCode());
 		result = prime * result + ((courseNum == null) ? 0 : courseNum.hashCode());
 		result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
 		result = prime * result + ((deptId == null) ? 0 : deptId.hashCode());
@@ -217,6 +227,11 @@ public class Course extends Model
 			if (other.courseNum != null)
 				return false;
 		} else if (!courseNum.equals(other.courseNum))
+			return false;
+		if (columnAbrv == null) {
+			if(other.columnAbrv != null)
+				return false;
+		} else if (!columnAbrv.equals(other.columnAbrv))
 			return false;
 		if (createdAt == null) {
 			if (other.createdAt != null)
@@ -266,8 +281,10 @@ public class Course extends Model
 	public String toString()
 	{
 		StringBuilder builder = new StringBuilder();
-		builder.append("Users [id]=");
+		builder.append("Course [id]=");
 		builder.append(id);
+		builder.append(", Column Abbreviation=");
+		builder.append(columnAbrv);
 		builder.append(", Name=");
 		builder.append(name);
 		builder.append(", Department ID=");
