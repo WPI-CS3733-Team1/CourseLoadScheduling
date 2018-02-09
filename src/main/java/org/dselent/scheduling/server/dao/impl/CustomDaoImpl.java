@@ -182,9 +182,9 @@ public class CustomDaoImpl implements CustomDao
 	}
 	
 	@Override
-	public List<Section> viewSchedule(int userID) {
+	public List<Section> getSchedule(int userID) {
 		SectionsExtractor extractor = new SectionsExtractor();
-		String queryTemplate = new String(QueryPathConstants.VIEW_SCHEDULE_QUERY);
+		String queryTemplate = new String(QueryPathConstants.GET_SCHEDULE_QUERY);
 		MapSqlParameterSource parameters = new MapSqlParameterSource();
 		parameters.addValue("userID", userID);
 		List<Section> schedule = namedParameterJdbcTemplate.query(queryTemplate, parameters, extractor);

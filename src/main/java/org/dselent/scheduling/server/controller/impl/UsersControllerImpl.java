@@ -10,6 +10,7 @@ import org.dselent.scheduling.server.miscellaneous.JsonResponseCreator;
 import org.dselent.scheduling.server.requests.GetMessage;
 import org.dselent.scheduling.server.requests.Login;
 import org.dselent.scheduling.server.requests.Register;
+import org.dselent.scheduling.server.requests.ResetPasswordEmail;
 import org.dselent.scheduling.server.requests.ScheduleChangeRequest;
 import org.dselent.scheduling.server.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,8 +119,32 @@ public class UsersControllerImpl implements UsersController
 		
 	}
 
-	
+	@Override
+	public ResponseEntity<String> getSidebarInfo(Map<String, String> request) throws Exception {
+		
+		String response = "";
+		List<Object> success = new ArrayList<Object>();
+		
+		String username = request.get(ResetPasswordEmail.getBodyName(ResetPasswordEmail.BodyKey.USER_NAME));
+		
+		//method to display information on the sidebar of the window
+		
+		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
+		
+		return new ResponseEntity<String>(response, HttpStatus.OK);
+	}
 
+	@Override
+	public ResponseEntity<String> resetPassword(Map<String, String> request) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ResponseEntity<String> resetPasswordEmail(Map<String, String> request) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
 
