@@ -25,8 +25,7 @@ public interface UserService
 	 * 
 	 * @param registerUserDto DTO container information for the insertions
 	 * @return A list of rows affected for each insert operation
-	 * @throws SQLException
-	 */
+	 * @throws SQLException */
 	public List<Integer> registerUser(RegisterUserDto registerUserDto) throws SQLException;
     	public User loginUser(String userName, String password);
     	public Message getMessage(Integer messageID);

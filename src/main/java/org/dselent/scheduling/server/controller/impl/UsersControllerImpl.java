@@ -7,10 +7,9 @@ import java.util.Map;
 import org.dselent.scheduling.server.controller.UsersController;
 import org.dselent.scheduling.server.dto.RegisterUserDto;
 import org.dselent.scheduling.server.miscellaneous.JsonResponseCreator;
-import org.dselent.scheduling.server.model.Message;
 import org.dselent.scheduling.server.requests.GetMessage;
+import org.dselent.scheduling.server.requests.Login;
 import org.dselent.scheduling.server.requests.Register;
-import org.dselent.scheduling.server.requests.ResetPassword;
 import org.dselent.scheduling.server.requests.ResetPasswordEmail;
 import org.dselent.scheduling.server.requests.ScheduleChangeRequest;
 import org.dselent.scheduling.server.requests.ResolveMessage;
@@ -80,12 +79,10 @@ public class UsersControllerImpl implements UsersController
 		
 		String messageID = request.get(GetMessage.getBodyName(GetMessage.BodyKey.MESSAGE_ID));
 		
-		Integer id = (Integer) Integer.parseInt(messageID);
+		Integer id = Integer.parseInt(messageID);
 		
 		//method call to service layer to pull message, no DTO required.
 		//success.add(return from service layer call);
-		Message fetchedMessage = userService.getMessage(id);
-		success.add(fetchedMessage);
 		
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 		
@@ -101,51 +98,52 @@ public class UsersControllerImpl implements UsersController
 		
 		String messageAuthor = request.get(ScheduleChangeRequest.getBodyName(ScheduleChangeRequest.BodyKey.USER_NAME));
 		String messageContent = request.get(ScheduleChangeRequest.getBodyName(ScheduleChangeRequest.BodyKey.MESSAGE));
-		String departmentID = request.get(ScheduleChangeRequest.getBodyName(ScheduleChangeRequest.BodyKey.DEPT_ID));
-		//method call to service layer to push message, no DTO required.
 		
-		userService.addMessage(messageAuthor, messageContent, (Integer) Integer.parseInt(departmentID));
+		//method call to service layer to push message, no DTO required.
 		
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 		
 		return new ResponseEntity<String>(response, HttpStatus.OK);
 	}
-	
+
 	@Override
-	public ResponseEntity<String> resetPassword(Map<String, String> request) throws Exception {
+	public ResponseEntity<String> login(Map<String, String> request) throws Exception {
 		
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
 		
-		String username = request.get(ResetPassword.getBodyName(ResetPassword.BodyKey.USER_NAME));
-		String newPassword = request.get(ResetPassword.getBodyName(ResetPassword.BodyKey.NEW_PASSWORD));
-		
-		//method to replace "username" 's password with "newPassword", DTO required?
+		String username = request.get(Login.getBodyName(Login.BodyKey.USER_NAME));
+		String password = request.get(Login.getBodyName(Login.BodyKey.PASSWORD));
 		
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 		
 		return new ResponseEntity<String>(response, HttpStatus.OK);
+		
 	}
-	
+
 	@Override
-	public ResponseEntity<String> resetPasswordEmail(Map<String, String> request) throws Exception {
+	public ResponseEntity<String> getSidebarInfo(Map<String, String> request) throws Exception {
 		
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
 		
 		String username = request.get(ResetPasswordEmail.getBodyName(ResetPasswordEmail.BodyKey.USER_NAME));
-		String email = request.get(ResetPasswordEmail.getBodyName(ResetPasswordEmail.BodyKey.EMAIL));
 		
-		//method to send an email to "email" with link to reset page, DTO Required?
-		//also not likely doing this anymore but I wasn't solid on what we wanted to do
+		//method to display information on the sidebar of the window
 		
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 		
 		return new ResponseEntity<String>(response, HttpStatus.OK);
 	}
 
+	@Override
+	public ResponseEntity<String> resetPassword(Map<String, String> request) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
+
 	public ResponseEntity<String> resolveMessage(Map<String, String> request) throws Exception {
 		
 		String response = "";
@@ -176,6 +174,11 @@ public class UsersControllerImpl implements UsersController
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 		
 		return new ResponseEntity<String>(response, HttpStatus.OK);
+	}
+	public ResponseEntity<String> resetPasswordEmail(Map<String, String> request) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+
 	}
 
 }
