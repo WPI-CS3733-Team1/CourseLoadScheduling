@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  *
  */
 
-public class ViewSchedule 
+public class GetSchedule 
 {
 	public static final RequestMethod REQUEST_TYPE = RequestMethod.POST;
 	public static final String REQUEST_NAME = "view_schedule";
@@ -64,7 +64,7 @@ public class ViewSchedule
 		
 	};
 	
-	private ViewSchedule()
+	private GetSchedule()
 	{
 		
 	};
