@@ -3,9 +3,8 @@ package org.dselent.scheduling.server.controller;
 import java.util.Map;
 
 import org.dselent.scheduling.server.requests.GetMessage;
+import org.dselent.scheduling.server.requests.Login;
 import org.dselent.scheduling.server.requests.Register;
-import org.dselent.scheduling.server.requests.ResetPassword;
-import org.dselent.scheduling.server.requests.ResetPasswordEmail;
 import org.dselent.scheduling.server.requests.ScheduleChangeRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,11 +24,10 @@ public interface UsersController
     @RequestMapping(method=RequestMethod.POST, value=ScheduleChangeRequest.REQUEST_NAME)
     public ResponseEntity<String> requestScheduleChange(@RequestBody Map<String, String> request) throws Exception;
     
-    @RequestMapping(method=RequestMethod.POST, value=ResetPassword.REQUEST_NAME)
-    public ResponseEntity<String> resetPassword(@RequestBody Map<String, String> request) throws Exception;
-    
-    @RequestMapping(method=RequestMethod.POST, value=ResetPasswordEmail.REQUEST_NAME)
-    public ResponseEntity<String> resetPasswordEmail(@RequestBody Map<String, String> request) throws Exception;
+    @RequestMapping(method=RequestMethod.POST, value=Login.REQUEST_NAME)
+    public ResponseEntity<String> login(@RequestBody Map<String, String> request) throws Exception;
+
+	ResponseEntity<String> Login(Map<String, String> request) throws Exception;
 }
 
 	
