@@ -1,7 +1,9 @@
 package org.dselent.scheduling.server.service;
 
+import java.sql.SQLException;
 import java.util.List;
 
+import org.dselent.scheduling.server.dto.CreateSectionDto;
 import org.dselent.scheduling.server.model.CompleteSection;
 import org.dselent.scheduling.server.model.Course;
 import org.dselent.scheduling.server.model.Section;
@@ -22,4 +24,6 @@ public interface ScheduleService {
 	public List<Section> getSchedule(String userName, String academicTerm);
 	
 	public List<Course> getCoursesBySection(String userName);
+	
+	public List<Section> createSection(CreateSectionDto createSectionDto) throws SQLException;
 }

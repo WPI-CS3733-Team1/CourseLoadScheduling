@@ -8,6 +8,7 @@ import org.dselent.scheduling.server.controller.SchedulesController;
 import org.dselent.scheduling.server.miscellaneous.JsonResponseCreator;
 import org.dselent.scheduling.server.requests.CreateCourse;
 import org.dselent.scheduling.server.requests.Login;
+import org.dselent.scheduling.server.requests.GetCompleteSection;
 import org.dselent.scheduling.server.dto.CreateSectionDto;
 import org.dselent.scheduling.server.service.ScheduleService;
 import org.dselent.scheduling.server.miscellaneous.JsonResponseCreator;
@@ -99,8 +100,8 @@ public class SchedulesControllerImpl implements SchedulesController {
 				.withCourseLocation(courseLocation)
 				.build();
 				
-				//userService.registerUser(registerUserDto);
-				//response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
+				scheduleService.createSection(createSectionDto);
+				response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 
 				return new ResponseEntity<String>(response, HttpStatus.OK);
 	}
@@ -121,4 +122,16 @@ public class SchedulesControllerImpl implements SchedulesController {
 		return null;
 	}
 
+	public ResponseEntity<String> getCompleteSection(@RequestBody Map<String, String> request) throws Exception {
+		String response = "";
+		List<Object> success = new ArrayList<Object>();
+
+		String sectionId = request.get(GetCompleteSection.getBodyName(GetCompleteSection.BodyKey.SECTION_ID));
+
+		Integer id = Integer.parseInt(sectionId);
+
+		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
+
+		return new ResponseEntity<String>(response, HttpStatus.OK);
+	}
 }
