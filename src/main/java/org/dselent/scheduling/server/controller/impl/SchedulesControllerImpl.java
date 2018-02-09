@@ -43,14 +43,20 @@ public class SchedulesControllerImpl implements SchedulesController {
 				
 				
 				CreateSectionDto.Builder builder = CreateSectionDto.builder();
-				//RegisterUserDto registerUserDto = builder.withUserName(userName)
-				//.withFirstName(firstName)
-				//.withLastName(lastName)
-				//.withEmail(email)
-				//.withPassword(password)
-				//.build();
+				CreateSectionDto createSectionDto = builder.withCourseId(courseId)
+				.withSectionName(sectionName)
+				.withSectionId(sectionId)
+				.withExpectedPopulation(expectedPopulation)
+				.withRequiredFrequency(requiredFrequency)
+				.withAcademicYear(academicYear)
+				.withAcademicTerm(academicTerm)
+				.withStartTime(startTime)
+				.withEndTime(endTime)
+				.withDaysPerWeek(daysPerWeek)
+				.withCourseLocation(courseLocation)
+				.build();
 				
-				//userService.registerUser(registerUserDto);
+				userService.registerUser(registerUserDto);
 				//response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 
 				return new ResponseEntity<String>(response, HttpStatus.OK);

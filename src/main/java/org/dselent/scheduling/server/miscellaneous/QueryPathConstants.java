@@ -62,7 +62,7 @@ public class QueryPathConstants
 	public static String SEARCH_START_TIME_QUERY = readFile(SEARCH_START_TIME_PATH);
 	public static String SEARCH_USERS_QUERY = readFile(SEARCH_USERS_PATH);
 	public static String VIEW_INBOX_QUERY = readFile(VIEW_INBOX_PATH);
-	public static String VIEW_SCHEDULE_QUERY = readFile(VIEW_SCHEDULE_PATH);
+	public static String GET_SCHEDULE_QUERY = readFile(VIEW_SCHEDULE_PATH);
 	
 	private QueryPathConstants()
 	{
