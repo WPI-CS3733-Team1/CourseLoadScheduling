@@ -6,10 +6,17 @@ import java.util.Map;
 
 import org.dselent.scheduling.server.controller.SchedulesController;
 import org.dselent.scheduling.server.dto.CreateSectionDto;
-//import org.dselent.scheduling.server.miscellaneous.JsonResponseCreator;
+import org.dselent.scheduling.server.service.ScheduleService;
+import org.dselent.scheduling.server.miscellaneous.JsonResponseCreator;
+import org.dselent.scheduling.server.model.Course;
+import org.dselent.scheduling.server.requests.GetCourses;
+import org.dselent.scheduling.server.requests.ConfirmSchedule;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.dselent.scheduling.server.requests.CreateSection;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 
 public class SchedulesControllerImpl implements SchedulesController {
 
