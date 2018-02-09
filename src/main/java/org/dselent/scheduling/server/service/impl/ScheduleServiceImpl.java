@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.dselent.scheduling.server.dao.CustomDao;
+import org.dselent.scheduling.server.dao.SectionsDao;
+import org.dselent.scheduling.server.dto.CreateCourseDto;
+import org.dselent.scheduling.server.dto.CreateSectionDto;
 import org.dselent.scheduling.server.dao.CoursesDao;
 import org.dselent.scheduling.server.model.CompleteSection;
 import org.dselent.scheduling.server.model.Course;
@@ -23,6 +26,9 @@ public class ScheduleServiceImpl implements ScheduleService
 
 	@Autowired
 	private CoursesDao coursesDao;
+	
+	@Autowired
+	private SectionsDao sectionsDao;
 	
     public ScheduleServiceImpl()
     {
@@ -67,5 +73,36 @@ public class ScheduleServiceImpl implements ScheduleService
 
 		return outputCourses;
 	}
+
+	@Override
+	public List<Section> createSection(CreateSectionDto createSectionDto) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public Course createCourse(CreateCourseDto dto) throws SQLException {
+		Course course = new Course();
+		course.setName(dto.getCourseName());
+		course.setCourseNum(dto.getCourseNumber());
+		course.setNumLectures(dto.getNumberOfLectures());
+		course.setNumLabs(dto.getNumberOfLabs());
+		course.setNumConferences(dto.getNumberOfConferences());
+		
+		List<String> courseInsertColumnNameList = new ArrayList<>();
+		List<String> courseKeyHolderColumnNameList = new ArrayList<>();
+		courseInsertColumnNameList.add(Course.getColumnName(Course.Columns.NAME));
+    	courseInsertColumnNameList.add(Course.getColumnName(Course.Columns.COURSE_NUMBER));
+    	courseInsertColumnNameList.add(Course.getColumnName(Course.Columns.NUMBER_OF_LECTURES));
+    	courseInsertColumnNameList.add(Course.getColumnName(Course.Columns.NUMBER_OF_LABS));
+    	courseInsertColumnNameList.add(Course.getColumnName(Course.Columns.NUMBER_OF_CONFERENCES));
+    	
+    	courseKeyHolderColumnNameList.add(Course.getColumnName(Course.Columns.ID));
+    	courseKeyHolderColumnNameList.add(Course.getColumnName(Course.Columns.CREATED_AT));
+    	courseKeyHolderColumnNameList.add(Course.getColumnName(Course.Columns.UPDATED_AT));
+	
+		return course;
+		
+	}
+
 
 }
