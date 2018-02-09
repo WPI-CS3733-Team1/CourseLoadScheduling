@@ -96,8 +96,8 @@ public class SchedulesControllerImpl implements SchedulesController {
 				.withCourseLocation(courseLocation)
 				.build();
 				
-				//userService.registerUser(registerUserDto);
-				//response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
+				scheduleService.createSection(createSectionDto);
+				response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 
 				return new ResponseEntity<String>(response, HttpStatus.OK);
 	}

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.dselent.scheduling.server.dao.CustomDao;
+import org.dselent.scheduling.server.dao.SectionsDao;
+import org.dselent.scheduling.server.dto.CreateSectionDto;
 import org.dselent.scheduling.server.dao.CoursesDao;
 import org.dselent.scheduling.server.model.CompleteSection;
 import org.dselent.scheduling.server.model.Course;
@@ -23,6 +25,9 @@ public class ScheduleServiceImpl implements ScheduleService
 
 	@Autowired
 	private CoursesDao coursesDao;
+	
+	@Autowired
+	private SectionsDao sectionsDao;
 	
     public ScheduleServiceImpl()
     {
@@ -66,6 +71,12 @@ public class ScheduleServiceImpl implements ScheduleService
 		}
 
 		return outputCourses;
+	}
+
+	@Override
+	public List<Section> createSection(CreateSectionDto createSectionDto) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
