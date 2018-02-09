@@ -26,10 +26,8 @@ public class CreateAdmin {
 	}
 
 	public static enum BodyKey {
-		USERNAME, 
-		FIRST_NAME,
-		LAST_NAME,
-		EMAIL
+		FACULTY_USERNAME, 
+		MODERATOR_USERNAME
 	}
 
 	static {
