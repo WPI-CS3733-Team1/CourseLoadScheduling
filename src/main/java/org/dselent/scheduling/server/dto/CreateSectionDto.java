@@ -15,15 +15,16 @@ import org.dselent.scheduling.server.dto.RegisterUserDto.Builder;
 
 public class CreateSectionDto {
 	
-	private final String courseId;
+	private final Integer courseId;
+	private final Integer cRN;
 	private final String sectionName;
-	private final String sectionId;
-	private final String expectedPopulation;
-	private final String requiredFrequency;
-	private final String academicYear;
+	private final Integer sectionId;
+	private final Integer expectedPopulation;
+	private final Integer requiredFrequency;
+	private final Integer academicYear;
 	private final String academicTerm;
-	private final String startTime;
-	private final String endTime;
+	private final Integer startTime;
+	private final Integer endTime;
 	private final String daysPerWeek;
 	private final String courseLocation;
 	
@@ -34,6 +35,7 @@ public class CreateSectionDto {
 		// can add defaults if null for other places where the builder pattern is used
 		
 		this.courseId = builder.courseId;
+		this.cRN = builder.cRN;
 		this.sectionName = builder.sectionName;
 		this.sectionId = builder.sectionId;
 		this.expectedPopulation = builder.expectedPopulation;
@@ -52,6 +54,18 @@ public class CreateSectionDto {
 		{
 			throw new IllegalStateException("CourseId cannot be null");
 		}
+		else if(!(this.courseId instanceof Integer)) 
+		{
+			throw new NumberFormatException("CourseId cannot be a non-Integer");
+		}
+		if(this.cRN == null)
+		{
+			throw new IllegalStateException("CRN cannot be null");
+		}
+		else if(!(this.cRN instanceof Integer)) 
+		{
+			throw new NumberFormatException("CRN cannot be a non-Integer");
+		}
 		else if(this.sectionName == null)
 		{
 			throw new IllegalStateException("sectionName cannot be null");
@@ -59,6 +73,10 @@ public class CreateSectionDto {
 		else if(this.sectionId == null)
 		{
 			throw new IllegalStateException("sectionId cannot be null");
+		}
+		else if(!(this.sectionId instanceof Integer)) 
+		{
+			throw new NumberFormatException("sectionId cannot be a non-Integer");
 		}
 		else if(this.expectedPopulation == null)
 		{
@@ -68,9 +86,17 @@ public class CreateSectionDto {
 		{
 			throw new IllegalStateException("requiredFrequency cannot be null");
 		}
+		else if(!(this.requiredFrequency instanceof Integer)) 
+		{
+			throw new NumberFormatException("requiredFrequency cannot be a non-Integer");
+		}
 		if(this.academicYear == null)
 		{
 			throw new IllegalStateException("academicYear cannot be null");
+		}
+		else if(!(this.academicYear instanceof Integer)) 
+		{
+			throw new NumberFormatException("academicYear cannot be a non-Integer");
 		}
 		else if(this.academicTerm == null)
 		{
@@ -80,9 +106,17 @@ public class CreateSectionDto {
 		{
 			throw new IllegalStateException("startTime cannot be null");
 		}
+		else if(!(this.startTime instanceof Integer)) 
+		{
+			throw new NumberFormatException("startTime cannot be a non-Integer");
+		}
 		else if(this.endTime == null)
 		{
 			throw new IllegalStateException("endTime cannot be null");
+		}
+		else if(!(this.endTime instanceof Integer)) 
+		{
+			throw new NumberFormatException("endTime cannot be a non-Integer");
 		}
 		else if(this.daysPerWeek == null)
 		{
@@ -95,27 +129,31 @@ public class CreateSectionDto {
 		
 	}
 
-	public String getCourseId() {
+	public Integer getCourseId() {
 		return courseId;
+	}
+	
+	public Integer getCRN() {
+		return cRN;
 	}
 
 	public String getSectionName() {
 		return sectionName;
 	}
 
-	public String getSectionId() {
+	public Integer getSectionId() {
 		return sectionId;
 	}
 
-	public String getExpectedPopulation() {
+	public Integer getExpectedPopulation() {
 		return expectedPopulation;
 	}
 
-	public String getRequiredFrequency() {
+	public Integer getRequiredFrequency() {
 		return requiredFrequency;
 	}
 
-	public String getAcademicYear() {
+	public Integer getAcademicYear() {
 		return academicYear;
 	}
 
@@ -123,11 +161,11 @@ public class CreateSectionDto {
 		return academicTerm;
 	}
 
-	public String getStartTime() {
+	public Integer getStartTime() {
 		return startTime;
 	}
 
-	public String getEndTime() {
+	public Integer getEndTime() {
 		return endTime;
 	}
 
@@ -139,12 +177,17 @@ public class CreateSectionDto {
 		return courseLocation;
 	}
 
+
+
+
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((academicTerm == null) ? 0 : academicTerm.hashCode());
 		result = prime * result + ((academicYear == null) ? 0 : academicYear.hashCode());
+		result = prime * result + ((cRN == null) ? 0 : cRN.hashCode());
 		result = prime * result + ((courseId == null) ? 0 : courseId.hashCode());
 		result = prime * result + ((courseLocation == null) ? 0 : courseLocation.hashCode());
 		result = prime * result + ((daysPerWeek == null) ? 0 : daysPerWeek.hashCode());
@@ -175,6 +218,11 @@ public class CreateSectionDto {
 			if (other.academicYear != null)
 				return false;
 		} else if (!academicYear.equals(other.academicYear))
+			return false;
+		if (cRN == null) {
+			if (other.cRN != null)
+				return false;
+		} else if (!cRN.equals(other.cRN))
 			return false;
 		if (courseId == null) {
 			if (other.courseId != null)
@@ -226,12 +274,13 @@ public class CreateSectionDto {
 
 	@Override
 	public String toString() {
-		return "CreateSectionDto [courseId=" + courseId + ", sectionName=" + sectionName + ", sectionId=" + sectionId
-				+ ", expectedPopulation=" + expectedPopulation + ", requiredFrequency=" + requiredFrequency
-				+ ", academicYear=" + academicYear + ", academicTerm=" + academicTerm + ", startTime=" + startTime
-				+ ", endTime=" + endTime + ", daysPerWeek=" + daysPerWeek + ", courseLocation=" + courseLocation + "]";
+		return "CreateSectionDto [courseId=" + courseId + ", cRN=" + cRN + ", sectionName=" + sectionName
+				+ ", sectionId=" + sectionId + ", expectedPopulation=" + expectedPopulation + ", requiredFrequency="
+				+ requiredFrequency + ", academicYear=" + academicYear + ", academicTerm=" + academicTerm
+				+ ", startTime=" + startTime + ", endTime=" + endTime + ", daysPerWeek=" + daysPerWeek
+				+ ", courseLocation=" + courseLocation + "]";
 	}
-	
+
 	/**
 	 * Creates builder to build {@link CreateSectionDto}.
 	 * @return created builder
@@ -248,15 +297,16 @@ public class CreateSectionDto {
 	@Generated("SparkTools")
 	public static final class Builder
 	{
-		private String courseId;
+		private Integer courseId;
+		private Integer cRN;
 		private String sectionName;
-		private String sectionId;
-		private String expectedPopulation;
-		private String requiredFrequency;
-		private String academicYear;
+		private Integer sectionId;
+		private Integer expectedPopulation;
+		private Integer requiredFrequency;
+		private Integer academicYear;
 		private String academicTerm;
-		private String startTime;
-		private String endTime;
+		private Integer startTime;
+		private Integer endTime;
 		private String daysPerWeek;
 		private String courseLocation;
 		
@@ -267,9 +317,15 @@ public class CreateSectionDto {
 
 		public Builder withCourseId(String courseId)
 		{
-			this.courseId = courseId;
+			this.courseId = Integer.parseInt(courseId);
 			return this;
 		}
+		
+		public Builder withCRN(String cRN)
+		{
+			this.cRN = Integer.parseInt(cRN);
+			return this;
+		}		
 
 		public Builder withSectionName(String sectionName)
 		{
@@ -279,25 +335,25 @@ public class CreateSectionDto {
 
 		public Builder withSectionId(String sectionId)
 		{
-			this.sectionId = sectionId;
+			this.sectionId = Integer.parseInt(sectionId);
 			return this;
 		}
 
 		public Builder withExpectedPopulation(String expectedPopulation)
 		{
-			this.expectedPopulation = expectedPopulation;
+			this.expectedPopulation = Integer.parseInt(expectedPopulation);
 			return this;
 		}
 
 		public Builder withRequiredFrequency(String requiredFrequency)
 		{
-			this.requiredFrequency = requiredFrequency;
+			this.requiredFrequency = Integer.parseInt(requiredFrequency);
 			return this;
 		}
 
 		public Builder withAcademicYear(String academicYear)
 		{
-			this.academicYear = academicYear;
+			this.academicYear = Integer.parseInt(academicYear);
 			return this;
 		}
 
@@ -309,13 +365,13 @@ public class CreateSectionDto {
 
 		public Builder withStartTime(String startTime)
 		{
-			this.startTime = startTime;
+			this.startTime = Integer.parseInt(startTime);
 			return this;
 		}
 
 		public Builder withEndTime(String endTime)
 		{
-			this.endTime = endTime;
+			this.endTime = Integer.parseInt(endTime);
 			return this;
 		}
 

@@ -47,13 +47,14 @@ public class SchedulesControllerImpl implements SchedulesController {
 
 	@Override
 	public ResponseEntity<String> confirmSchedule(@RequestBody Map<String, String> request) throws Exception {
+		
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
 
 		String userName = request.get(ConfirmSchedule.getBodyName(ConfirmSchedule.BodyKey.USER_NAME));
 		String removeSectionIds = request.get(ConfirmSchedule.getBodyName(ConfirmSchedule.BodyKey.REMOVE_SECTION_IDS));
 		String addSectionIds = request.get(ConfirmSchedule.getBodyName(ConfirmSchedule.BodyKey.ADD_SECTION_IDS));
-
+		System.out.println("List String: "+addSectionIds);
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 		return new ResponseEntity<String>(response, HttpStatus.OK);
 	}
@@ -75,6 +76,7 @@ public class SchedulesControllerImpl implements SchedulesController {
 				List<Object> success = new ArrayList<Object>();
 				
 				String courseId = request.get(CreateSection.getBodyName(CreateSection.BodyKey.COURSE_ID));
+				String cRN = request.get(CreateSection.getBodyName(CreateSection.BodyKey.CRN));
 				String sectionName = request.get(CreateSection.getBodyName(CreateSection.BodyKey.SECTION_NAME));
 				String sectionId = request.get(CreateSection.getBodyName(CreateSection.BodyKey.SECTION_ID));
 				String expectedPopulation = request.get(CreateSection.getBodyName(CreateSection.BodyKey.EXPECTED_POP));
@@ -89,6 +91,7 @@ public class SchedulesControllerImpl implements SchedulesController {
 				
 				CreateSectionDto.Builder builder = CreateSectionDto.builder();
 				CreateSectionDto createSectionDto = builder.withCourseId(courseId)
+				.withCRN(cRN)
 				.withSectionName(sectionName)
 				.withSectionId(sectionId)
 				.withExpectedPopulation(expectedPopulation)

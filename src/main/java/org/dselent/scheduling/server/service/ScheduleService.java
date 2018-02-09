@@ -25,8 +25,8 @@ public interface ScheduleService {
 	public List<Section> getSchedule(String userName, String academicTerm);
 	
 	public List<Course> getCoursesBySection(String userName);
-	
-	public List<Section> createSection(CreateSectionDto createSectionDto) throws SQLException;
+
+	public void createSection(CreateSectionDto createSectionDto) throws SQLException;
 	
 	public Course createCourse(CreateCourseDto createCourseDto) throws SQLException;
 }

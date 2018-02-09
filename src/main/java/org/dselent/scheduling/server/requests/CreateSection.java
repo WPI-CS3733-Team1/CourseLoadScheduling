@@ -34,6 +34,7 @@ public class CreateSection
 	public static enum BodyKey
 	{
 		COURSE_ID,
+		CRN,
 		SECTION_NAME,
 		SECTION_ID,
 		EXPECTED_POP,
