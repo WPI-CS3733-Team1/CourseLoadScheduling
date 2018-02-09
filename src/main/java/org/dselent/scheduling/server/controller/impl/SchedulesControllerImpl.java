@@ -73,6 +73,7 @@ public class SchedulesControllerImpl implements SchedulesController {
 				List<Object> success = new ArrayList<Object>();
 				
 				String courseId = request.get(CreateSection.getBodyName(CreateSection.BodyKey.COURSE_ID));
+				String cRN = request.get(CreateSection.getBodyName(CreateSection.BodyKey.CRN));
 				String sectionName = request.get(CreateSection.getBodyName(CreateSection.BodyKey.SECTION_NAME));
 				String sectionId = request.get(CreateSection.getBodyName(CreateSection.BodyKey.SECTION_ID));
 				String expectedPopulation = request.get(CreateSection.getBodyName(CreateSection.BodyKey.EXPECTED_POP));
@@ -87,6 +88,7 @@ public class SchedulesControllerImpl implements SchedulesController {
 				
 				CreateSectionDto.Builder builder = CreateSectionDto.builder();
 				CreateSectionDto createSectionDto = builder.withCourseId(courseId)
+				.withCRN(cRN)
 				.withSectionName(sectionName)
 				.withSectionId(sectionId)
 				.withExpectedPopulation(expectedPopulation)

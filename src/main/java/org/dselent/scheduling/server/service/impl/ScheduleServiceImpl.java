@@ -74,9 +74,45 @@ public class ScheduleServiceImpl implements ScheduleService
 	}
 
 	@Override
-	public List<Section> createSection(CreateSectionDto createSectionDto) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public void createSection(CreateSectionDto dto) throws SQLException {
+		Section section = new Section();
+		section.setCourseId(dto.getCourseId());
+		section.setSectionName(dto.getSectionName());
+		section.setSectionId(dto.getSectionId());
+		section.setExpectedPop(dto.getExpectedPopulation());		
+		section.setRequiredFreq(dto.getRequiredFrequency());
+		section.setAcademicYear(dto.getAcademicYear());
+		section.setAcademicTerm(dto.getAcademicTerm());
+		section.setStartTime(dto.getStartTime());
+		section.setEndTime(dto.getEndTime());
+		section.setDaysPerWeek(dto.getDaysPerWeek());
+		section.setCourseLocation(dto.getCourseLocation());
+		
+		List<String> sectionInsertColumnNameList = new ArrayList<>();
+    	List<String> sectionKeyHolderColumnNameList = new ArrayList<>();
+    	
+    	// Add columns where data will be added by service
+    	sectionInsertColumnNameList.add(Section.getColumnName(Section.Columns.COURSE_ID));
+    	sectionInsertColumnNameList.add(Section.getColumnName(Section.Columns.CRN));
+    	sectionInsertColumnNameList.add(Section.getColumnName(Section.Columns.SECTION_NAME));
+    	sectionInsertColumnNameList.add(Section.getColumnName(Section.Columns.SECTION_ID));
+    	sectionInsertColumnNameList.add(Section.getColumnName(Section.Columns.EXPECTED_POPULATION));
+    	sectionInsertColumnNameList.add(Section.getColumnName(Section.Columns.REQUIRED_FREQUENCY));
+    	sectionInsertColumnNameList.add(Section.getColumnName(Section.Columns.ACADEMIC_YEAR));
+    	sectionInsertColumnNameList.add(Section.getColumnName(Section.Columns.ACADEMIC_TERM));
+    	sectionInsertColumnNameList.add(Section.getColumnName(Section.Columns.START_TIME));
+    	sectionInsertColumnNameList.add(Section.getColumnName(Section.Columns.END_TIME));
+    	sectionInsertColumnNameList.add(Section.getColumnName(Section.Columns.DAYS_PER_WEEK));
+    	sectionInsertColumnNameList.add(Section.getColumnName(Section.Columns.COURSE_LOCATION));
+    	
+    	// Add columns where data will not be added by service (and maybe returned)
+    	sectionKeyHolderColumnNameList.add(Section.getColumnName(Section.Columns.ID));
+    	sectionKeyHolderColumnNameList.add(Section.getColumnName(Section.Columns.CREATED_AT));
+    	sectionKeyHolderColumnNameList.add(Section.getColumnName(Section.Columns.UPDATED_AT));
+		
+    	// Add using Dao
+    	sectionsDao.insert(section, sectionInsertColumnNameList, sectionKeyHolderColumnNameList);
+		
 	}
 
 }

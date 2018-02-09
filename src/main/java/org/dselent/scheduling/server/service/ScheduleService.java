@@ -25,5 +25,5 @@ public interface ScheduleService {
 	
 	public List<Course> getCoursesBySection(String userName);
 	
-	public List<Section> createSection(CreateSectionDto createSectionDto) throws SQLException;
+	public void createSection(CreateSectionDto createSectionDto) throws SQLException;
 }
