@@ -40,13 +40,14 @@ public class SchedulesControllerImpl implements SchedulesController {
 
 	@Override
 	public ResponseEntity<String> confirmSchedule(@RequestBody Map<String, String> request) throws Exception {
+		
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
 
 		String userName = request.get(ConfirmSchedule.getBodyName(ConfirmSchedule.BodyKey.USER_NAME));
 		String removeSectionIds = request.get(ConfirmSchedule.getBodyName(ConfirmSchedule.BodyKey.REMOVE_SECTION_IDS));
 		String addSectionIds = request.get(ConfirmSchedule.getBodyName(ConfirmSchedule.BodyKey.ADD_SECTION_IDS));
-
+		System.out.println("List String: "+addSectionIds);
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 		return new ResponseEntity<String>(response, HttpStatus.OK);
 	}

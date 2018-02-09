@@ -11,7 +11,7 @@ import java.util.Map;
 public class CompleteSection extends Model
 {
 	// table name
-	public static final String TABLE_NAME = "courses";
+	//public static final String TABLE_NAME = "courses";
 		
 	// column names
 	public static enum Columns
@@ -172,7 +172,7 @@ public class CompleteSection extends Model
 	}
 
 	public static String getTableName() {
-		return TABLE_NAME;
+		return null;
 	}
 
 	public static List<Columns> getColumnList() {

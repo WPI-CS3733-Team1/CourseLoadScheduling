@@ -1,6 +1,7 @@
 package org.dselent.scheduling.server.controller;
 
 import org.dselent.scheduling.server.config.AppConfig;
+import org.dselent.scheduling.server.requests.ConfirmSchedule;
 import org.dselent.scheduling.server.requests.Register;
 import org.json.JSONObject;
 import org.junit.Before;
@@ -18,6 +19,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {AppConfig.class})
@@ -33,14 +37,15 @@ public class UsersControllerTest
 	public void setup()
 	{
 		// initializes controllers and dependencies
-	    this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
+	    //this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
 	}
 	
 	/*
 	 * Not really an using this as a JUnit test
 	 * More of an example on how to use the classes
 	 */
-    @Test
+   
+	@Test
     public void testUsersController() throws Exception
     {
     	JSONObject jsonObject = new JSONObject();
@@ -52,13 +57,39 @@ public class UsersControllerTest
     	String jsonString = jsonObject.toString();
         
     	System.out.println(jsonString);
-    	
+    	/*
         this.mockMvc.perform(post("/user/register").content(jsonString)
         .contentType(MediaType.APPLICATION_JSON_VALUE)
         .characterEncoding("utf-8"))
         .andDo(MockMvcResultHandlers.print())
         .andExpect(status().isOk());
         //.andExpect(content().contentType("application/json"));
-        
+        */
+    }
+    
+    
+    @Test
+    public void testConfirmSchedule() throws Exception {
+    	
+    	JSONObject jsonObject = new JSONObject();
+    	List<Integer> idList = new ArrayList<Integer>();
+    	idList.add(2);
+    	idList.add(3);
+    	idList.add(4);
+    	//jsonObject.put(ConfirmSchedule.getBodyName(ConfirmSchedule.BodyKey.ADD_SECTION_IDS), idList.toString());
+    	//jsonObject.put(ConfirmSchedule.getBodyName(ConfirmSchedule.BodyKey.REMOVE_SECTION_IDS), idList.toString());
+    	
+    	jsonObject.put(ConfirmSchedule.getBodyName(ConfirmSchedule.BodyKey.ADD_SECTION_IDS), idList);
+    	
+    	System.out.println(jsonObject.toString());
+    	/*this.mockMvc.perform(post("/schedule/confirm").content(jsonObject.toString())
+    	        .contentType(MediaType.APPLICATION_JSON_VALUE)
+    	        .characterEncoding("utf-8"))
+    	        .andDo(MockMvcResultHandlers.print())
+    	        .andExpect(status().isOk());
+    	  */      
+    	
+    	//List<Integer> idListReconstruct =
+    	 
     }
 }
