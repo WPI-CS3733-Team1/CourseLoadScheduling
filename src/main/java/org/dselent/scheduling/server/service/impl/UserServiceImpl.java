@@ -12,6 +12,7 @@ import org.dselent.scheduling.server.miscellaneous.Pair;
 import org.dselent.scheduling.server.model.User;
 import org.dselent.scheduling.server.model.UsersRolesLink;
 import org.dselent.scheduling.server.model.Message;
+import org.dselent.scheduling.server.model.SidebarInfo;
 import org.dselent.scheduling.server.service.UserService;
 import org.dselent.scheduling.server.sqlutils.ColumnOrder;
 import org.dselent.scheduling.server.sqlutils.ComparisonOperator;
@@ -367,5 +368,11 @@ public class UserServiceImpl implements UserService
 		String messagesID = Message.getColumnName(Message.Columns.ID);
 		getMessage(Integer.parseInt(messagesID));
 		
+	}
+
+	@Override
+	public SidebarInfo getSidebarInfo(String username) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

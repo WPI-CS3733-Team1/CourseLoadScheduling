@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.dselent.scheduling.server.dto.RegisterUserDto;
 import org.dselent.scheduling.server.model.Message;
+import org.dselent.scheduling.server.model.SidebarInfo;
 import org.dselent.scheduling.server.model.User;
 import org.springframework.stereotype.Service;
 
@@ -36,4 +37,5 @@ public interface UserService
 	void createAdmin(String moderatorUsername, String facultyUsername);
 	boolean checkClearanceStatus(String username, String role);
 	void getInbox(String username);
+	public SidebarInfo getSidebarInfo(String username);
 }
