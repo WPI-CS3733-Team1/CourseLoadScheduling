@@ -181,7 +181,6 @@ public class UserServiceImpl implements UserService
 		return selectedMessage.get(0);
 	} 
 	
-	@Override
 	public void resetPassword(String userName, String newPassword) {
 		
 		String selectColumnName = User.getColumnName(User.Columns.USER_NAME);
