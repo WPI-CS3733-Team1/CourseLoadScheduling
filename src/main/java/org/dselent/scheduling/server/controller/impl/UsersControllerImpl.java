@@ -13,6 +13,8 @@ import org.dselent.scheduling.server.requests.Register;
 import org.dselent.scheduling.server.requests.ResetPassword;
 import org.dselent.scheduling.server.requests.ResetPasswordEmail;
 import org.dselent.scheduling.server.requests.ScheduleChangeRequest;
+import org.dselent.scheduling.server.requests.ResolveMessage;
+import org.dselent.scheduling.server.requests.CreateAdmin;
 import org.dselent.scheduling.server.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -143,6 +145,38 @@ public class UsersControllerImpl implements UsersController
 	}
 
 
+	@Override
+	public ResponseEntity<String> resolveMessage(Map<String, String> request) throws Exception {
+		
+		String response = "";
+		List<Object> success = new ArrayList<Object>();
+		
+		String administratorUsername = request.get(ResolveMessage.getBodyName(ResolveMessage.BodyKey.ADMINISTRATOR_USERNAME));
+		Integer messageId = Integer.parseInt(request.get(ResolveMessage.getBodyName(ResolveMessage.BodyKey.MESSAGE_ID)));
+		
+		//method to update a message to resolved
+		userService.resolveMessage(administratorUsername, messageId);
+		
+		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
+		
+		return new ResponseEntity<String>(response, HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<String> createAdmin(Map<String, String> request) throws Exception {
+		
+		String response = "";
+		List<Object> success = new ArrayList<Object>();
+		
+		String facultyUsername = request.get(CreateAdmin.getBodyName(CreateAdmin.BodyKey.FACULTY_USERNAME));
+		String moderatorUsername = request.get(CreateAdmin.getBodyName(CreateAdmin.BodyKey.MODERATOR_USERNAME));
+	
+		//method to update a users status to administrator
+		userService.createAdmin(moderatorUsername,facultyUsername);
+		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
+		
+		return new ResponseEntity<String>(response, HttpStatus.OK);
+	}
 
 }
 

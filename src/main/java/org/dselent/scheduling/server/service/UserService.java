@@ -8,6 +8,7 @@ import org.dselent.scheduling.server.model.Message;
 import org.dselent.scheduling.server.model.User;
 import org.springframework.stereotype.Service;
 
+
 /**
  * Service layer to specify all business logic. Calls the dao layer when data retrieval is needed.
  * Interfaces specify the behavior and the implementation provide the specific implementations.
@@ -32,4 +33,7 @@ public interface UserService
 	void addMessage(String author, String content, Integer deptID);	
 	void resetPassword(String userName, String newPassword);
 	void resetPasswordEmail(String userName, String email);
+	void resolveMessage(String administratorUsername, Integer messageId);
+	void createAdmin(String moderatorUsername, String facultyUsername);
+	boolean checkClearanceStatus(String username, String role);
 }
