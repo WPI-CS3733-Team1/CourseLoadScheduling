@@ -8,13 +8,10 @@ import org.dselent.scheduling.server.controller.UsersController;
 import org.dselent.scheduling.server.dto.RegisterUserDto;
 import org.dselent.scheduling.server.miscellaneous.JsonResponseCreator;
 import org.dselent.scheduling.server.requests.GetMessage;
-import org.dselent.scheduling.server.requests.Login;
 import org.dselent.scheduling.server.requests.Register;
+import org.dselent.scheduling.server.requests.ResetPassword;
 import org.dselent.scheduling.server.requests.ResetPasswordEmail;
 import org.dselent.scheduling.server.requests.ScheduleChangeRequest;
-import org.dselent.scheduling.server.requests.ResolveMessage;
-import org.dselent.scheduling.server.requests.AccessInbox;
-import org.dselent.scheduling.server.requests.CreateAdmin;
 import org.dselent.scheduling.server.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -106,31 +103,35 @@ public class UsersControllerImpl implements UsersController
 		
 		return new ResponseEntity<String>(response, HttpStatus.OK);
 	}
-
+	
 	@Override
-	public ResponseEntity<String> loginUser(Map<String, String> request) throws Exception {
+	public ResponseEntity<String> resetPassword(Map<String, String> request) throws Exception {
 		
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
 		
-		String username = request.get(Login.getBodyName(Login.BodyKey.USER_NAME));
-		String password = request.get(Login.getBodyName(Login.BodyKey.PASSWORD));
+		String username = request.get(ResetPassword.getBodyName(ResetPassword.BodyKey.USER_NAME));
+		String newPassword = request.get(ResetPassword.getBodyName(ResetPassword.BodyKey.NEW_PASSWORD));
+		
+		//method to replace "username" 's password with "newPassword", DTO required?
 		
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 		
 		return new ResponseEntity<String>(response, HttpStatus.OK);
-		
 	}
-
+	
 	@Override
-	public ResponseEntity<String> getSidebarInfo(Map<String, String> request) throws Exception {
+	public ResponseEntity<String> resetPasswordEmail(Map<String, String> request) throws Exception {
 		
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
 		
 		String username = request.get(ResetPasswordEmail.getBodyName(ResetPasswordEmail.BodyKey.USER_NAME));
+		String email = request.get(ResetPasswordEmail.getBodyName(ResetPasswordEmail.BodyKey.EMAIL));
 		
-		//method to display information on the sidebar of the window
+		//method to send an email to "email" with link to reset page, DTO Required?
+		//also not likely doing this anymore but I wasn't solid on what we wanted to do
+		//and I need to change the name - Alex
 		
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 		
@@ -138,64 +139,12 @@ public class UsersControllerImpl implements UsersController
 	}
 
 	@Override
-	public ResponseEntity<String> resetPassword(Map<String, String> request) throws Exception {
+	public ResponseEntity<String> getSidebarInfo(Map<String, String> request) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 
-	public ResponseEntity<String> resolveMessage(Map<String, String> request) throws Exception {
-		
-		String response = "";
-		List<Object> success = new ArrayList<Object>();
-		
-		String administratorUsername = request.get(ResolveMessage.getBodyName(ResolveMessage.BodyKey.ADMINISTRATOR_USERNAME));
-		Integer messageId = Integer.parseInt(request.get(ResolveMessage.getBodyName(ResolveMessage.BodyKey.MESSAGE_ID)));
-		
-		//method to update a message to resolved
-		userService.resolveMessage(administratorUsername, messageId);
-		
-		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
-		
-		return new ResponseEntity<String>(response, HttpStatus.OK);
-	}
-
-	@Override
-	public ResponseEntity<String> createAdmin(Map<String, String> request) throws Exception {
-		
-		String response = "";
-		List<Object> success = new ArrayList<Object>();
-		
-		String facultyUsername = request.get(CreateAdmin.getBodyName(CreateAdmin.BodyKey.FACULTY_USERNAME));
-		String moderatorUsername = request.get(CreateAdmin.getBodyName(CreateAdmin.BodyKey.MODERATOR_USERNAME));
-	
-		//method to update a users status to administrator
-		userService.createAdmin(moderatorUsername,facultyUsername);
-		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
-		
-		return new ResponseEntity<String>(response, HttpStatus.OK);
-	}
-	public ResponseEntity<String> resetPasswordEmail(Map<String, String> request) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	
-	
-
-	}
-
-	public ResponseEntity<String> getInbox(Map<String, String> request) throws Exception {
-		String response = "";
-		List<Object> success = new ArrayList<Object>();
-		
-		String userName = request.get(AccessInbox.getBodyName(AccessInbox.BodyKey.USERNAME));
-		
-		userService.getInbox(userName);
-		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
-		
-		return new ResponseEntity<String>(response, HttpStatus.OK);
-	}
-	
 
 }
 
