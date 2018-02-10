@@ -80,14 +80,14 @@ public class SchedulesControllerImpl implements SchedulesController {
 	
 	
 	@Override
-	public ResponseEntity<String> createSection(Map<String, String> request) throws Exception {
+	public ResponseEntity<String> createSection(@RequestBody Map<String, String> request) throws Exception {
 		// Print is for testing purposes
 				System.out.println("Schedule controller reached; create section being called");
 		    	
 				// add any objects that need to be returned to the success list
 				String response = "";
 				List<Object> success = new ArrayList<Object>();
-				
+				System.out.println(CreateSection.getBodyName(CreateSection.BodyKey.COURSE_ID));;
 				String courseId = request.get(CreateSection.getBodyName(CreateSection.BodyKey.COURSE_ID));
 				String cRN = request.get(CreateSection.getBodyName(CreateSection.BodyKey.CRN));
 				String sectionName = request.get(CreateSection.getBodyName(CreateSection.BodyKey.SECTION_NAME));

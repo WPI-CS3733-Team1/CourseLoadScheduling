@@ -136,6 +136,7 @@ public class ScheduleServiceImpl implements ScheduleService
 	public void createSection(CreateSectionDto dto) throws SQLException {
 		Section section = new Section();
 		section.setCourseId(dto.getCourseId());
+		section.setCRN(dto.getCRN());
 		section.setSectionName(dto.getSectionName());
 		section.setSectionId(dto.getSectionId());
 		section.setExpectedPop(dto.getExpectedPopulation());		
