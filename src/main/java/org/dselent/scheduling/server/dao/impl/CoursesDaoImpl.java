@@ -53,8 +53,8 @@ public class CoursesDaoImpl extends BaseDaoImpl<Course> implements CoursesDao {
 
 		if(insertColumnName.equals(Course.getColumnName(Course.Columns.ID))) {
 			parameters.addValue(parameterName, model.getId());
-		} else if(insertColumnName.equals(Course.getColumnName(Course.Columns.COLUMN_ABRV))){
-			parameters.addValue(parameterName, model.getColumnAbrv());
+		} else if(insertColumnName.equals(Course.getColumnName(Course.Columns.COURSE_ABRV))){
+			parameters.addValue(parameterName, model.getCourseAbrv());
 		} else if(insertColumnName.equals(Course.getColumnName(Course.Columns.NAME))) {
 			parameters.addValue(parameterName, model.getName());
 		} else if(insertColumnName.equals(Course.getColumnName(Course.Columns.DEPT_ID))) {
