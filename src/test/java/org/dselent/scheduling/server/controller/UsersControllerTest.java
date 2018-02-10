@@ -68,7 +68,7 @@ public class UsersControllerTest
     }
     
     
-    @Test
+    /* @Test
     public void testConfirmSchedule() throws Exception {
     	
     	JSONObject jsonObject = new JSONObject();
@@ -91,5 +91,5 @@ public class UsersControllerTest
     	
     	//List<Integer> idListReconstruct =
     	 
-    }
+     
 }

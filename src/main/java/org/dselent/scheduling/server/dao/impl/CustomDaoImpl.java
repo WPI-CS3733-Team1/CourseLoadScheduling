@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.dselent.scheduling.server.dao.CustomDao;
 import org.dselent.scheduling.server.extractor.CompleteSectionsExtractor;
+import org.dselent.scheduling.server.extractor.CourseNamesExtractor;
 import org.dselent.scheduling.server.extractor.SectionsExtractor;
 import org.dselent.scheduling.server.extractor.UsersExtractor;
 import org.dselent.scheduling.server.miscellaneous.QueryPathConstants;
@@ -190,6 +191,17 @@ public class CustomDaoImpl implements CustomDao
 		List<Section> schedule = namedParameterJdbcTemplate.query(queryTemplate, parameters, extractor);
 		
 		return schedule;
+	}
+
+	@Override
+	public List<String> getCourseNames(String userId) {
+		CourseNamesExtractor ex = new CourseNamesExtractor();
+		String queryTemplate = new String(QueryPathConstants.GET_COURSE_NAMES_QUERY);
+		MapSqlParameterSource parameters = new MapSqlParameterSource();
+		parameters.addValue("userID", userId);
+		List<String> value = namedParameterJdbcTemplate.query(queryTemplate, ex);
+		
+		return value;
 	}
 	
 }

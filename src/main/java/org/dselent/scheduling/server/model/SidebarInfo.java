@@ -151,16 +151,16 @@ public class SidebarInfo {
 			return createdAt;
 		}
 
-		public void setCreatedAt(Instant createdAt) {
-			this.createdAt = createdAt;
+		public void setCreatedAt(Timestamp createdAt) {
+			this.createdAt = createdAt.toInstant();
 		}
 
 		public Instant getUpdatedAt() {
 			return updatedAt;
 		}
 
-		public void setUpdatedAt(Instant updatedAt) {
-			this.updatedAt = updatedAt;
+		public void setUpdatedAt(Timestamp updatedAt) {
+			this.updatedAt = updatedAt.toInstant();
 		}
 
 		public List<String> getCourses() {

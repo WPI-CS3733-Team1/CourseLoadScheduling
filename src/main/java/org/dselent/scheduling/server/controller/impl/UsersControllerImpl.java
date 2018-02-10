@@ -207,11 +207,6 @@ public class UsersControllerImpl implements UsersController
 			
 			return new ResponseEntity<String>(response, HttpStatus.OK);
 	}
-	
-	
-
-
-
 }
 
 	
