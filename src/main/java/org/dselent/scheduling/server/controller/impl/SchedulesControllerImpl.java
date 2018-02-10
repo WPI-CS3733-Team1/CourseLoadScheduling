@@ -16,6 +16,8 @@ import org.dselent.scheduling.server.miscellaneous.JsonResponseCreator;
 import org.dselent.scheduling.server.model.Course;
 import org.dselent.scheduling.server.requests.GetCourses;
 import org.dselent.scheduling.server.requests.ConfirmSchedule;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.dselent.scheduling.server.requests.CreateSection;
 import org.springframework.http.HttpStatus;
@@ -27,6 +29,9 @@ public class SchedulesControllerImpl implements SchedulesController {
 
 	@Autowired
 	private ScheduleService scheduleService;
+
+	ObjectMapper mapper = new ObjectMapper();
+	TypeFactory typeFactory = mapper.getTypeFactory();
 
 	@Override
 	public ResponseEntity<String> getCourses(@RequestBody Map<String, String> request) throws Exception {
@@ -55,6 +60,12 @@ public class SchedulesControllerImpl implements SchedulesController {
 		String removeSectionIds = request.get(ConfirmSchedule.getBodyName(ConfirmSchedule.BodyKey.REMOVE_SECTION_IDS));
 		String addSectionIds = request.get(ConfirmSchedule.getBodyName(ConfirmSchedule.BodyKey.ADD_SECTION_IDS));
 		System.out.println("List String: "+addSectionIds);
+
+		List<String> removeSectionIdsList = mapper.readValue(removeSectionIds, typeFactory.constructCollectionType(List.class, String.class));
+		List<String> addSectionIdsList = mapper.readValue(addSectionIds, typeFactory.constructCollectionType(List.class, String.class));
+		
+		scheduleService.confirmSchedule(userName, removeSectionIdsList, addSectionIdsList);
+		
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 		return new ResponseEntity<String>(response, HttpStatus.OK);
 	}

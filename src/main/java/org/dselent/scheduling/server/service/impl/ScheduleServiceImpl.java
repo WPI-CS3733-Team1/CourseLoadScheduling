@@ -73,6 +73,20 @@ public class ScheduleServiceImpl implements ScheduleService
 
 		return outputCourses;
 	}
+	
+	@Override
+	public void confirmSchedule(String userName, List<String> removeSectionIdsList, List<String> addSectionIdsList) {
+		List<User> fetchedUser = customDao.getUser(userName);
+		Integer userID = fetchedUser.get(0).getId();
+		List<Section> schedule = customDao.getSchedule(userID);
+		for(int i = 0; i < removeSectionIdsList.size(); i++) {
+			Integer id = Integer.parseInt(removeSectionIdsList(i));
+		}
+
+		for(int i = 0; i < addSectionIdsList.size(); i++) {
+			Integer id = Integer.parseInt(addSectionIdsList(i));
+		}
+	}
 
 	@Override
 	public void createSection(CreateSectionDto dto) throws SQLException {
