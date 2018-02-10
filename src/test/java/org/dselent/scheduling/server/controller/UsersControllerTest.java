@@ -37,7 +37,7 @@ public class UsersControllerTest
 	public void setup()
 	{
 		// initializes controllers and dependencies
-	    //this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
+	    this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
 	}
 	
 	/*
@@ -57,14 +57,14 @@ public class UsersControllerTest
     	String jsonString = jsonObject.toString();
         
     	System.out.println(jsonString);
-    	/*
+    	
         this.mockMvc.perform(post("/user/register").content(jsonString)
         .contentType(MediaType.APPLICATION_JSON_VALUE)
         .characterEncoding("utf-8"))
         .andDo(MockMvcResultHandlers.print())
         .andExpect(status().isOk());
         //.andExpect(content().contentType("application/json"));
-        */
+        
     }
     
     
