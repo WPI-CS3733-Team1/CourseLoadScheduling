@@ -58,7 +58,7 @@ public class CreateSectionDto {
 		{
 			throw new NumberFormatException("CourseId cannot be a non-Integer");
 		}
-		if(this.cRN == null)
+		else if(this.cRN == null)
 		{
 			throw new IllegalStateException("CRN cannot be null");
 		}
@@ -90,7 +90,7 @@ public class CreateSectionDto {
 		{
 			throw new NumberFormatException("requiredFrequency cannot be a non-Integer");
 		}
-		if(this.academicYear == null)
+		else if(this.academicYear == null)
 		{
 			throw new IllegalStateException("academicYear cannot be null");
 		}
