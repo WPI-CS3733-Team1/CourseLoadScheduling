@@ -6,9 +6,11 @@ import java.util.List;
 
 import org.dselent.scheduling.server.dao.CustomDao;
 import org.dselent.scheduling.server.dao.SectionsDao;
+import org.dselent.scheduling.server.dao.UsersSectionsLinksDao;
 import org.dselent.scheduling.server.dto.CreateCourseDto;
 import org.dselent.scheduling.server.dto.CreateSectionDto;
 import org.dselent.scheduling.server.dao.CoursesDao;
+import org.dselent.scheduling.server.model.UsersSectionsLink;
 import org.dselent.scheduling.server.model.CompleteSection;
 import org.dselent.scheduling.server.model.Course;
 import org.dselent.scheduling.server.model.Section;
@@ -80,11 +82,11 @@ public class ScheduleServiceImpl implements ScheduleService
 		Integer userID = fetchedUser.get(0).getId();
 		List<Section> schedule = customDao.getSchedule(userID);
 		for(int i = 0; i < removeSectionIdsList.size(); i++) {
-			Integer id = Integer.parseInt(removeSectionIdsList(i));
+			Integer id = Integer.parseInt(removeSectionIdsList.get(i));
 		}
 
 		for(int i = 0; i < addSectionIdsList.size(); i++) {
-			Integer id = Integer.parseInt(addSectionIdsList(i));
+			Integer id = Integer.parseInt(addSectionIdsList.get(i));
 		}
 	}
 
