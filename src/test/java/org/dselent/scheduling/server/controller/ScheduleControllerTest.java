@@ -33,7 +33,7 @@ public class ScheduleControllerTest {
 	public void setup()
 	{
 		// initializes controllers and dependencies
-	    this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
+	    //this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
 	}
 	
 	/*

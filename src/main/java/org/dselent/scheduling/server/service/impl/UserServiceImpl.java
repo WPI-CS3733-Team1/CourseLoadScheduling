@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.dselent.scheduling.server.dao.CustomDao;
 import org.dselent.scheduling.server.dao.MessagesDao;
 import org.dselent.scheduling.server.dao.UsersDao;
 import org.dselent.scheduling.server.dao.UsersRolesLinksDao;
@@ -23,7 +24,7 @@ import org.springframework.security.crypto.keygen.KeyGenerators;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import org.dselent.scheduling.server.dao.impl.*;
 
 @Service
 public class UserServiceImpl implements UserService
@@ -36,6 +37,9 @@ public class UserServiceImpl implements UserService
 	
 	@Autowired
 	private UsersRolesLinksDao usersRolesLinksDao;
+	
+	@Autowired
+	private CustomDao customDao;
 	
     public UserServiceImpl()
     {
@@ -119,21 +123,20 @@ public class UserServiceImpl implements UserService
 	@Override
 	public User loginUser(String userName, String password)
 	{
-		String realUserName = User.getColumnName(User.Columns.USER_NAME);
-		String saltPassword = User.getColumnName(User.Columns.ENCRYPTED_PASSWORD);
-		String theSalt = User.getColumnName(User.Columns.SALT);
-		String saltyPassword = password + theSalt;
 		
-		//TODO
-		// FIX THIS, get user info and return
-		if (userName.equals(realUserName) && saltyPassword.equals(saltPassword)) {
+		List<User> fetchedUser = customDao.getUser(userName);
+		User theUser = fetchedUser.get(0);
+		String saltPassword = fetchedUser.get(0).getEncryptedPassword();
+		String theSalt = fetchedUser.get(0).getSalt();
+		String saltyPassword = password + theSalt;
+		if(theUser == null) {
+			System.out.println("Username provided failed to authenticate. Try again.");
+		}
+		else if (saltyPassword.equals(saltPassword)) {
 			System.out.println("Congratulations on logging in.");
 		}
 			
-			else {	System.out.print(" User credentials failed to authenticate. Please try again or register.");
-			
-		}
-		return null;
+		return theUser;
 		
 	}
 
