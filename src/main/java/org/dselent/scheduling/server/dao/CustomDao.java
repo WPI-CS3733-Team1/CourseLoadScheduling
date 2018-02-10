@@ -46,4 +46,6 @@ public interface CustomDao
 	List<User> getUser(String userName);
 
 	List<Section> getSchedule(int userID);
+	
+	List<String> getCourseNames(String userId);
 }
