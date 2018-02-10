@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.dselent.scheduling.server.dao.CustomDao;
 import org.dselent.scheduling.server.dao.MessagesDao;
 import org.dselent.scheduling.server.dao.UsersDao;
 import org.dselent.scheduling.server.dao.UsersRolesLinksDao;
@@ -33,6 +34,9 @@ public class UserServiceImpl implements UserService
 	
 	@Autowired
 	private MessagesDao messagesDao;
+	
+	@Autowired 
+	private CustomDao customDao;
 	
 	@Autowired
 	private UsersRolesLinksDao usersRolesLinksDao;
@@ -372,7 +376,29 @@ public class UserServiceImpl implements UserService
 
 	@Override
 	public SidebarInfo getSidebarInfo(String username) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		List<User> users = customDao.getUser(username);
+		User user = users.get(0);
+		
+		Integer id = user.getId();
+		
+		SidebarInfo info = new SidebarInfo();
+		//info.setCreatedAt(user.getCreatedAt());
+		
+		//info.setCreatedAt(user.getCreatedAt());
+		//info.setUpdatedAt(user.getUpdatedAt());
+		
+		//make select from department_id
+		//info.setDepartment();
+		
+		
+		info.setEmail(user.getEmail());
+		
+		info.setFirstName(user.getFirstName());
+		info.setLastName(user.getLastName());
+		info.setId(user.getId());
+		info.setCourses(customDao.getCourseNames(""+id));
+		
+		return info;
 	}
 }

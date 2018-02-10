@@ -7,9 +7,12 @@ import java.util.Map;
 import org.dselent.scheduling.server.controller.UsersController;
 import org.dselent.scheduling.server.dto.RegisterUserDto;
 import org.dselent.scheduling.server.miscellaneous.JsonResponseCreator;
+import org.dselent.scheduling.server.model.Message;
+import org.dselent.scheduling.server.model.SidebarInfo;
 import org.dselent.scheduling.server.requests.AccessInbox;
 import org.dselent.scheduling.server.requests.CreateAdmin;
 import org.dselent.scheduling.server.requests.GetMessage;
+import org.dselent.scheduling.server.requests.GetSidebarInfo;
 import org.dselent.scheduling.server.requests.Login;
 import org.dselent.scheduling.server.requests.Register;
 import org.dselent.scheduling.server.requests.ResetPassword;
@@ -86,6 +89,8 @@ public class UsersControllerImpl implements UsersController
 		//method call to service layer to pull message, no DTO required.
 		//success.add(return from service layer call);
 		
+		Message m = userService.getMessage(id);
+		success.add(m);
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 		
 		return new ResponseEntity<String>(response, HttpStatus.OK);
@@ -100,9 +105,10 @@ public class UsersControllerImpl implements UsersController
 		
 		String messageAuthor = request.get(ScheduleChangeRequest.getBodyName(ScheduleChangeRequest.BodyKey.USER_NAME));
 		String messageContent = request.get(ScheduleChangeRequest.getBodyName(ScheduleChangeRequest.BodyKey.MESSAGE));
+		String dept_id = request.get(ScheduleChangeRequest.getBodyName(ScheduleChangeRequest.BodyKey.DEPT_ID));
 		
 		//method call to service layer to push message, no DTO required.
-		
+		userService.addMessage(messageAuthor, messageContent, (Integer.parseInt(dept_id)));
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 		
 		return new ResponseEntity<String>(response, HttpStatus.OK);
@@ -144,8 +150,18 @@ public class UsersControllerImpl implements UsersController
 
 	@Override
 	public ResponseEntity<String> getSidebarInfo(Map<String, String> request) throws Exception {
-		//TODO
-		return null;
+		
+		String response = "";
+		List<Object> success = new ArrayList<Object>();
+		
+		String username = request.get(GetSidebarInfo.getBodyName(GetSidebarInfo.BodyKey.USERNAME));
+		//get user
+		SidebarInfo info = userService.getSidebarInfo(username);
+		success.add(info);
+		
+		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
+		
+		return new ResponseEntity<String>(response, HttpStatus.OK);
 	}
 
 	@Override
