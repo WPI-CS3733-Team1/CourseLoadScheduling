@@ -124,7 +124,8 @@ public class UserServiceImpl implements UserService
 		String theSalt = User.getColumnName(User.Columns.SALT);
 		String saltyPassword = password + theSalt;
 		
-		
+		//TODO
+		// FIX THIS, get user info and return
 		if (userName.equals(realUserName) && saltyPassword.equals(saltPassword)) {
 			System.out.println("Congratulations on logging in.");
 		}

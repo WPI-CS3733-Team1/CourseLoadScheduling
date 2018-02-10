@@ -8,12 +8,17 @@ import org.dselent.scheduling.server.dao.CustomDao;
 import org.dselent.scheduling.server.dao.SectionsDao;
 import org.dselent.scheduling.server.dto.CreateCourseDto;
 import org.dselent.scheduling.server.dto.CreateSectionDto;
+import org.dselent.scheduling.server.miscellaneous.Pair;
 import org.dselent.scheduling.server.dao.CoursesDao;
 import org.dselent.scheduling.server.model.CompleteSection;
 import org.dselent.scheduling.server.model.Course;
+import org.dselent.scheduling.server.model.Message;
 import org.dselent.scheduling.server.model.Section;
 import org.dselent.scheduling.server.model.User;
 import org.dselent.scheduling.server.service.ScheduleService;
+import org.dselent.scheduling.server.sqlutils.ColumnOrder;
+import org.dselent.scheduling.server.sqlutils.ComparisonOperator;
+import org.dselent.scheduling.server.sqlutils.QueryTerm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -139,6 +144,7 @@ public class ScheduleServiceImpl implements ScheduleService
 		return course;
 		
 	}
+
 
 
 }

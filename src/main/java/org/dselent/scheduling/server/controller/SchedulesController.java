@@ -30,7 +30,4 @@ public interface SchedulesController {
 	@RequestMapping(method=RequestMethod.POST, value=ConfirmSchedule.REQUEST_NAME)
 	public ResponseEntity<String> confirmSchedule(@RequestBody Map<String, String> request) throws Exception;
 
-	@RequestMapping(method=RequestMethod.POST, value=GetCompleteSection.REQUEST_NAME)
-	public ResponseEntity<String> getCompleteSection(@RequestBody Map<String, String> request) throws Exception;
-
 }
