@@ -138,14 +138,6 @@ public class UsersControllerImpl implements UsersController
 		return new ResponseEntity<String>(response, HttpStatus.OK);
 	}
 
-	@Override
-	public ResponseEntity<String> getSidebarInfo(Map<String, String> request) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-
 }
 
 	
