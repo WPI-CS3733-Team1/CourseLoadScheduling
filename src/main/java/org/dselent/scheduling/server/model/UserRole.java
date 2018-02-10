@@ -11,7 +11,7 @@ import java.util.Map;
 public class UserRole extends Model
 {
 	// table name
-	public static final String TABLE_NAME = "users_roles";
+	public static final String TABLE_NAME = "user_roles";
 		
 	// column names
 	public static enum Columns
