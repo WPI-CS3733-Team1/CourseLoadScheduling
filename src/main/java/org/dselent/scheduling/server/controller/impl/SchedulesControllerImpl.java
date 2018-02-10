@@ -13,6 +13,7 @@ import org.dselent.scheduling.server.dto.CreateCourseDto;
 import org.dselent.scheduling.server.dto.CreateSectionDto;
 import org.dselent.scheduling.server.service.ScheduleService;
 import org.dselent.scheduling.server.miscellaneous.JsonResponseCreator;
+import org.dselent.scheduling.server.model.CompleteSection;
 import org.dselent.scheduling.server.model.Course;
 import org.dselent.scheduling.server.requests.GetCourses;
 import org.dselent.scheduling.server.requests.ConfirmSchedule;
@@ -23,6 +24,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 
+@Controller
 public class SchedulesControllerImpl implements SchedulesController {
 
 	@Autowired
@@ -140,16 +142,4 @@ public class SchedulesControllerImpl implements SchedulesController {
 		return null;
 	}
 
-	public ResponseEntity<String> getCompleteSection(@RequestBody Map<String, String> request) throws Exception {
-		String response = "";
-		List<Object> success = new ArrayList<Object>();
-
-		String sectionId = request.get(GetCompleteSection.getBodyName(GetCompleteSection.BodyKey.SECTION_ID));
-
-		Integer id = Integer.parseInt(sectionId);
-
-		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
-
-		return new ResponseEntity<String>(response, HttpStatus.OK);
-	}
 }
