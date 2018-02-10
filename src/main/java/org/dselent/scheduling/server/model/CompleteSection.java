@@ -27,7 +27,7 @@ public class CompleteSection extends Model
 		END_TIME,
 		DAYS_PER_WEEK,
 		COURSE_LOCATION,
-		COLUMN_ABRV,
+		COURSE_ABRV,
 		NAME,
 		DEPT_ID,
 		COURSE_NUMBER,
@@ -57,7 +57,7 @@ public class CompleteSection extends Model
 		COLUMN_TYPE_MAP.put(Columns.END_TIME, JDBCType.INTEGER);
 		COLUMN_TYPE_MAP.put(Columns.DAYS_PER_WEEK, JDBCType.VARCHAR);
 		COLUMN_TYPE_MAP.put(Columns.COURSE_LOCATION, JDBCType.VARCHAR);
-		COLUMN_TYPE_MAP.put(Columns.COLUMN_ABRV, JDBCType.VARCHAR);
+		COLUMN_TYPE_MAP.put(Columns.COURSE_ABRV, JDBCType.VARCHAR);
 		COLUMN_TYPE_MAP.put(Columns.NAME, JDBCType.VARCHAR);
 		COLUMN_TYPE_MAP.put(Columns.DEPT_ID, JDBCType.INTEGER);
 		COLUMN_TYPE_MAP.put(Columns.COURSE_NUMBER, JDBCType.VARCHAR);
@@ -68,7 +68,7 @@ public class CompleteSection extends Model
 	// attributes
 	
 	private Integer id;
-	private String columnAbrv;
+	private String courseAbrv;
 	private String name;
 	private Integer deptId;
 	private String courseNum;
@@ -94,12 +94,12 @@ public class CompleteSection extends Model
 		this.sectionName = sectionName;
 	}
 
-	public String getColumnAbrv(){
-		return columnAbrv;
+	public String getCourseAbrv(){
+		return courseAbrv;
 	}
 	
-	public void setColumnAbrv(String columnAbrv){
-		this.columnAbrv = columnAbrv;
+	public void setCourseAbrv(String courseAbrv){
+		this.courseAbrv = courseAbrv;
 	}
 	
 	public Integer getExpectedPopulation() {
@@ -268,7 +268,7 @@ public class CompleteSection extends Model
 		result = prime * result + ((endTime == null) ? 0 : endTime.hashCode());
 		result = prime * result + ((expectedPopulation == null) ? 0 : expectedPopulation.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((columnAbrv == null) ? 0 : columnAbrv.hashCode());
+		result = prime * result + ((courseAbrv == null) ? 0 : courseAbrv.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((requiredFrequency == null) ? 0 : requiredFrequency.hashCode());
 		result = prime * result + ((sectionId == null) ? 0 : sectionId.hashCode());
@@ -361,10 +361,10 @@ public class CompleteSection extends Model
 				return false;
 		} else if (!startTime.equals(other.startTime))
 			return false;
-		if (columnAbrv == null) {
-			if (other.columnAbrv!= null)
+		if (courseAbrv == null) {
+			if (other.courseAbrv!= null)
 				return false;
-		} else if (!columnAbrv.equals(other.columnAbrv))
+		} else if (!courseAbrv.equals(other.courseAbrv))
 			return false;
 		return true;
 	}
@@ -372,7 +372,7 @@ public class CompleteSection extends Model
 
 	@Override
 	public String toString() {
-		return "CompleteSection [id=" + id + "column abbreviation=" + columnAbrv + ", name=" + name + ", deptId=" + deptId + ", courseNum=" + courseNum
+		return "CompleteSection [id=" + id + "course abbreviation=" + courseAbrv + ", name=" + name + ", deptId=" + deptId + ", courseNum=" + courseNum
 				+ ", sectionName=" + sectionName + ", expectedPopulation=" + expectedPopulation + ", requiredFrequency="
 				+ requiredFrequency + ", startTime=" + startTime + ", endTime=" + endTime + ", acadmicYear="
 				+ acadmicYear + ", academicTerm=" + academicTerm + ", daysPerWeek=" + daysPerWeek + ", courseLocation="
