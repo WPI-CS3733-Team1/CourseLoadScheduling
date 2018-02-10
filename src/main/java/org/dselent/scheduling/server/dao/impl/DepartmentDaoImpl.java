@@ -58,7 +58,7 @@ public class DepartmentDaoImpl extends BaseDaoImpl<Department> implements Depart
     	{
     		model.setId((Integer) keyMap.get(keyHolderColumnName));
     	}
-    	else if(keyHolderColumnName.equals(Department.getColumnName(Department.Columns.DEPARTMENT_ID)))
+    	else if(keyHolderColumnName.equals(Department.getColumnName(Department.Columns.DEPARTMENT_NAME)))
     	{
     		model.setDepartmentID((String) keyMap.get(keyHolderColumnName));
     	}
@@ -83,9 +83,9 @@ public class DepartmentDaoImpl extends BaseDaoImpl<Department> implements Depart
     	{
     		parameters.addValue(parameterName, model.getId());
     	}
-    	else if(insertColumnName.equals(Department.getColumnName(Department.Columns.DEPARTMENT_ID)))
+    	else if(insertColumnName.equals(Department.getColumnName(Department.Columns.DEPARTMENT_NAME)))
     	{
-    		parameters.addValue(parameterName, model.getDepartmentID());
+    		parameters.addValue(parameterName, model.getDepartmentName());
     	}
     	else
     	{
