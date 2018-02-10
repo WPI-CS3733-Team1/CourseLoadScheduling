@@ -40,6 +40,7 @@ public class QueryPathConstants
 	private static String SEARCH_USERS_PATH = BASE_QUERY_PATH + "SearchUsers" + SQL_EXTENSION;
 	private static String VIEW_INBOX_PATH = BASE_QUERY_PATH + "ViewInbox" + SQL_EXTENSION;
 	private static String VIEW_SCHEDULE_PATH = BASE_QUERY_PATH + "ViewSchedule" + SQL_EXTENSION;
+	private static String GET_COURSE_NAMES = BASE_QUERY_PATH + "get_course_label" + SQL_EXTENSION;
 			
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 	
@@ -63,6 +64,8 @@ public class QueryPathConstants
 	public static String SEARCH_USERS_QUERY = readFile(SEARCH_USERS_PATH);
 	public static String VIEW_INBOX_QUERY = readFile(VIEW_INBOX_PATH);
 	public static String GET_SCHEDULE_QUERY = readFile(VIEW_SCHEDULE_PATH);
+	public static String GET_COURSE_NAMES_QUERY = readFile(GET_COURSE_NAMES);
+	
 	
 	private QueryPathConstants()
 	{
