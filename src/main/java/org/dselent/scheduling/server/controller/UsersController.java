@@ -34,10 +34,10 @@ public interface UsersController
     public ResponseEntity<String> loginUser(@RequestBody Map<String, String> request) throws Exception;
 
     @RequestMapping(method=RequestMethod.POST, value=ResetPassword.REQUEST_NAME)
-    public ResponseEntity<String> resetPassword(@RequestBody Map<String, String> request) throws Exception;
+    public ResponseEntity<String> resetPasswordCT(@RequestBody Map<String, String> request) throws Exception;
     
     @RequestMapping(method=RequestMethod.POST, value=ResetPasswordEmail.REQUEST_NAME)
-    public ResponseEntity<String> resetPasswordEmail(@RequestBody Map<String, String> request) throws Exception;
+    public ResponseEntity<String> resetPasswordEmailCT(@RequestBody Map<String, String> request) throws Exception;
 
     @RequestMapping(method=RequestMethod.POST, value=ResolveMessage.REQUEST_NAME)
     public ResponseEntity<String> resolveMessage(@RequestBody Map<String, String> request) throws Exception;
