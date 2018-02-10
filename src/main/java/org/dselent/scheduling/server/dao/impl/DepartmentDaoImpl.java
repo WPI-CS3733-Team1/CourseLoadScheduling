@@ -24,7 +24,7 @@ public class DepartmentDaoImpl extends BaseDaoImpl<Department> implements Depart
 			throws SQLException {
 		
 		validateColumnNames(insertColumnNameList);
-		validateColumnNames(keyHolderColumnNameList);
+		validateColumnNames(keyHolderColumnNameList); 
 		
 		String queryTemplate = QueryStringBuilder.generateInsertString(Department.TABLE_NAME, insertColumnNameList);
 		MapSqlParameterSource parameters = new MapSqlParameterSource();
