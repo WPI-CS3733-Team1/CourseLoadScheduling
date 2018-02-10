@@ -6,14 +6,22 @@ import java.util.List;
 
 import org.dselent.scheduling.server.dao.CustomDao;
 import org.dselent.scheduling.server.dao.SectionsDao;
+import org.dselent.scheduling.server.dao.UsersSectionsLinksDao;
 import org.dselent.scheduling.server.dto.CreateCourseDto;
 import org.dselent.scheduling.server.dto.CreateSectionDto;
+import org.dselent.scheduling.server.miscellaneous.Pair;
 import org.dselent.scheduling.server.dao.CoursesDao;
-import org.dselent.scheduling.server.model.CompleteSection;
+import org.dselent.scheduling.server.model.UsersSectionsLink;
 import org.dselent.scheduling.server.model.Course;
+import org.dselent.scheduling.server.model.Message;
 import org.dselent.scheduling.server.model.Section;
 import org.dselent.scheduling.server.model.User;
+import org.dselent.scheduling.server.sqlutils.QueryTerm;
+import org.dselent.scheduling.server.sqlutils.ComparisonOperator;
 import org.dselent.scheduling.server.service.ScheduleService;
+import org.dselent.scheduling.server.sqlutils.ColumnOrder;
+import org.dselent.scheduling.server.sqlutils.ComparisonOperator;
+import org.dselent.scheduling.server.sqlutils.QueryTerm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +37,9 @@ public class ScheduleServiceImpl implements ScheduleService
 	
 	@Autowired
 	private SectionsDao sectionsDao;
+
+	@Autowired
+	private UsersSectionsLinksDao usersSectionsLinkDao;
 	
     public ScheduleServiceImpl()
     {
@@ -72,6 +83,53 @@ public class ScheduleServiceImpl implements ScheduleService
 		}
 
 		return outputCourses;
+	}
+	
+	@Override
+	public void confirmSchedule(String userName, List<String> removeSectionIdsList, List<String> addSectionIdsList) {
+		List<User> fetchedUser = customDao.getUser(userName);
+		Integer userID = fetchedUser.get(0).getId();
+		for(int i = 0; i < removeSectionIdsList.size(); i++) {
+			Integer id = Integer.parseInt(removeSectionIdsList.get(i));
+
+			String deleteColumnName = UsersSectionsLink.getColumnName(UsersSectionsLink.Columns.SECTION_ID);
+
+			List<QueryTerm> deleteQueryTermList = new ArrayList<>();
+
+			QueryTerm deleteUseNameTerm = new QueryTerm();
+			deleteUseNameTerm.setColumnName(deleteColumnName);
+			deleteUseNameTerm.setComparisonOperator(ComparisonOperator.EQUAL);
+			deleteUseNameTerm.setValue(id);
+			deleteQueryTermList.add(deleteUseNameTerm);
+			try {
+				usersSectionsLinkDao.delete(deleteQueryTermList);
+			} catch(SQLException e) {
+				
+			}
+		}
+
+		for(int i = 0; i < addSectionIdsList.size(); i++) {
+			Integer id = Integer.parseInt(addSectionIdsList.get(i));
+
+			UsersSectionsLink usersSectionsLink = new UsersSectionsLink();
+			usersSectionsLink.setUserId(userID);
+			usersSectionsLink.setSectionId(id);
+
+			List<String> insertColumnNameList = new ArrayList<>();
+			List<String> keyHolderColumnNameList = new ArrayList<>();
+
+			insertColumnNameList.add(UsersSectionsLink.getColumnName(UsersSectionsLink.Columns.USER_ID));
+			insertColumnNameList.add(UsersSectionsLink.getColumnName(UsersSectionsLink.Columns.SECTION_ID));
+
+			keyHolderColumnNameList.add(UsersSectionsLink.getColumnName(UsersSectionsLink.Columns.ID));
+			keyHolderColumnNameList.add(UsersSectionsLink.getColumnName(UsersSectionsLink.Columns.CREATED_AT));
+			keyHolderColumnNameList.add(UsersSectionsLink.getColumnName(UsersSectionsLink.Columns.UPDATED_AT));
+			try {
+				usersSectionsLinkDao.insert(usersSectionsLink, insertColumnNameList, keyHolderColumnNameList);
+			} catch(SQLException e) {
+				
+			}
+		}
 	}
 
 	@Override
@@ -139,6 +197,7 @@ public class ScheduleServiceImpl implements ScheduleService
 		return course;
 		
 	}
+
 
 
 }
