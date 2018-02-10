@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.dselent.scheduling.server.dao.CustomDao;
+import org.dselent.scheduling.server.dao.DepartmentsDao;
 import org.dselent.scheduling.server.dao.MessagesDao;
 import org.dselent.scheduling.server.dao.UsersDao;
 import org.dselent.scheduling.server.dao.UsersRolesLinksDao;
@@ -12,6 +13,7 @@ import org.dselent.scheduling.server.dto.RegisterUserDto;
 import org.dselent.scheduling.server.miscellaneous.Pair;
 import org.dselent.scheduling.server.model.User;
 import org.dselent.scheduling.server.model.UsersRolesLink;
+import org.dselent.scheduling.server.model.Department;
 import org.dselent.scheduling.server.model.Message;
 import org.dselent.scheduling.server.model.SidebarInfo;
 import org.dselent.scheduling.server.service.UserService;
@@ -40,6 +42,9 @@ public class UserServiceImpl implements UserService
 	
 	@Autowired
 	private UsersRolesLinksDao usersRolesLinksDao;
+	
+	@Autowired
+	private DepartmentsDao departmentsDao;
 	
     public UserServiceImpl()
     {
@@ -226,6 +231,7 @@ public class UserServiceImpl implements UserService
 		// Determine how to cause an event to send an email to the given email
 		
 	}
+	
 	@Override
 	public void resolveMessage(String administratorUsername, Integer messageId) {
 
@@ -377,6 +383,7 @@ public class UserServiceImpl implements UserService
 
 	@Override
 	public SidebarInfo getSidebarInfo(String username) {
+		//this function is disgusting and needs to be revised but it should work
 		
 		List<User> users = customDao.getUser(username);
 		User user = users.get(0);
@@ -392,6 +399,35 @@ public class UserServiceImpl implements UserService
 		//make select from department_id
 		//info.setDepartment();
 		
+		String selectColumnName = Department.getColumnName(Department.Columns.DEPARTMENT_NAME);
+    	String selectDeptID = ""+user.getId(); //sorry professor :/
+    	
+    	List<QueryTerm> selectQueryTermList = new ArrayList<>();
+    	
+    	QueryTerm selectUseNameTerm = new QueryTerm();
+    	selectUseNameTerm.setColumnName(selectColumnName);
+    	selectUseNameTerm.setComparisonOperator(ComparisonOperator.EQUAL);
+    	selectUseNameTerm.setValue(selectDeptID);
+    	selectQueryTermList.add(selectUseNameTerm);
+    	
+    	List<String> selectColumnNameList = Department.getColumnNameList();
+    	
+    	List<Pair<String, ColumnOrder>> orderByList = new ArrayList<>();
+    	Pair<String, ColumnOrder> orderPair1 = new Pair<String, ColumnOrder>(selectColumnName, ColumnOrder.ASC);
+    	orderByList.add(orderPair1);
+    	
+    	List<Department> selectedDeptList = null;
+    	
+		try {
+			selectedDeptList = departmentsDao.select(selectColumnNameList, selectQueryTermList, orderByList);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+		Department department = selectedDeptList.get(0);
+		
+		info.setDepartmentName(department.getDepartmentName());
 		
 		info.setEmail(user.getEmail());
 		
@@ -402,4 +438,6 @@ public class UserServiceImpl implements UserService
 		
 		return info;
 	}
+
+	
 }
