@@ -24,8 +24,8 @@ public class SidebarInfo {
 			FIRST_NAME,
 			LAST_NAME,
 			EMAIL,	
-			USER_ROLE,
-			DEPARTMENT,
+			ROLE_NAME,
+			DEPARTMENT_NAME,
 			CREATED_AT,
 			UPDATED_AT
 		}
@@ -47,8 +47,9 @@ public class SidebarInfo {
 			COLUMN_TYPE_MAP.put(Columns.USER_NAME, JDBCType.VARCHAR);
 			COLUMN_TYPE_MAP.put(Columns.FIRST_NAME, JDBCType.VARCHAR);
 			COLUMN_TYPE_MAP.put(Columns.LAST_NAME, JDBCType.VARCHAR);
-			COLUMN_TYPE_MAP.put(Columns.USER_ROLE, JDBCType.VARCHAR);
-			COLUMN_TYPE_MAP.put(Columns.DEPARTMENT, JDBCType.VARCHAR);
+			COLUMN_TYPE_MAP.put(Columns.EMAIL, JDBCType.VARCHAR);
+			COLUMN_TYPE_MAP.put(Columns.ROLE_NAME, JDBCType.VARCHAR);
+			COLUMN_TYPE_MAP.put(Columns.DEPARTMENT_NAME, JDBCType.VARCHAR);
 			COLUMN_TYPE_MAP.put(Columns.CREATED_AT, JDBCType.TIMESTAMP_WITH_TIMEZONE);
 			COLUMN_TYPE_MAP.put(Columns.UPDATED_AT, JDBCType.TIMESTAMP_WITH_TIMEZONE);
 		};
@@ -60,10 +61,11 @@ public class SidebarInfo {
 		private String firstName;
 		private String lastName;
 		private String email;
-		private String userRole;
-		private String department;
+		private String roleName;
+		private String departmentName;
 		private Instant createdAt;
 		private Instant updatedAt;
+		private List<String> courses;
 
 		// methods
 			
@@ -88,128 +90,116 @@ public class SidebarInfo {
 			
 			return columnNameList;
 		}
-		
-		//
-		
-		public Integer getId()
-		{
+
+		public Integer getId() {
 			return id;
 		}
 
-		public void setId(Integer id)
-		{
+		public void setId(Integer id) {
 			this.id = id;
 		}
 
-		public String getUserName()
-		{
+		public String getUserName() {
 			return userName;
 		}
 
-		public void setUserName(String userName)
-		{
+		public void setUserName(String userName) {
 			this.userName = userName;
 		}
 
-		public String getFirstName()
-		{
+		public String getFirstName() {
 			return firstName;
 		}
 
-		public void setFirstName(String firstName)
-		{
+		public void setFirstName(String firstName) {
 			this.firstName = firstName;
 		}
 
-		public String getLastName()
-		{
+		public String getLastName() {
 			return lastName;
 		}
 
-		public void setLastName(String lastName)
-		{
+		public void setLastName(String lastName) {
 			this.lastName = lastName;
 		}
 
-		public String getEmail()
-		{
+		public String getEmail() {
 			return email;
 		}
 
-		public void setEmail(String email)
-		{
+		public void setEmail(String email) {
 			this.email = email;
 		}
 
-		public String getUserRole() {
-			return userRole;
+		public String getRoleName() {
+			return roleName;
 		}
 
-		public void setUserRole(String userRole) {
-			this.userRole = userRole;
-		}
-		
-		public String getDepartment() {
-			return department;
+		public void setRoleName(String roleName) {
+			this.roleName = roleName;
 		}
 
-		public void setDepartment(String department) {
-			this.department = department;
+		public String getDepartmentName() {
+			return departmentName;
 		}
-		
-		public Instant getCreatedAt()
-		{
+
+		public void setDepartmentName(String departmentName) {
+			this.departmentName = departmentName;
+		}
+
+		public Instant getCreatedAt() {
 			return createdAt;
 		}
 
-		public void setCreatedAt(Instant createdAt)
-		{
+		public void setCreatedAt(Instant createdAt) {
 			this.createdAt = createdAt;
 		}
-		
-		public void setCreatedAt(Timestamp createdAt)
-		{
-			if(createdAt != null)
-			{
-				this.createdAt = createdAt.toInstant();
-			}
-		}
 
-		public Instant getUpdatedAt()
-		{
+		public Instant getUpdatedAt() {
 			return updatedAt;
 		}
 
-		public void setUpdatedAt(Instant updatedAt)
-		{
+		public void setUpdatedAt(Instant updatedAt) {
 			this.updatedAt = updatedAt;
 		}
-		
-		public void setUpdatedAt(Timestamp updatedAt)
-		{
-			if(updatedAt != null)
-			{
-				this.updatedAt = updatedAt.toInstant();
-			}
+
+		public List<String> getCourses() {
+			return courses;
+		}
+
+		public void setCourses(List<String> courses) {
+			this.courses = courses;
+		}
+
+		public static String getTableName() {
+			return TABLE_NAME;
+		}
+
+		public static List<Columns> getColumnList() {
+			return COLUMN_LIST;
+		}
+
+		public static Map<Columns, JDBCType> getColumnTypeMap() {
+			return COLUMN_TYPE_MAP;
 		}
 
 		@Override
 		public int hashCode() {
 			final int prime = 31;
 			int result = 1;
+			result = prime * result + ((courses == null) ? 0 : courses.hashCode());
 			result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
+			result = prime * result + ((departmentName == null) ? 0 : departmentName.hashCode());
 			result = prime * result + ((email == null) ? 0 : email.hashCode());
-			result = prime * result + ((userRole == null) ? 0 : userRole.hashCode());
 			result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 			result = prime * result + ((id == null) ? 0 : id.hashCode());
 			result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
-			result = prime * result + ((department == null) ? 0 : department.hashCode());
+			result = prime * result + ((roleName == null) ? 0 : roleName.hashCode());
 			result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
 			result = prime * result + ((userName == null) ? 0 : userName.hashCode());
 			return result;
 		}
 
-		/*
 		@Override
 		public boolean equals(Object obj) {
 			if (this == obj)
@@ -218,26 +208,26 @@ public class SidebarInfo {
 				return false;
 			if (getClass() != obj.getClass())
 				return false;
-			User other = (User) obj;
+			SidebarInfo other = (SidebarInfo) obj;
+			if (courses == null) {
+				if (other.courses != null)
+					return false;
+			} else if (!courses.equals(other.courses))
+				return false;
 			if (createdAt == null) {
 				if (other.createdAt != null)
 					return false;
 			} else if (!createdAt.equals(other.createdAt))
 				return false;
-			if (deptId == null) {
-				if (other.deptId != null)
+			if (departmentName == null) {
+				if (other.departmentName != null)
 					return false;
-			} else if (!deptId.equals(other.deptId))
+			} else if (!departmentName.equals(other.departmentName))
 				return false;
 			if (email == null) {
 				if (other.email != null)
 					return false;
 			} else if (!email.equals(other.email))
-				return false;
-			if (encryptedPassword == null) {
-				if (other.encryptedPassword != null)
-					return false;
-			} else if (!encryptedPassword.equals(other.encryptedPassword))
 				return false;
 			if (firstName == null) {
 				if (other.firstName != null)
@@ -254,10 +244,10 @@ public class SidebarInfo {
 					return false;
 			} else if (!lastName.equals(other.lastName))
 				return false;
-			if (salt == null) {
-				if (other.salt != null)
+			if (roleName == null) {
+				if (other.roleName != null)
 					return false;
-			} else if (!salt.equals(other.salt))
+			} else if (!roleName.equals(other.roleName))
 				return false;
 			if (updatedAt == null) {
 				if (other.updatedAt != null)
@@ -269,19 +259,16 @@ public class SidebarInfo {
 					return false;
 			} else if (!userName.equals(other.userName))
 				return false;
-			if (userStateId == null) {
-				if (other.userStateId != null)
-					return false;
-			} else if (!userStateId.equals(other.userStateId))
-				return false;
 			return true;
 		}
 
 		@Override
 		public String toString() {
-			return "User [id=" + id + ", userName=" + userName + ", firstName=" + firstName + ", lastName=" + lastName
-					+ ", email=" + email + ", encryptedPassword=" + encryptedPassword + ", salt=" + salt + ", userStateId="
-					+ userStateId + ", deptId=" + deptId + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
+			return "SidebarInfo [id=" + id + ", userName=" + userName + ", firstName=" + firstName + ", lastName="
+					+ lastName + ", email=" + email + ", roleName=" + roleName + ", departmentName=" + departmentName
+					+ ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", courses=" + courses + "]";
 		}
-		*/
+		
+		//
+
 }
