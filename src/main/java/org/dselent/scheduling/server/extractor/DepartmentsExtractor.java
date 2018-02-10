@@ -25,7 +25,7 @@ public class DepartmentsExtractor extends Extractor<List<Department>> {
 				{
 					result.setId(null);
 				}
-				result.setDepartmentID(rs.getString(Department.getColumnName(Department.Columns.DEPARTMENT_ID)));
+				result.setDepartmentID(rs.getString(Department.getColumnName(Department.Columns.DEPARTMENT_NAME)));
 				
 				if(rs.wasNull())
 				{
