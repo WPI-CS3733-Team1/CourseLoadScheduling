@@ -109,7 +109,7 @@ public class UsersControllerImpl implements UsersController
 	}
 	
 	@Override
-	public ResponseEntity<String> resetPassword(Map<String, String> request) throws Exception {
+	public ResponseEntity<String> resetPasswordCT(Map<String, String> request) throws Exception {
 		
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
@@ -119,13 +119,14 @@ public class UsersControllerImpl implements UsersController
 		
 		//method to replace "username" 's password with "newPassword", DTO required?
 		
+		userService.resetPasswordSV(username, newPassword);
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 		
 		return new ResponseEntity<String>(response, HttpStatus.OK);
 	}
 	
 	@Override
-	public ResponseEntity<String> resetPasswordEmail(Map<String, String> request) throws Exception {
+	public ResponseEntity<String> resetPasswordEmailCT(Map<String, String> request) throws Exception {
 		
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
@@ -133,10 +134,9 @@ public class UsersControllerImpl implements UsersController
 		String username = request.get(ResetPasswordEmail.getBodyName(ResetPasswordEmail.BodyKey.USER_NAME));
 		String email = request.get(ResetPasswordEmail.getBodyName(ResetPasswordEmail.BodyKey.EMAIL));
 		
-		//method to send an email to "email" with link to reset page, DTO Required?
-		//also not likely doing this anymore but I wasn't solid on what we wanted to do
-		//and I need to change the name - Alex
+		//need to figure out how to cause an event to send an email to the given email address
 		
+		userService.resetPasswordEmailSV(username, email);
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 		
 		return new ResponseEntity<String>(response, HttpStatus.OK);

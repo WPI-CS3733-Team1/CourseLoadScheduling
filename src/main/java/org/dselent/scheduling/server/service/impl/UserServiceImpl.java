@@ -195,7 +195,7 @@ public class UserServiceImpl implements UserService
 		return selectedMessage.get(0);
 	} 
 	
-	public void resetPassword(String userName, String newPassword) {
+	public void resetPasswordSV(String userName, String newPassword) {
 		
 		String selectColumnName = User.getColumnName(User.Columns.USER_NAME);
 		String updateColumnName = User.getColumnName(User.Columns.ENCRYPTED_PASSWORD);
@@ -217,8 +217,8 @@ public class UserServiceImpl implements UserService
 	}
 
 	@Override
-	public void resetPasswordEmail(String userName, String email) {
-		// Fill in when proper method has been determined. -Alex
+	public void resetPasswordEmailSV(String userName, String email) {
+		// Determine how to cause an event to send an email to the given email
 		
 	}
 	@Override
