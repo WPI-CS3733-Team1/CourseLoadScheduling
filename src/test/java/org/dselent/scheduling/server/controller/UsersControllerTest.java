@@ -1,7 +1,6 @@
 package org.dselent.scheduling.server.controller;
 
 import org.dselent.scheduling.server.config.AppConfig;
-import org.dselent.scheduling.server.requests.ConfirmSchedule;
 import org.dselent.scheduling.server.requests.Register;
 import org.json.JSONObject;
 import org.junit.Before;
@@ -18,9 +17,6 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)

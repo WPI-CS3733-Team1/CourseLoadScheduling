@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.dselent.scheduling.server.dto.CreateCourseDto;
 import org.dselent.scheduling.server.dto.CreateSectionDto;
-import org.dselent.scheduling.server.model.CompleteSection;
 import org.dselent.scheduling.server.model.Course;
 import org.dselent.scheduling.server.model.Section;
 import org.springframework.stereotype.Service;

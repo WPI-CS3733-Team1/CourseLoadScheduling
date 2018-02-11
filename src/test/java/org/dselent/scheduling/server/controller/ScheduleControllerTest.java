@@ -5,8 +5,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.dselent.scheduling.server.config.AppConfig;
 import org.dselent.scheduling.server.requests.CreateSection;
-import org.dselent.scheduling.server.requests.GetCompleteSection;
-import org.dselent.scheduling.server.requests.Register;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,7 +32,7 @@ public class ScheduleControllerTest {
 	public void setup()
 	{
 		// initializes controllers and dependencies
-	    //this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
+	    this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
 	}
 	
 	/*

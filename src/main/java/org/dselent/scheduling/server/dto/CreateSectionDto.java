@@ -2,8 +2,6 @@ package org.dselent.scheduling.server.dto;
 
 import javax.annotation.Generated;
 
-import org.dselent.scheduling.server.dto.RegisterUserDto.Builder;
-
 
 /**
  * Data Transfer Object used to bundle parameters when 

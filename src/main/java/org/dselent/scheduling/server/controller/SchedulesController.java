@@ -7,7 +7,6 @@ import org.dselent.scheduling.server.requests.GetCourses;
 import org.dselent.scheduling.server.requests.CreateSection;
 import org.dselent.scheduling.server.requests.ConfirmSchedule;
 import org.dselent.scheduling.server.requests.GetSchedule;
-import org.dselent.scheduling.server.requests.GetCompleteSection;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

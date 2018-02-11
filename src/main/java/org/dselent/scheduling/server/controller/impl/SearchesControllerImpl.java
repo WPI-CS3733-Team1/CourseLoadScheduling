@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.dselent.scheduling.server.controller.SearchesController;
-import org.dselent.scheduling.server.requests.Register;
 import org.dselent.scheduling.server.requests.Search;
 import org.springframework.http.ResponseEntity;
 
