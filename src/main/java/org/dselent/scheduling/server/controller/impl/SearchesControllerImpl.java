@@ -7,11 +7,12 @@ import java.util.Map;
 import org.dselent.scheduling.server.controller.SearchesController;
 import org.dselent.scheduling.server.requests.Search;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 
 public class SearchesControllerImpl implements SearchesController {
 
 	@Override
-	public ResponseEntity<String> search(Map<String, String> request) throws Exception {
+	public ResponseEntity<String> search(@RequestBody Map<String, String> request) throws Exception {
 		//code
 		
 		System.out.println("[Search] search request method reached.");

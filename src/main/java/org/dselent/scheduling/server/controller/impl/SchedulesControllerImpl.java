@@ -120,7 +120,7 @@ public class SchedulesControllerImpl implements SchedulesController {
 	}
 
 	@Override
-	public ResponseEntity<String> createCourse(Map<String, String> request) throws Exception {
+	public ResponseEntity<String> createCourse(@RequestBody Map<String, String> request) throws Exception {
 		// Print is for testing purposes
 		System.out.println("Schedule controller reached; create section being called");
 		String response = "";
