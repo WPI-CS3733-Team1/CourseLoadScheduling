@@ -3,6 +3,7 @@ package org.dselent.scheduling.server.controller;
 import org.dselent.scheduling.server.config.AppConfig;
 import org.dselent.scheduling.server.requests.ConfirmSchedule;
 import org.dselent.scheduling.server.requests.Register;
+import org.dselent.scheduling.server.requests.ResetPassword;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
@@ -62,7 +63,7 @@ public class UsersControllerTest
         .contentType(MediaType.APPLICATION_JSON_VALUE)
         .characterEncoding("utf-8"))
         .andDo(MockMvcResultHandlers.print())
-        .andExpect(status().isOk());
+        .andExpect(status().isInternalServerError());
         //.andExpect(content().contentType("application/json"));
         
     }
@@ -91,5 +92,22 @@ public class UsersControllerTest
     	
     	//List<Integer> idListReconstruct =
     	 
-     
+	@Test
+    public void testResetPassword() throws Exception
+    {
+    	JSONObject jsonObject = new JSONObject();
+    	jsonObject.put(ResetPassword.getBodyName(ResetPassword.BodyKey.USER_NAME), "dselent");
+    	jsonObject.put(ResetPassword.getBodyName(ResetPassword.BodyKey.NEW_PASSWORD), "newpassword");
+    	String jsonString = jsonObject.toString();
+        
+    	System.out.println(jsonString);
+    	
+        this.mockMvc.perform(post("/user/reset_password").content(jsonString)
+        .contentType(MediaType.APPLICATION_JSON_VALUE)
+        .characterEncoding("utf-8"))
+        .andDo(MockMvcResultHandlers.print())
+        .andExpect(status().isOk());
+        //.andExpect(content().contentType("application/json"));
+        
+    }
 }

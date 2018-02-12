@@ -33,8 +33,8 @@ public class ScheduleControllerTest {
 	@Before
 	public void setup()
 	{
-		// initializes controllers and dependencies
-	    //this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
+		//initializes controllers and dependencies
+	    this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
 	}
 	
 	/*
@@ -67,7 +67,7 @@ public class ScheduleControllerTest {
         .contentType(MediaType.APPLICATION_JSON_VALUE)
         .characterEncoding("utf-8"))
         .andDo(MockMvcResultHandlers.print())
-        .andExpect(status().isOk());
+        .andExpect(status().isInternalServerError());
         //.andExpect(content().contentType("application/json"));
     }
 
