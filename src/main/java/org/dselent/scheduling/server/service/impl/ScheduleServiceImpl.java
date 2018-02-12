@@ -84,6 +84,7 @@ public class ScheduleServiceImpl implements ScheduleService
 	public void confirmSchedule(String userName, List<String> removeSectionIdsList, List<String> addSectionIdsList) {
 		List<User> fetchedUser = customDao.getUser(userName);
 		Integer userID = fetchedUser.get(0).getId();
+		
 		for(int i = 0; i < removeSectionIdsList.size(); i++) {
 			Integer id = Integer.parseInt(removeSectionIdsList.get(i));
 
