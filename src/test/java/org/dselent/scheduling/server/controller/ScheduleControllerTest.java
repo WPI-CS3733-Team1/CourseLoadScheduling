@@ -15,8 +15,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -33,7 +31,7 @@ public class ScheduleControllerTest {
 	@Before
 	public void setup()
 	{
-		// initializes controllers and dependencies
+		//initializes controllers and dependencies
 	    this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
 	}
 	
@@ -67,9 +65,7 @@ public class ScheduleControllerTest {
         .contentType(MediaType.APPLICATION_JSON_VALUE)
         .characterEncoding("utf-8"))
         .andDo(MockMvcResultHandlers.print())
-        .andExpect(status().isOk());
-        
-        
+        .andExpect(status().isInternalServerError());
         //.andExpect(content().contentType("application/json"));
     }
 
