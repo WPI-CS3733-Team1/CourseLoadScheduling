@@ -35,6 +35,7 @@ public class ScheduleChangeRequest
 	{
 		USER_NAME,
 		MESSAGE,
+		USER_ID,
 		DEPT_ID;
 	}
 	

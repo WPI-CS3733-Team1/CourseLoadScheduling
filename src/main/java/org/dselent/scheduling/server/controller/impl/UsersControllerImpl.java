@@ -106,9 +106,10 @@ public class UsersControllerImpl implements UsersController
 		String messageAuthor = request.get(ScheduleChangeRequest.getBodyName(ScheduleChangeRequest.BodyKey.USER_NAME));
 		String messageContent = request.get(ScheduleChangeRequest.getBodyName(ScheduleChangeRequest.BodyKey.MESSAGE));
 		String dept_id = request.get(ScheduleChangeRequest.getBodyName(ScheduleChangeRequest.BodyKey.DEPT_ID));
+		String user_id = request.get(ScheduleChangeRequest.getBodyName(ScheduleChangeRequest.BodyKey.USER_ID));
 		
 		//method call to service layer to push message, no DTO required.
-		userService.addMessage(messageAuthor, messageContent, (Integer.parseInt(dept_id)));
+		userService.addMessage(user_id, messageAuthor, messageContent, (Integer.parseInt(dept_id)));
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 		
 		return new ResponseEntity<String>(response, HttpStatus.OK);

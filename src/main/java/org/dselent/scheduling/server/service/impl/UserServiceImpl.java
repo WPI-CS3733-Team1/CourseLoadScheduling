@@ -145,12 +145,13 @@ public class UserServiceImpl implements UserService
 	}
 
 	@Override
-	public void addMessage(String author, String content, Integer deptID) {
+	public void addMessage(String user_id, String author, String content, Integer deptID) {
 		// TODO Auto-generated method stub
 		Message message = new Message();
 		message.setAuthorUserName(author);
 		message.setMessage(content);
 		message.setDeptId(deptID);
+		message.setUserId(Integer.parseInt(user_id));
 		
 		List<String> insertColumnNameList = new ArrayList<>();
 		List<String> keyHolderColumnNameList = new ArrayList<>();
@@ -158,10 +159,12 @@ public class UserServiceImpl implements UserService
 		insertColumnNameList.add(Message.getColumnName(Message.Columns.AUTHOR_USER_NAME));
 		insertColumnNameList.add(Message.getColumnName(Message.Columns.MESSAGE));
 		insertColumnNameList.add(Message.getColumnName(Message.Columns.DEPT_ID));
+		insertColumnNameList.add(Message.getColumnName(Message.Columns.USER_ID));
 		
 		keyHolderColumnNameList.add(Message.getColumnName(Message.Columns.ID));
 		keyHolderColumnNameList.add(Message.getColumnName(Message.Columns.RECEIVED_AT));
 		keyHolderColumnNameList.add(Message.getColumnName(Message.Columns.RESOLVED));
+		
 		
 		try {
 			messagesDao.insert(message, insertColumnNameList, keyHolderColumnNameList);
