@@ -1,3 +1,3 @@
 SELECT * FROM users 
-WHERE user_name =: userName;
+WHERE user_name = :userName;
 

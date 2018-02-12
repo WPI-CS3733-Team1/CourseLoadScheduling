@@ -103,7 +103,7 @@ public class CustomDaoImpl implements CustomDao
 		return sectionsInAcademicYearList;
 	}
 
-	@Override
+	@Override //ex. MTRF 
 	public List<CompleteSection> getSectionsWithReqFreq(int reqFreq)
 	{
 		CompleteSectionsExtractor extractor = new CompleteSectionsExtractor();

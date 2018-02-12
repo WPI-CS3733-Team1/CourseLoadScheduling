@@ -26,7 +26,6 @@ import org.springframework.security.crypto.keygen.KeyGenerators;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.dselent.scheduling.server.dao.impl.*;
 
 @Service
 public class UserServiceImpl implements UserService
@@ -175,7 +174,6 @@ public class UserServiceImpl implements UserService
 
 	@Override
 	public Message getMessage(Integer messageID) {
-		Message message = new Message();
 		String selectColumnName = Message.getColumnName(Message.Columns.ID);
 		
 		List<QueryTerm> selectQueryTermList = new ArrayList<>();

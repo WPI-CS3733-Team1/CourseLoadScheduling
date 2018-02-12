@@ -7,13 +7,9 @@ import java.util.Map;
 import org.dselent.scheduling.server.controller.SchedulesController;
 import org.dselent.scheduling.server.miscellaneous.JsonResponseCreator;
 import org.dselent.scheduling.server.requests.CreateCourse;
-import org.dselent.scheduling.server.requests.Login;
-import org.dselent.scheduling.server.requests.GetCompleteSection;
 import org.dselent.scheduling.server.dto.CreateCourseDto;
 import org.dselent.scheduling.server.dto.CreateSectionDto;
 import org.dselent.scheduling.server.service.ScheduleService;
-import org.dselent.scheduling.server.miscellaneous.JsonResponseCreator;
-import org.dselent.scheduling.server.model.CompleteSection;
 import org.dselent.scheduling.server.model.Course;
 import org.dselent.scheduling.server.requests.GetCourses;
 import org.dselent.scheduling.server.requests.ConfirmSchedule;
@@ -89,7 +85,7 @@ public class SchedulesControllerImpl implements SchedulesController {
 				List<Object> success = new ArrayList<Object>();
 				System.out.println(CreateSection.getBodyName(CreateSection.BodyKey.COURSE_ID));;
 				String courseId = request.get(CreateSection.getBodyName(CreateSection.BodyKey.COURSE_ID));
-				String cRN = request.get(CreateSection.getBodyName(CreateSection.BodyKey.CRN));
+				String crn = request.get(CreateSection.getBodyName(CreateSection.BodyKey.CRN));
 				String sectionName = request.get(CreateSection.getBodyName(CreateSection.BodyKey.SECTION_NAME));
 				String sectionId = request.get(CreateSection.getBodyName(CreateSection.BodyKey.SECTION_ID));
 				String expectedPopulation = request.get(CreateSection.getBodyName(CreateSection.BodyKey.EXPECTED_POP));
@@ -104,7 +100,7 @@ public class SchedulesControllerImpl implements SchedulesController {
 				
 				CreateSectionDto.Builder builder = CreateSectionDto.builder();
 				CreateSectionDto createSectionDto = builder.withCourseId(courseId)
-				.withCRN(cRN)
+				.withCRN(crn)
 				.withSectionName(sectionName)
 				.withSectionId(sectionId)
 				.withExpectedPopulation(expectedPopulation)
@@ -124,7 +120,7 @@ public class SchedulesControllerImpl implements SchedulesController {
 	}
 
 	@Override
-	public ResponseEntity<String> createCourse(Map<String, String> request) throws Exception {
+	public ResponseEntity<String> createCourse(@RequestBody Map<String, String> request) throws Exception {
 		// Print is for testing purposes
 		System.out.println("Schedule controller reached; create section being called");
 		String response = "";

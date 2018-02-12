@@ -5,14 +5,24 @@ import java.util.List;
 import java.util.Map;
 
 import org.dselent.scheduling.server.controller.SearchesController;
-import org.dselent.scheduling.server.requests.Register;
+import org.dselent.scheduling.server.miscellaneous.JsonResponseCreator;
+import org.dselent.scheduling.server.model.Course;
+import org.dselent.scheduling.server.model.User;
 import org.dselent.scheduling.server.requests.Search;
+import org.dselent.scheduling.server.service.SearchService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 
 public class SearchesControllerImpl implements SearchesController {
 
+	@Autowired
+	private SearchService searchService;
+	
+	
 	@Override
-	public ResponseEntity<String> search(Map<String, String> request) throws Exception {
+	public ResponseEntity<String> search(@RequestBody Map<String, String> request) throws Exception {
 		//code
 		
 		System.out.println("[Search] search request method reached.");
@@ -26,25 +36,21 @@ public class SearchesControllerImpl implements SearchesController {
 		String keyValue = request.get(Search.getBodyName(Search.BodyKey.KEY_VALUE));
 		
 		switch(searchType) {
-			case "username":
+			case "users":
 			//method in search service layer
+				//method for users with matching dept id
+				List<User> users = searchService.searchFaculty(keyValue);
+				success.add(users);
 				break;
-			case "email":
-				//different method/different parameter
-				break;
-			case "crn":
-				break;
-			case "sectionID":
-				break;
-			case "department":
-				break;
-			case "time":
-				break;
-			case "term":
+			case "courses":
+				List<Course> courses = searchService.searchCourse(keyValue);
+				success.add(courses);
 				break;
 		}
 		
-		return null;
+		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
+		
+		return new ResponseEntity<String>(response, HttpStatus.OK);
 	}
 
 	

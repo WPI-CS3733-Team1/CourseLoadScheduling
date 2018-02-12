@@ -1,4 +1,0 @@
-database_url=jdbc:postgresql://localhost/Assignment2
-database_user=postgres
-database_password=Ave70731#
-database_driver=org.postgresql.Driver

@@ -97,7 +97,7 @@ public class UsersControllerImpl implements UsersController
 	}
 
 	@Override
-	public ResponseEntity<String> requestScheduleChange(Map<String, String> request) throws Exception {
+	public ResponseEntity<String> requestScheduleChange(@RequestBody Map<String, String> request) throws Exception {
 		
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
@@ -115,7 +115,7 @@ public class UsersControllerImpl implements UsersController
 	}
 	
 	@Override
-	public ResponseEntity<String> resetPasswordCT(Map<String, String> request) throws Exception {
+	public ResponseEntity<String> resetPasswordCT(@RequestBody Map<String, String> request) throws Exception {
 		
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
@@ -132,7 +132,7 @@ public class UsersControllerImpl implements UsersController
 	}
 	
 	@Override
-	public ResponseEntity<String> resetPasswordEmailCT(Map<String, String> request) throws Exception {
+	public ResponseEntity<String> resetPasswordEmailCT(@RequestBody Map<String, String> request) throws Exception {
 		
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
@@ -149,7 +149,7 @@ public class UsersControllerImpl implements UsersController
 	}
 
 	@Override
-	public ResponseEntity<String> getSidebarInfo(Map<String, String> request) throws Exception {
+	public ResponseEntity<String> getSidebarInfo(@RequestBody Map<String, String> request) throws Exception {
 		
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
@@ -165,7 +165,7 @@ public class UsersControllerImpl implements UsersController
 	}
 
 	@Override
-	public ResponseEntity<String> loginUser(Map<String, String> request) throws Exception {
+	public ResponseEntity<String> loginUser(@RequestBody Map<String, String> request) throws Exception {
 		// TODO Auto-generated method stub
 		String response = "";
  		List<Object> success = new ArrayList<Object>();
@@ -180,7 +180,7 @@ public class UsersControllerImpl implements UsersController
 	}
 
 	@Override
-	public ResponseEntity<String> resolveMessage(Map<String, String> request) throws Exception {
+	public ResponseEntity<String> resolveMessage(@RequestBody Map<String, String> request) throws Exception {
 		String response = "";
 			List<Object> success = new ArrayList<Object>();
 		
@@ -196,7 +196,7 @@ public class UsersControllerImpl implements UsersController
 	}
 
 	@Override
-	public ResponseEntity<String> createAdmin(Map<String, String> request) throws Exception {
+	public ResponseEntity<String> createAdmin(@RequestBody Map<String, String> request) throws Exception {
 			String response = "";
 			List<Object> success = new ArrayList<Object>();
 			
@@ -211,7 +211,7 @@ public class UsersControllerImpl implements UsersController
 	}
 
 	@Override
-	public ResponseEntity<String> getInbox(Map<String, String> request) throws Exception {
+	public ResponseEntity<String> getInbox(@RequestBody Map<String, String> request) throws Exception {
 
 			String response = "";
 			List<Object> success = new ArrayList<Object>();

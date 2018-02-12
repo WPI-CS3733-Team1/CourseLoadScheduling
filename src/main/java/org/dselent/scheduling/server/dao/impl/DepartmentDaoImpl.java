@@ -18,7 +18,6 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-
 @Repository
 public class DepartmentDaoImpl extends BaseDaoImpl<Department> implements DepartmentsDao{
 
