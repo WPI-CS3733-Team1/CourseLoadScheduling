@@ -42,7 +42,7 @@ public class SearchServiceImpl implements SearchService {
     	QueryTerm selectDeptIDTerm = new QueryTerm();
     	selectDeptIDTerm.setColumnName(selectColumnName);
     	selectDeptIDTerm.setComparisonOperator(ComparisonOperator.EQUAL);
-    	selectDeptIDTerm.setValue(selectDeptID);
+    	selectDeptIDTerm.setValue(Integer.parseInt(selectDeptID));
     	selectQueryTermList.add(selectDeptIDTerm);
     	
     	List<String> selectColumnNameList = User.getColumnNameList();
