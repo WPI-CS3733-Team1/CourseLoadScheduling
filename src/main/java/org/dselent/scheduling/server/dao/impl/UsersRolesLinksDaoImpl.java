@@ -32,7 +32,7 @@ public class UsersRolesLinksDaoImpl extends BaseDaoImpl<UsersRolesLink> implemen
 	    MapSqlParameterSource parameters = new MapSqlParameterSource();
 	    
 	    List<Map<String, Object>> keyList = new ArrayList<>();
-	    KeyHolder keyHolder = new GeneratedKeyHolder(keyList);
+	    KeyHolder keyHolder = new GeneratedKeyHolder(keyList); //empty keyholder list????
 	    
 	    for(String insertColumnName : insertColumnNameList)
 	    {

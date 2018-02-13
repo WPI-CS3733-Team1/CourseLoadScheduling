@@ -96,13 +96,15 @@ public class UserServiceImpl implements UserService
     	userKeyHolderColumnNameList.add(User.getColumnName(User.Columns.CREATED_AT));
     	userKeyHolderColumnNameList.add(User.getColumnName(User.Columns.UPDATED_AT));
 		
+    	System.out.println("[UserService] Register() inserting into users table.");
     	rowsAffectedList.add(usersDao.insert(user, userInsertColumnNameList, userKeyHolderColumnNameList));
 
 		//
      	
     	// for now, assume users can only register with default role id
     	// may change in the future
-    	
+    	/*
+    	System.out.println("USER ID: "+user.getId());
 		UsersRolesLink usersRolesLink = new UsersRolesLink();
 		usersRolesLink.setUserId(user.getId());
 		usersRolesLink.setRoleId(1); // hard coded as regular user
@@ -116,9 +118,9 @@ public class UserServiceImpl implements UserService
     	usersRolesLinksKeyHolderColumnNameList.add(UsersRolesLink.getColumnName(UsersRolesLink.Columns.ID));
     	usersRolesLinksKeyHolderColumnNameList.add(UsersRolesLink.getColumnName(UsersRolesLink.Columns.CREATED_AT));
     	usersRolesLinksKeyHolderColumnNameList.add(UsersRolesLink.getColumnName(UsersRolesLink.Columns.DELETED));
-		
+		System.out.println("[UserService] Register() inserting into users_roles_links table");
     	rowsAffectedList.add(usersRolesLinksDao.insert(usersRolesLink, usersRolesLinksInsertColumnNameList, usersRolesLinksKeyHolderColumnNameList));
-		
+		*/
 		return rowsAffectedList;
 	}
 	
@@ -246,7 +248,7 @@ public class UserServiceImpl implements UserService
 			selectQueryTermList.add(updateUNTerm);
 			
 			try {
-				usersDao.update(updateColumnName, true, selectQueryTermList);
+				messagesDao.update(updateColumnName, true, selectQueryTermList);
 			} catch (SQLException e) {
 				System.out.println("Something went horribly wrong when attempting to the message for message number: "+messageId);
 				e.printStackTrace();
@@ -334,13 +336,13 @@ public class UserServiceImpl implements UserService
     	List<User> selectedUserList = new ArrayList<>();
     	
 		try {
-		selectedUserList = usersDao.select(selectColumnNameList, selectQueryTermList, orderByList);
+			selectedUserList = usersDao.select(selectColumnNameList, selectQueryTermList, orderByList);
 		} catch (SQLException e) {
 			System.out.println("Something went wrong getting the Id for: " +username +".");
 			e.printStackTrace();
 		}
 		
-		Integer idToTest = selectedUserList.get(0).getId();
+		Integer idToTest = selectedUserList.get(0).getId(); //needs to be role id
     	
 		String selectRoleColumnName = UsersRolesLink.getColumnName(UsersRolesLink.Columns.ROLE_ID);
     	
@@ -349,28 +351,43 @@ public class UserServiceImpl implements UserService
     	QueryTerm selectUserRoleTerm = new QueryTerm();
     	selectUserRoleTerm.setColumnName(selectRoleColumnName);
     	selectUserRoleTerm.setComparisonOperator(ComparisonOperator.EQUAL);
-    	selectUserRoleTerm.setValue(idToTest);
-    	selectRoleQueryList.add(selectUseNameTerm);
+    	selectUserRoleTerm.setValue(2); //compare to 2 = admin? -also fixed this
+    	selectRoleQueryList.add(selectUserRoleTerm); //fixed bug HERE, was selectUseNameTerm
     	
     	List<String> selectUserRoleColumnList = UsersRolesLink.getColumnNameList();
     	
     	List<UsersRolesLink> selectedUserRoleList = new ArrayList<>();
     	
+    	List<Pair<String, ColumnOrder>> orderByRoleList = new ArrayList<>();
+    	Pair<String, ColumnOrder> orderPair2 = new Pair<String, ColumnOrder>(selectRoleColumnName, ColumnOrder.ASC);
+    	orderByList.add(orderPair2);
+    	
+    	
 		try {
-		selectedUserRoleList = usersRolesLinksDao.select(selectUserRoleColumnList, selectQueryTermList, orderByList);
+			selectedUserRoleList = usersRolesLinksDao.select(selectUserRoleColumnList, selectRoleQueryList, orderByRoleList);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+		for(UsersRolesLink link : selectedUserRoleList) {
+			if(link.getUserId() == idToTest) {
+				return true;
+			}
+		}
+		
+		/*
 		Integer userRole = selectedUserRoleList.get(0).getRoleId();
 		
+		//not sure if this is necessary... 
 		if(role.equals("Moderator")){
-		rs = (userRole == moderator);		
+			rs = (userRole == moderator);		
 		}else if(role.equals("Administrator")){
-		rs = (userRole == admin);
+			rs = (userRole == admin);
 		}
-		return rs;
+		return rs;*/
+		System.out.println("Did not find user's id in fetched admin list....");
+		return false;
 	}
 
 	@Override
@@ -407,7 +424,7 @@ public class UserServiceImpl implements UserService
     	selectUseNameTerm.setColumnName(selectColumnName);
     	selectUseNameTerm.setComparisonOperator(ComparisonOperator.EQUAL);
     	selectUseNameTerm.setValue(selectDeptID);
-    	selectQueryTermList.add(selectUseNameTerm);
+    	selectQueryTermList.add(selectUseNameTerm); 
     	
     	List<String> selectColumnNameList = Department.getColumnNameList();
     	

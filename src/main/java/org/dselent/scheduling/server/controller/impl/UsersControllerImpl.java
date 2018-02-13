@@ -9,6 +9,7 @@ import org.dselent.scheduling.server.dto.RegisterUserDto;
 import org.dselent.scheduling.server.miscellaneous.JsonResponseCreator;
 import org.dselent.scheduling.server.model.Message;
 import org.dselent.scheduling.server.model.SidebarInfo;
+import org.dselent.scheduling.server.model.User;
 import org.dselent.scheduling.server.requests.AccessInbox;
 import org.dselent.scheduling.server.requests.CreateAdmin;
 import org.dselent.scheduling.server.requests.GetMessage;
@@ -174,6 +175,13 @@ public class UsersControllerImpl implements UsersController
  		String username = request.get(Login.getBodyName(Login.BodyKey.USER_NAME));
  		String password = request.get(Login.getBodyName(Login.BodyKey.PASSWORD));
 		
+ 		User loggedUser = userService.loginUser(username, password);
+ 		
+ 		System.out.println("Logged in user data: "+loggedUser.toString());
+ 		success.add(loggedUser);
+ 		
+ 		//doesn't return user data?
+ 		
  		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
  		
  		return new ResponseEntity<String>(response, HttpStatus.OK);
