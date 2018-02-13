@@ -141,7 +141,6 @@ public class UserServiceImpl implements UserService
 		}
 			
 		return theUser;
-		
 	}
 
 	@Override
