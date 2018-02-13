@@ -98,28 +98,6 @@ public class UsersControllerTest
 		        .andExpect(status().isInternalServerError());
 	}
     
-    /* @Test
-    public void testConfirmSchedule() throws Exception {
-    	
-    	JSONObject jsonObject = new JSONObject();
-    	List<Integer> idList = new ArrayList<Integer>();
-    	idList.add(2);
-    	idList.add(3);
-    	idList.add(4);
-    	//jsonObject.put(ConfirmSchedule.getBodyName(ConfirmSchedule.BodyKey.ADD_SECTION_IDS), idList.toString());
-    	//jsonObject.put(ConfirmSchedule.getBodyName(ConfirmSchedule.BodyKey.REMOVE_SECTION_IDS), idList.toString());
-    	
-    	jsonObject.put(ConfirmSchedule.getBodyName(ConfirmSchedule.BodyKey.ADD_SECTION_IDS), idList);
-    	
-    	System.out.println(jsonObject.toString());
-    	/*this.mockMvc.perform(post("/schedule/confirm").content(jsonObject.toString())
-    	        .contentType(MediaType.APPLICATION_JSON_VALUE)
-    	        .characterEncoding("utf-8"))
-    	        .andDo(MockMvcResultHandlers.print())
-    	        .andExpect(status().isOk());
-    	  */      
-    	
-    	//List<Integer> idListReconstruct =
     /*	 
 	@Test
     public void testResetPassword() throws Exception

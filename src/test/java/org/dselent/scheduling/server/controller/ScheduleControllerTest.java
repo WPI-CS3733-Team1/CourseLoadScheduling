@@ -1,5 +1,9 @@
 package org.dselent.scheduling.server.controller;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -8,6 +12,7 @@ import org.dselent.scheduling.server.requests.CreateSection;
 import org.dselent.scheduling.server.requests.GetCourses;
 import org.dselent.scheduling.server.requests.GetMessage;
 import org.dselent.scheduling.server.requests.GetSchedule;
+import org.dselent.scheduling.server.requests.ConfirmSchedule;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,7 +40,7 @@ public class ScheduleControllerTest {
 	public void setup()
 	{
 		//initializes controllers and dependencies
-	    this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
+		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
 	}
 	
 	/*
@@ -101,6 +106,30 @@ public class ScheduleControllerTest {
 		        .andExpect(status().isInternalServerError());
 	}
 	
-	
 
+	@Test
+	public void testConfirmSchedule() throws Exception {
+		JSONObject jsonObject = new JSONObject();
+		String userName = "newUserName";
+		List<Integer> addIdList = new ArrayList<Integer>();
+		List<Integer> removeIdList = new ArrayList<Integer>();
+		addIdList.add(2);
+		addIdList.add(3);
+		addIdList.add(4);
+		jsonObject.put(ConfirmSchedule.getBodyName(ConfirmSchedule.BodyKey.USER_NAME), userName);
+		jsonObject.put(ConfirmSchedule.getBodyName(ConfirmSchedule.BodyKey.ADD_SECTION_IDS), addIdList.toString());
+		jsonObject.put(ConfirmSchedule.getBodyName(ConfirmSchedule.BodyKey.REMOVE_SECTION_IDS), removeIdList.toString());
+		
+		//jsonObject.put(ConfirmSchedule.getBodyName(ConfirmSchedule.BodyKey.ADD_SECTION_IDS), idList);
+		
+		System.out.println(jsonObject.toString());
+		this.mockMvc.perform(post("/schedule/confirm_schedule").content(jsonObject.toString())
+		.contentType(MediaType.APPLICATION_JSON_VALUE)
+		.characterEncoding("utf-8"))
+		.andDo(MockMvcResultHandlers.print())
+		.andExpect(status().isOk());
+		  
+		
+		//List<Integer> idListReconstruct =
+	}
 }
