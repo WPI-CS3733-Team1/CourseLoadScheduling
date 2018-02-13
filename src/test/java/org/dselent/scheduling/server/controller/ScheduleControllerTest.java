@@ -1,10 +1,15 @@
 package org.dselent.scheduling.server.controller;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.dselent.scheduling.server.config.AppConfig;
 import org.dselent.scheduling.server.requests.CreateSection;
+import org.dselent.scheduling.server.requests.ConfirmSchedule;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,7 +37,7 @@ public class ScheduleControllerTest {
 	public void setup()
 	{
 		//initializes controllers and dependencies
-	    this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
+		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
 	}
 	
 	/*
@@ -41,32 +46,58 @@ public class ScheduleControllerTest {
 	 */
    
 	@Test
-    public void testScheduleController() throws Exception
-    {        
+	public void testScheduleController() throws Exception
+	{        
 		JSONObject jsonObject = new JSONObject();
-    	jsonObject.put(CreateSection.getBodyName(CreateSection.BodyKey.COURSE_ID), "8");
-    	jsonObject.put(CreateSection.getBodyName(CreateSection.BodyKey.CRN), "10134");
-    	jsonObject.put(CreateSection.getBodyName(CreateSection.BodyKey.SECTION_NAME), "A01");
-    	jsonObject.put(CreateSection.getBodyName(CreateSection.BodyKey.SECTION_ID), "1");
-    	jsonObject.put(CreateSection.getBodyName(CreateSection.BodyKey.EXPECTED_POP), "20");
-    	jsonObject.put(CreateSection.getBodyName(CreateSection.BodyKey.REQUIRED_FREQ), "3");
-    	jsonObject.put(CreateSection.getBodyName(CreateSection.BodyKey.ACADEMIC_YEAR), "2018");
-    	jsonObject.put(CreateSection.getBodyName(CreateSection.BodyKey.ACADEMIC_TERM), "C");
-    	jsonObject.put(CreateSection.getBodyName(CreateSection.BodyKey.START_TIME), "1000");
-    	jsonObject.put(CreateSection.getBodyName(CreateSection.BodyKey.END_TIME), "1200");
-    	jsonObject.put(CreateSection.getBodyName(CreateSection.BodyKey.DAYS_PER_WEEK), "MTRF");
-    	jsonObject.put(CreateSection.getBodyName(CreateSection.BodyKey.COURSE_LOCATION), "SL115");
-    	
-    	String jsonString = jsonObject.toString();
-        
-    	System.out.println(jsonString);
-    	
-        this.mockMvc.perform(post("/schedule/create_section").content(jsonString)
-        .contentType(MediaType.APPLICATION_JSON_VALUE)
-        .characterEncoding("utf-8"))
-        .andDo(MockMvcResultHandlers.print())
-        .andExpect(status().isInternalServerError());
-        //.andExpect(content().contentType("application/json"));
-    }
+		jsonObject.put(CreateSection.getBodyName(CreateSection.BodyKey.COURSE_ID), "8");
+		jsonObject.put(CreateSection.getBodyName(CreateSection.BodyKey.CRN), "10134");
+		jsonObject.put(CreateSection.getBodyName(CreateSection.BodyKey.SECTION_NAME), "A01");
+		jsonObject.put(CreateSection.getBodyName(CreateSection.BodyKey.SECTION_ID), "1");
+		jsonObject.put(CreateSection.getBodyName(CreateSection.BodyKey.EXPECTED_POP), "20");
+		jsonObject.put(CreateSection.getBodyName(CreateSection.BodyKey.REQUIRED_FREQ), "3");
+		jsonObject.put(CreateSection.getBodyName(CreateSection.BodyKey.ACADEMIC_YEAR), "2018");
+		jsonObject.put(CreateSection.getBodyName(CreateSection.BodyKey.ACADEMIC_TERM), "C");
+		jsonObject.put(CreateSection.getBodyName(CreateSection.BodyKey.START_TIME), "1000");
+		jsonObject.put(CreateSection.getBodyName(CreateSection.BodyKey.END_TIME), "1200");
+		jsonObject.put(CreateSection.getBodyName(CreateSection.BodyKey.DAYS_PER_WEEK), "MTRF");
+		jsonObject.put(CreateSection.getBodyName(CreateSection.BodyKey.COURSE_LOCATION), "SL115");
+		
+		String jsonString = jsonObject.toString();
+		
+		System.out.println(jsonString);
+		
+		this.mockMvc.perform(post("/schedule/create_section").content(jsonString)
+		.contentType(MediaType.APPLICATION_JSON_VALUE)
+		.characterEncoding("utf-8"))
+		.andDo(MockMvcResultHandlers.print())
+		.andExpect(status().isInternalServerError());
+		//.andExpect(content().contentType("application/json"));
+	}
 
+	@Test
+	public void testConfirmSchedule() throws Exception {
+
+		JSONObject jsonObject = new JSONObject();
+		String userName = "newUserName";
+		List<Integer> addIdList = new ArrayList<Integer>();
+		List<Integer> removeIdList = new ArrayList<Integer>();
+		addIdList.add(2);
+		addIdList.add(3);
+		addIdList.add(4);
+		jsonObject.put(ConfirmSchedule.getBodyName(ConfirmSchedule.BodyKey.USER_NAME), userName);
+		jsonObject.put(ConfirmSchedule.getBodyName(ConfirmSchedule.BodyKey.ADD_SECTION_IDS), addIdList.toString());
+		jsonObject.put(ConfirmSchedule.getBodyName(ConfirmSchedule.BodyKey.REMOVE_SECTION_IDS), removeIdList.toString());
+		
+		//jsonObject.put(ConfirmSchedule.getBodyName(ConfirmSchedule.BodyKey.ADD_SECTION_IDS), idList);
+		
+		System.out.println(jsonObject.toString());
+		this.mockMvc.perform(post("/schedule/confirm_schedule").content(jsonObject.toString())
+		.contentType(MediaType.APPLICATION_JSON_VALUE)
+		.characterEncoding("utf-8"))
+		.andDo(MockMvcResultHandlers.print())
+		.andExpect(status().isOk());
+		  
+		
+		//List<Integer> idListReconstruct =
+	}
 }

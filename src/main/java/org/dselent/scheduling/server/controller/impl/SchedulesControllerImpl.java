@@ -51,7 +51,7 @@ public class SchedulesControllerImpl implements SchedulesController {
 	@Override
 	public ResponseEntity<String> confirmSchedule(@RequestBody Map<String, String> request) throws Exception {
 		
-		String response = "";
+		String response = "newUserName";
 		List<Object> success = new ArrayList<Object>();
 
 		String userName = request.get(ConfirmSchedule.getBodyName(ConfirmSchedule.BodyKey.USER_NAME));
