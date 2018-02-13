@@ -151,7 +151,7 @@ public class UsersControllerTest
 	public void testGetSidebarInfo() throws Exception {
 		
 		JSONObject jsonObject = new JSONObject();
-		jsonObject.put(GetSidebarInfo.getBodyName(GetSidebarInfo.BodyKey.USERNAME), "dselent");
+		jsonObject.put(GetSidebarInfo.getBodyName(GetSidebarInfo.BodyKey.USER_NAME), "dselent");
 		String jsonString = jsonObject.toString();
 
 		System.out.println(jsonString);

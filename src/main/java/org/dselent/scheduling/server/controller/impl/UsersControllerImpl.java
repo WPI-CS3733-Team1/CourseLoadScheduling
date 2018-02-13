@@ -156,9 +156,12 @@ public class UsersControllerImpl implements UsersController
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
 		
-		String username = request.get(GetSidebarInfo.getBodyName(GetSidebarInfo.BodyKey.USERNAME));
+		String username = request.get(GetSidebarInfo.getBodyName(GetSidebarInfo.BodyKey.USER_NAME));
 		//get user
+		System.out.println("[UsersController] getSidebarInfo() - username recieved: "+username);
 		SidebarInfo info = userService.getSidebarInfo(username);
+		
+		System.out.println("info fetched: "+info.toString());
 		success.add(info);
 		
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
@@ -209,6 +212,7 @@ public class UsersControllerImpl implements UsersController
 			String response = "";
 			List<Object> success = new ArrayList<Object>();
 			
+			System.out.println("[UsersController] createAdmin() - attempting to fetch value with name: "+CreateAdmin.getBodyName(CreateAdmin.BodyKey.FACULTY_USERNAME));
 			String facultyUsername = request.get(CreateAdmin.getBodyName(CreateAdmin.BodyKey.FACULTY_USERNAME));
 			String moderatorUsername = request.get(CreateAdmin.getBodyName(CreateAdmin.BodyKey.MODERATOR_USERNAME));
 		

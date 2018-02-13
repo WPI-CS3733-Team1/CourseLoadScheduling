@@ -26,7 +26,13 @@ public class UsersExtractor extends Extractor<List<User>>
 			}
 			
 			result.setUserName(rs.getString(User.getColumnName(User.Columns.USER_NAME)));
+			
 			result.setFirstName(rs.getString(User.getColumnName(User.Columns.FIRST_NAME)));
+			
+			if(rs.wasNull()) {
+				result.setFirstName(null);
+			}
+			
 			result.setLastName(rs.getString(User.getColumnName(User.Columns.LAST_NAME)));
 			result.setEmail(rs.getString(User.getColumnName(User.Columns.EMAIL)));
 			result.setEncryptedPassword(rs.getString(User.getColumnName(User.Columns.ENCRYPTED_PASSWORD)));

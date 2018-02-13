@@ -41,6 +41,7 @@ public class QueryPathConstants
 	//private static String VIEW_INBOX_PATH = BASE_QUERY_PATH + "ViewInbox" + SQL_EXTENSION;
 	private static String VIEW_SCHEDULE_PATH = BASE_QUERY_PATH + "ViewSchedule" + SQL_EXTENSION;
 	private static String GET_COURSE_NAMES = BASE_QUERY_PATH + "GetCourseLabel" + SQL_EXTENSION;
+	private static String UPDATE_USER_ROLE_ID = BASE_QUERY_PATH + "UpdateRoleID" + SQL_EXTENSION;
 			
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 	
@@ -65,7 +66,7 @@ public class QueryPathConstants
 	//public static String VIEW_INBOX_QUERY = readFile(VIEW_INBOX_PATH);
 	public static String GET_SCHEDULE_QUERY = readFile(VIEW_SCHEDULE_PATH);
 	public static String GET_COURSE_NAMES_QUERY = readFile(GET_COURSE_NAMES);
-	
+	public static String UPDATE_USER_ROLE_ID_QUERY = readFile(UPDATE_USER_ROLE_ID);
 	
 	private QueryPathConstants()
 	{

@@ -48,4 +48,6 @@ public interface CustomDao
 	List<Section> getSchedule(int userID);
 	
 	List<String> getCourseNames(String userId);
+	
+	int updateUserRoleID(Integer userID, Integer roleID);
 }

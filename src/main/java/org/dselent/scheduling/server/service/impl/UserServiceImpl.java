@@ -272,15 +272,19 @@ public class UserServiceImpl implements UserService
 			String selectColumnName = UsersRolesLink.getColumnName(UsersRolesLink.Columns.ROLE_ID);
 			
 			List<QueryTerm> selectIdQueryTermList = new ArrayList<>();
+			
 			QueryTerm selectUserId = new QueryTerm();
 			selectUserId.setColumnName(idSearchColumnName);
 			selectUserId.setComparisonOperator(ComparisonOperator.EQUAL);
-			selectUserId.setValue(facultyUsername);
+			
+			System.out.println("[UserService] createAdmin() - Faculty User Name: "+facultyUsername); 
+			selectUserId.setValue(facultyUsername); //this should probably be an id???
+			
 			selectIdQueryTermList.add(selectUserId);
     	
 			List<String> idColumnNameList = new ArrayList<>();
-			idColumnNameList.add(User.getColumnName(User.Columns.ID));
-    	
+			idColumnNameList = (User.getColumnNameList()); //change to avoid issue with absent values in UsersExtractor
+			
 			List<Pair<String, ColumnOrder>> orderByList = new ArrayList<>();
 			Pair<String, ColumnOrder> orderPair1 = new Pair<String, ColumnOrder>(idSearchColumnName, ColumnOrder.ASC);
 			orderByList.add(orderPair1);
@@ -294,19 +298,17 @@ public class UserServiceImpl implements UserService
 		
 			userId = selectedUserList.get(0).getId();
 				
-			List<QueryTerm> selectQueryTermList = new ArrayList<>();
-			QueryTerm updateUNTerm = new QueryTerm();
-			updateUNTerm.setColumnName(selectColumnName);
-			updateUNTerm.setComparisonOperator(ComparisonOperator.EQUAL);
-			updateUNTerm.setValue(userId);
-			selectQueryTermList.add(updateUNTerm);
+			/*
+			 * call to customDao for updateRoleID
+			 */
+			int response = customDao.updateUserRoleID(userId, 2); //admin
 			
-			try {
-				usersDao.update(selectColumnName, administrator, selectQueryTermList);
-			} catch (SQLException e) {
-				System.out.println("Something went horribly wrong when trying to promote: "+facultyUsername + " to administrator status.");
-				e.printStackTrace();
-			}	
+			//checking response, can't be zero if it succeeded
+			if(response==1) {
+				System.out.println("[UserService] createAdmin() - User "+facultyUsername+" was updated to admin status!");
+			}else {
+				System.out.println("[UserService] createAdmin() - Something wonky happened when updating user... multiple rows affected! :"+response);
+			}
 		}else{
 			System.out.println("Cannot promote user: "+ facultyUsername +" to role of Admin, because user: " +moderatorUsername +" is not a  Moderator.");
 		}
@@ -317,6 +319,20 @@ public class UserServiceImpl implements UserService
 		boolean rs = false;
 		Integer admin = 2;
 		Integer moderator = 3;
+		Integer compareRole = null;
+		
+		switch(role) {
+			case "Administrator":
+				compareRole = admin;
+				break;
+			case "Moderator":
+				compareRole = moderator;
+				break;
+			default:
+				System.out.println("[UserService] checkClearanceStatus() - role string was not covered in switch: "+role);
+				break;
+		}
+		
 		String selectColumnName = User.getColumnName(User.Columns.USER_NAME);
     	
     	List<QueryTerm> selectQueryTermList = new ArrayList<>();
@@ -351,7 +367,7 @@ public class UserServiceImpl implements UserService
     	QueryTerm selectUserRoleTerm = new QueryTerm();
     	selectUserRoleTerm.setColumnName(selectRoleColumnName);
     	selectUserRoleTerm.setComparisonOperator(ComparisonOperator.EQUAL);
-    	selectUserRoleTerm.setValue(2); //compare to 2 = admin? -also fixed this
+    	selectUserRoleTerm.setValue(compareRole); //also fixed this
     	selectRoleQueryList.add(selectUserRoleTerm); //fixed bug HERE, was selectUseNameTerm
     	
     	List<String> selectUserRoleColumnList = UsersRolesLink.getColumnNameList();
@@ -399,10 +415,10 @@ public class UserServiceImpl implements UserService
 
 	@Override
 	public SidebarInfo getSidebarInfo(String username) {
-		//this function is disgusting and needs to be revised but it should work
+		
 		
 		List<User> users = customDao.getUser(username);
-		User user = users.get(0);
+		User user = users.get(0); //this returns empty sometimes.... should never happen
 		
 		Integer id = user.getId();
 		
