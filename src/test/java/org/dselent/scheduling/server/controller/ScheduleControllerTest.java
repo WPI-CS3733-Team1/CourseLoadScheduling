@@ -5,6 +5,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.dselent.scheduling.server.config.AppConfig;
 import org.dselent.scheduling.server.requests.CreateSection;
+import org.dselent.scheduling.server.requests.GetCourses;
+import org.dselent.scheduling.server.requests.GetMessage;
+import org.dselent.scheduling.server.requests.GetSchedule;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,7 +43,7 @@ public class ScheduleControllerTest {
 	 * More of an example on how to use the classes
 	 */
    
-	@Test
+	/*@Test
     public void testScheduleController() throws Exception
     {        
 		JSONObject jsonObject = new JSONObject();
@@ -67,6 +70,37 @@ public class ScheduleControllerTest {
         .andDo(MockMvcResultHandlers.print())
         .andExpect(status().isInternalServerError());
         //.andExpect(content().contentType("application/json"));
-    }
+    }*/
+	
+	@Test
+	public void testGetCourse() throws Exception {
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put(GetCourses.getBodyName(GetCourses.BodyKey.USERNAME), "dselent");
+		
+		String jsonString = jsonObject.toString();
+		
+		this.mockMvc.perform(post("/schedule/view_course_creation").content(jsonString)
+		        .contentType(MediaType.APPLICATION_JSON_VALUE)
+		        .characterEncoding("utf-8"))
+		        .andDo(MockMvcResultHandlers.print())
+		        .andExpect(status().isInternalServerError());
+	}
+	
+	@Test
+	public void testGetSchedule() throws Exception {
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put(GetSchedule.getBodyName(GetSchedule.BodyKey.USER_NAME), "dselent");
+		jsonObject.put(GetSchedule.getBodyName(GetSchedule.BodyKey.ACADEMIC_TERM), "A");
+		
+		String jsonString = jsonObject.toString();
+		
+		this.mockMvc.perform(post("/schedule/view_schedule").content(jsonString)
+		        .contentType(MediaType.APPLICATION_JSON_VALUE)
+		        .characterEncoding("utf-8"))
+		        .andDo(MockMvcResultHandlers.print())
+		        .andExpect(status().isInternalServerError());
+	}
+	
+	
 
 }
