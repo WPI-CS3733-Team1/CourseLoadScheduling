@@ -2,6 +2,7 @@ package org.dselent.scheduling.server.config;
 
 import javax.sql.DataSource;
 
+import org.dselent.scheduling.server.miscellaneous.EmailUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -39,6 +40,9 @@ public class AppConfig
 	public static String DATABASE_USER = "database_user";
 	public static String DATABASE_PASSWORD = "database_password";
 	public static String DATABASE_DRIVER = "database_driver";
+	public static String EMAIL_USERNAME = "email_username";
+	public static String EMAIL_PASSWORD = "email_password";
+	
 	
 	@Autowired
 	private Environment env;
@@ -52,8 +56,11 @@ public class AppConfig
         dataSource.setUsername(env.getProperty(DATABASE_USER));
         dataSource.setPassword(env.getProperty(DATABASE_PASSWORD));
         dataSource.setDriverClassName(env.getProperty(DATABASE_DRIVER));
+        
+        EmailUtility.setEmailUsername(env.getProperty(EMAIL_USERNAME));
+        EmailUtility.setEmailPassword(env.getProperty(EMAIL_PASSWORD));
 		
-		return dataSource;
+        return dataSource;
 	}
 	
 	@Bean
