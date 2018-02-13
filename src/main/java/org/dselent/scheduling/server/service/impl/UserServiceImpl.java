@@ -407,24 +407,21 @@ public class UserServiceImpl implements UserService
 		Integer id = user.getId();
 		
 		SidebarInfo info = new SidebarInfo();
-		//info.setCreatedAt(user.getCreatedAt());
 		
-		//info.setCreatedAt(user.getCreatedAt());
-		//info.setUpdatedAt(user.getUpdatedAt());
 		
-		//make select from department_id
-		//info.setDepartment();
-		
-		String selectColumnName = Department.getColumnName(Department.Columns.DEPARTMENT_NAME);
-    	String selectDeptID = ""+user.getId(); //sorry professor :/
+		String selectColumnName = Department.getColumnName(Department.Columns.ID);
+    		String selectDeptID = ""+user.getDeptId(); //sorry professor :/
     	
+    		System.out.println("Department id: "+selectDeptID);
+    		
     	List<QueryTerm> selectQueryTermList = new ArrayList<>();
     	
     	QueryTerm selectUseNameTerm = new QueryTerm();
     	selectUseNameTerm.setColumnName(selectColumnName);
     	selectUseNameTerm.setComparisonOperator(ComparisonOperator.EQUAL);
-    	selectUseNameTerm.setValue(selectDeptID);
-    	selectQueryTermList.add(selectUseNameTerm); 
+
+    	selectUseNameTerm.setValue(Integer.parseInt(selectDeptID));
+    	selectQueryTermList.add(selectUseNameTerm);
     	
     	List<String> selectColumnNameList = Department.getColumnNameList();
     	
