@@ -66,7 +66,7 @@ public class SearchesControllerImpl implements SearchesController {
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
 		
-		String courseID = request.get(GetSections.getBodyName(GetSections.BodyKey.COURSEID));
+		String courseID = request.get(GetSections.getBodyName(GetSections.BodyKey.COURSEID)); 
 		Integer id = Integer.parseInt(courseID);
 		
 		List<Section> sections = searchService.getSectionsByCourseID(id);

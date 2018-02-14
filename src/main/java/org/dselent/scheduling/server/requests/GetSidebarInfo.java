@@ -26,7 +26,7 @@ public class GetSidebarInfo
 	
 	public static enum BodyKey
 	{
-		USERNAME;
+		USER_NAME;
 	}
 	
 

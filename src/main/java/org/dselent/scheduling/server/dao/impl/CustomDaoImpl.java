@@ -178,7 +178,7 @@ public class CustomDaoImpl implements CustomDao
 		String queryTemplate = new String(QueryPathConstants.SEARCH_USERS_QUERY);
 		MapSqlParameterSource parameters = new MapSqlParameterSource();
 		parameters.addValue("userName", userName);
-		List<User> usersList = namedParameterJdbcTemplate.query(queryTemplate,parameters, extractor);
+		List<User> usersList = namedParameterJdbcTemplate.query(queryTemplate, parameters, extractor);
 		return usersList;
 	}
 	
@@ -198,10 +198,24 @@ public class CustomDaoImpl implements CustomDao
 		CourseNamesExtractor ex = new CourseNamesExtractor();
 		String queryTemplate = new String(QueryPathConstants.GET_COURSE_NAMES_QUERY);
 		MapSqlParameterSource parameters = new MapSqlParameterSource();
-		parameters.addValue("userID", userId);
-		List<String> value = namedParameterJdbcTemplate.query(queryTemplate, ex);
+		parameters.addValue("userID", Integer.parseInt(userId));
+		List<String> value = namedParameterJdbcTemplate.query(queryTemplate, parameters, ex);
 		
 		return value;
+	}
+
+	@Override
+	public int updateUserRoleID(Integer userID, Integer roleID) {
+		
+		String queryTemplate = new String(QueryPathConstants.UPDATE_USER_ROLE_ID_QUERY);
+		MapSqlParameterSource parameters = new MapSqlParameterSource();
+		parameters.addValue("userID", userID);
+		parameters.addValue("roleID", roleID);
+		
+		int rows = namedParameterJdbcTemplate.update(queryTemplate, parameters);
+		
+		
+		return rows;
 	}
 	
 }

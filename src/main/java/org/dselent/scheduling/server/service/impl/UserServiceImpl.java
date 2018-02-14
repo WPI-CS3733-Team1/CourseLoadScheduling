@@ -96,13 +96,15 @@ public class UserServiceImpl implements UserService
     	userKeyHolderColumnNameList.add(User.getColumnName(User.Columns.CREATED_AT));
     	userKeyHolderColumnNameList.add(User.getColumnName(User.Columns.UPDATED_AT));
 		
+    	System.out.println("[UserService] Register() inserting into users table.");
     	rowsAffectedList.add(usersDao.insert(user, userInsertColumnNameList, userKeyHolderColumnNameList));
 
 		//
      	
     	// for now, assume users can only register with default role id
     	// may change in the future
-    	
+    	/*
+    	System.out.println("USER ID: "+user.getId());
 		UsersRolesLink usersRolesLink = new UsersRolesLink();
 		usersRolesLink.setUserId(user.getId());
 		usersRolesLink.setRoleId(1); // hard coded as regular user
@@ -116,9 +118,9 @@ public class UserServiceImpl implements UserService
     	usersRolesLinksKeyHolderColumnNameList.add(UsersRolesLink.getColumnName(UsersRolesLink.Columns.ID));
     	usersRolesLinksKeyHolderColumnNameList.add(UsersRolesLink.getColumnName(UsersRolesLink.Columns.CREATED_AT));
     	usersRolesLinksKeyHolderColumnNameList.add(UsersRolesLink.getColumnName(UsersRolesLink.Columns.DELETED));
-		
+		System.out.println("[UserService] Register() inserting into users_roles_links table");
     	rowsAffectedList.add(usersRolesLinksDao.insert(usersRolesLink, usersRolesLinksInsertColumnNameList, usersRolesLinksKeyHolderColumnNameList));
-		
+		*/
 		return rowsAffectedList;
 	}
 	
@@ -141,7 +143,6 @@ public class UserServiceImpl implements UserService
 		}
 			
 		return theUser;
-		
 	}
 
 	@Override
@@ -247,7 +248,7 @@ public class UserServiceImpl implements UserService
 			selectQueryTermList.add(updateUNTerm);
 			
 			try {
-				usersDao.update(updateColumnName, true, selectQueryTermList);
+				messagesDao.update(updateColumnName, true, selectQueryTermList);
 			} catch (SQLException e) {
 				System.out.println("Something went horribly wrong when attempting to the message for message number: "+messageId);
 				e.printStackTrace();
@@ -271,15 +272,19 @@ public class UserServiceImpl implements UserService
 			String selectColumnName = UsersRolesLink.getColumnName(UsersRolesLink.Columns.ROLE_ID);
 			
 			List<QueryTerm> selectIdQueryTermList = new ArrayList<>();
+			
 			QueryTerm selectUserId = new QueryTerm();
 			selectUserId.setColumnName(idSearchColumnName);
 			selectUserId.setComparisonOperator(ComparisonOperator.EQUAL);
-			selectUserId.setValue(facultyUsername);
+			
+			System.out.println("[UserService] createAdmin() - Faculty User Name: "+facultyUsername); 
+			selectUserId.setValue(facultyUsername); //this should probably be an id???
+			
 			selectIdQueryTermList.add(selectUserId);
     	
 			List<String> idColumnNameList = new ArrayList<>();
-			idColumnNameList.add(User.getColumnName(User.Columns.ID));
-    	
+			idColumnNameList = (User.getColumnNameList()); //change to avoid issue with absent values in UsersExtractor
+			
 			List<Pair<String, ColumnOrder>> orderByList = new ArrayList<>();
 			Pair<String, ColumnOrder> orderPair1 = new Pair<String, ColumnOrder>(idSearchColumnName, ColumnOrder.ASC);
 			orderByList.add(orderPair1);
@@ -293,19 +298,17 @@ public class UserServiceImpl implements UserService
 		
 			userId = selectedUserList.get(0).getId();
 				
-			List<QueryTerm> selectQueryTermList = new ArrayList<>();
-			QueryTerm updateUNTerm = new QueryTerm();
-			updateUNTerm.setColumnName(selectColumnName);
-			updateUNTerm.setComparisonOperator(ComparisonOperator.EQUAL);
-			updateUNTerm.setValue(userId);
-			selectQueryTermList.add(updateUNTerm);
+			/*
+			 * call to customDao for updateRoleID
+			 */
+			int response = customDao.updateUserRoleID(userId, 2); //admin
 			
-			try {
-				usersDao.update(selectColumnName, administrator, selectQueryTermList);
-			} catch (SQLException e) {
-				System.out.println("Something went horribly wrong when trying to promote: "+facultyUsername + " to administrator status.");
-				e.printStackTrace();
-			}	
+			//checking response, can't be zero if it succeeded
+			if(response==1) {
+				System.out.println("[UserService] createAdmin() - User "+facultyUsername+" was updated to admin status!");
+			}else {
+				System.out.println("[UserService] createAdmin() - Something wonky happened when updating user... multiple rows affected! :"+response);
+			}
 		}else{
 			System.out.println("Cannot promote user: "+ facultyUsername +" to role of Admin, because user: " +moderatorUsername +" is not a  Moderator.");
 		}
@@ -316,6 +319,20 @@ public class UserServiceImpl implements UserService
 		boolean rs = false;
 		Integer admin = 2;
 		Integer moderator = 3;
+		Integer compareRole = null;
+		
+		switch(role) {
+			case "Administrator":
+				compareRole = admin;
+				break;
+			case "Moderator":
+				compareRole = moderator;
+				break;
+			default:
+				System.out.println("[UserService] checkClearanceStatus() - role string was not covered in switch: "+role);
+				break;
+		}
+		
 		String selectColumnName = User.getColumnName(User.Columns.USER_NAME);
     	
     	List<QueryTerm> selectQueryTermList = new ArrayList<>();
@@ -335,13 +352,13 @@ public class UserServiceImpl implements UserService
     	List<User> selectedUserList = new ArrayList<>();
     	
 		try {
-		selectedUserList = usersDao.select(selectColumnNameList, selectQueryTermList, orderByList);
+			selectedUserList = usersDao.select(selectColumnNameList, selectQueryTermList, orderByList);
 		} catch (SQLException e) {
 			System.out.println("Something went wrong getting the Id for: " +username +".");
 			e.printStackTrace();
 		}
 		
-		Integer idToTest = selectedUserList.get(0).getId();
+		Integer idToTest = selectedUserList.get(0).getId(); //needs to be role id
     	
 		String selectRoleColumnName = UsersRolesLink.getColumnName(UsersRolesLink.Columns.ROLE_ID);
     	
@@ -350,28 +367,43 @@ public class UserServiceImpl implements UserService
     	QueryTerm selectUserRoleTerm = new QueryTerm();
     	selectUserRoleTerm.setColumnName(selectRoleColumnName);
     	selectUserRoleTerm.setComparisonOperator(ComparisonOperator.EQUAL);
-    	selectUserRoleTerm.setValue(idToTest);
-    	selectRoleQueryList.add(selectUseNameTerm);
+    	selectUserRoleTerm.setValue(compareRole); //also fixed this
+    	selectRoleQueryList.add(selectUserRoleTerm); //fixed bug HERE, was selectUseNameTerm
     	
     	List<String> selectUserRoleColumnList = UsersRolesLink.getColumnNameList();
     	
     	List<UsersRolesLink> selectedUserRoleList = new ArrayList<>();
     	
+    	List<Pair<String, ColumnOrder>> orderByRoleList = new ArrayList<>();
+    	Pair<String, ColumnOrder> orderPair2 = new Pair<String, ColumnOrder>(selectRoleColumnName, ColumnOrder.ASC);
+    	orderByList.add(orderPair2);
+    	
+    	
 		try {
-		selectedUserRoleList = usersRolesLinksDao.select(selectUserRoleColumnList, selectQueryTermList, orderByList);
+			selectedUserRoleList = usersRolesLinksDao.select(selectUserRoleColumnList, selectRoleQueryList, orderByRoleList);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+		for(UsersRolesLink link : selectedUserRoleList) {
+			if(link.getUserId() == idToTest) {
+				return true;
+			}
+		}
+		
+		/*
 		Integer userRole = selectedUserRoleList.get(0).getRoleId();
 		
+		//not sure if this is necessary... 
 		if(role.equals("Moderator")){
-		rs = (userRole == moderator);		
+			rs = (userRole == moderator);		
 		}else if(role.equals("Administrator")){
-		rs = (userRole == admin);
+			rs = (userRole == admin);
 		}
-		return rs;
+		return rs;*/
+		System.out.println("Did not find user's id in fetched admin list....");
+		return false;
 	}
 
 	@Override
@@ -383,31 +415,28 @@ public class UserServiceImpl implements UserService
 
 	@Override
 	public SidebarInfo getSidebarInfo(String username) {
-		//this function is disgusting and needs to be revised but it should work
+		
 		
 		List<User> users = customDao.getUser(username);
-		User user = users.get(0);
+		User user = users.get(0); //this returns empty sometimes.... should never happen
 		
 		Integer id = user.getId();
 		
 		SidebarInfo info = new SidebarInfo();
-		//info.setCreatedAt(user.getCreatedAt());
 		
-		//info.setCreatedAt(user.getCreatedAt());
-		//info.setUpdatedAt(user.getUpdatedAt());
 		
-		//make select from department_id
-		//info.setDepartment();
-		
-		String selectColumnName = Department.getColumnName(Department.Columns.DEPARTMENT_NAME);
-    	String selectDeptID = ""+user.getId(); //sorry professor :/
+		String selectColumnName = Department.getColumnName(Department.Columns.ID);
+    		String selectDeptID = ""+user.getDeptId(); //sorry professor :/
     	
+    		System.out.println("Department id: "+selectDeptID);
+    		
     	List<QueryTerm> selectQueryTermList = new ArrayList<>();
     	
     	QueryTerm selectUseNameTerm = new QueryTerm();
     	selectUseNameTerm.setColumnName(selectColumnName);
     	selectUseNameTerm.setComparisonOperator(ComparisonOperator.EQUAL);
-    	selectUseNameTerm.setValue(selectDeptID);
+
+    	selectUseNameTerm.setValue(Integer.parseInt(selectDeptID));
     	selectQueryTermList.add(selectUseNameTerm);
     	
     	List<String> selectColumnNameList = Department.getColumnNameList();

@@ -8,6 +8,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.dselent.scheduling.server.config.AppConfig;
+import org.dselent.scheduling.server.dao.UsersDao;
+import org.dselent.scheduling.server.model.User;
 import org.dselent.scheduling.server.requests.CreateSection;
 import org.dselent.scheduling.server.requests.GetCourses;
 import org.dselent.scheduling.server.requests.GetMessage;
@@ -31,6 +33,9 @@ import org.springframework.web.context.WebApplicationContext;
 @ContextConfiguration(classes = {AppConfig.class})
 @WebAppConfiguration
 public class ScheduleControllerTest {
+	@Autowired
+	UsersDao usersDao;
+	
 	@Autowired
 	private WebApplicationContext wac;
 	
@@ -114,6 +119,37 @@ public class ScheduleControllerTest {
 	public void testConfirmSchedule() throws Exception {
 		JSONObject jsonObject = new JSONObject();
 		String userName = "cshue";
+
+		//Creates User to test on
+		User confirmTestUser = new User();
+		confirmTestUser.setUserName("confirmTestUser");
+		confirmTestUser.setFirstName("Confirm");
+		confirmTestUser.setLastName("Test");
+		confirmTestUser.setEmail("confirmtest@wpi.edu");
+		confirmTestUser.setEncryptedPassword("11111111"); // simplified for now
+		confirmTestUser.setSalt("11111111"); // also simplified for now
+		confirmTestUser.setUserStateId(1); // assumes 1 = activated
+		
+		List<String> insertColumnNameList = new ArrayList<>();
+		List<String> keyHolderColumnNameList = new ArrayList<>();
+		
+		insertColumnNameList.add(User.getColumnName(User.Columns.USER_NAME));
+		insertColumnNameList.add(User.getColumnName(User.Columns.FIRST_NAME));
+		insertColumnNameList.add(User.getColumnName(User.Columns.LAST_NAME));
+		insertColumnNameList.add(User.getColumnName(User.Columns.EMAIL));
+		insertColumnNameList.add(User.getColumnName(User.Columns.ENCRYPTED_PASSWORD));
+		insertColumnNameList.add(User.getColumnName(User.Columns.SALT));
+		insertColumnNameList.add(User.getColumnName(User.Columns.USER_STATE_ID));
+		
+		keyHolderColumnNameList.add(User.getColumnName(User.Columns.ID));
+		keyHolderColumnNameList.add(User.getColumnName(User.Columns.CREATED_AT));
+		keyHolderColumnNameList.add(User.getColumnName(User.Columns.UPDATED_AT));
+	
+		usersDao.insert(confirmTestUser, insertColumnNameList, keyHolderColumnNameList);
+
+		//Test
+		JSONObject jsonObject = new JSONObject();
+		String userName = "confirmTestUser";
 		List<Integer> addIdList = new ArrayList<Integer>();
 		List<Integer> removeIdList = new ArrayList<Integer>();
 		addIdList.add(2);
