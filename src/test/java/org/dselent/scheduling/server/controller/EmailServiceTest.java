@@ -16,7 +16,8 @@ public class EmailServiceTest {
 	
 	@Test
 	public void testEmail() {
-		EmailUtility.sendEmail("", "", "", "", "");
+		EmailUtility.sendEmail("noah.j.parker@gmail.com", "", "TEST_EMAIL", "This is a test email sent from the EmailUtility class written by Noah Parker.");
+		
 	}
 	
 }

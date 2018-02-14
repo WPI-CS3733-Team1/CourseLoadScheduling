@@ -27,15 +27,15 @@ public class EmailUtility
 	}
 	
 	
-	public static boolean sendEmail(String from, String recipient, String cc, String title, String content)
+	public static boolean sendEmail(String recipient, String cc, String title, String content)
 	{
 		String[] recipients = new String[1];
 		recipients[0] = recipient;
 		
-		 return sendEmail(from, recipients, cc, title, content);
+		 return sendEmail(recipients, cc, title, content);
 	}
     
-    public static boolean sendEmail(String from, String[] recipients, String cc, String title, String content)
+    public static boolean sendEmail(String[] recipients, String cc, String title, String content)
     {
         
  //       String username = env.getProperty(AppConfig.EMAIL_USERNAME);
@@ -47,11 +47,15 @@ public class EmailUtility
         //CAN THIS BE DONE WITH LAMBA EXPRESSION?
         //IT LOOKS HIDEOUS
         Properties p = new Properties();
-        p.setProperty("email_password", PASSWORD);
-    	p.setProperty("email_username", USERNAME);
+        p.put("mail.smtp.auth", "true");
+        p.put("mail.smtp.starttls.enable", "true");
+        p.put("mail.smtp.host", "smtp.gmail.com");
+        p.put("mail.smtp.port", "587");
+    	
+    	
     	
         Session session = Session.getDefaultInstance(
-            null, new javax.mail.Authenticator() {
+            p, new javax.mail.Authenticator() {
                 @Override
                 protected PasswordAuthentication getPasswordAuthentication() {
                     return new PasswordAuthentication(USERNAME, PASSWORD);
