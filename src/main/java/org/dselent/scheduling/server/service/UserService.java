@@ -36,6 +36,6 @@ public interface UserService
 	void resolveMessage(String administratorUsername, Integer messageId);
 	void createAdmin(String moderatorUsername, String facultyUsername);
 	boolean checkClearanceStatus(String username, String role);
-	void getInbox(String username);
+	List<Message> getInbox(String username);
 	public SidebarInfo getSidebarInfo(String username);
 }

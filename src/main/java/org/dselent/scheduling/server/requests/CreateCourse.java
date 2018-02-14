@@ -23,6 +23,8 @@ public class CreateCourse {
 
 	public static enum BodyKey {
 		NAME,
+		DEPT_ID, //Noah - added this!
+		COURSE_ABRV, //Noah - also added this!
 		COURSE_NUMBER,
 		NUMBER_OF_LECTURES,
 		NUMBER_OF_LABS,

@@ -53,30 +53,31 @@ public class ScheduleServiceImpl implements ScheduleService
 	}
 
 	@Override
-	public List<Course> getCoursesBySection(String userName) {
+	public List<Course> getCoursesBySection(String userName) throws SQLException {
 		List<User> fetchedUser = customDao.getUser(userName);
+		System.out.println("[ScheduleService] userName given: "+userName);
 		Integer userID = fetchedUser.get(0).getId();
+		System.out.println("[ScheduleService] fetched user id: "+userID);
 		List<Section> courseSections = customDao.getSchedule(userID);
 		List<Course> outputCourses = new ArrayList<Course>(); 
 
+		System.out.println("[ScheduleService] size of sections list: "+courseSections.size());
+		
+		List<Integer> ids = new ArrayList<Integer>();
 		for(int i = 0; i < courseSections.size(); i++) {
-			boolean courseNotListed = true;
-			for(int j = 0; j < outputCourses.size(); j++) {
-				if(courseSections.get(i).getCourseId() == outputCourses.get(j).getId()) {
-					courseNotListed = false;
-					break;
-				}
-			}
-
-			if(courseNotListed) {
-				try {
-					outputCourses.add(coursesDao.findById(courseSections.get(i).getCourseId()));
-				} catch(SQLException e) {
-					
-				}
+			if(!ids.contains(courseSections.get(i).getCourseId())) {
+				ids.add(courseSections.get(i).getCourseId());
 			}
 		}
-
+		//ids populated with no duplicates
+		
+		for(int i = 0; i < ids.size(); i++) {
+			outputCourses.add(coursesDao.findById(ids.get(i)));
+		}
+		//outputCourses should be populated
+		
+		System.out.println("[ScheduleService] outputCourses size: "+outputCourses.size());
+		
 		return outputCourses;
 	}
 	
@@ -174,14 +175,21 @@ public class ScheduleServiceImpl implements ScheduleService
 	public Course createCourse(CreateCourseDto dto) throws SQLException {
 		Course course = new Course();
 		course.setName(dto.getCourseName());
+		course.setDeptId(dto.getDeptId()); //Noah
+		course.setCourseAbrv(dto.getCourseAbrv()); //Noah
 		course.setCourseNum(dto.getCourseNumber());
 		course.setNumLectures(dto.getNumberOfLectures());
 		course.setNumLabs(dto.getNumberOfLabs());
 		course.setNumConferences(dto.getNumberOfConferences());
 		
+		
+		
 		List<String> courseInsertColumnNameList = new ArrayList<>();
 		List<String> courseKeyHolderColumnNameList = new ArrayList<>();
 		courseInsertColumnNameList.add(Course.getColumnName(Course.Columns.NAME));
+		
+		courseInsertColumnNameList.add(Course.getColumnName(Course.Columns.DEPT_ID));
+		courseInsertColumnNameList.add(Course.getColumnName(Course.Columns.COURSE_ABRV));
     	courseInsertColumnNameList.add(Course.getColumnName(Course.Columns.COURSE_NUMBER));
     	courseInsertColumnNameList.add(Course.getColumnName(Course.Columns.NUMBER_OF_LECTURES));
     	courseInsertColumnNameList.add(Course.getColumnName(Course.Columns.NUMBER_OF_LABS));
@@ -191,8 +199,10 @@ public class ScheduleServiceImpl implements ScheduleService
     	courseKeyHolderColumnNameList.add(Course.getColumnName(Course.Columns.CREATED_AT));
     	courseKeyHolderColumnNameList.add(Course.getColumnName(Course.Columns.UPDATED_AT));
 	
+    	coursesDao.insert(course, courseInsertColumnNameList, courseKeyHolderColumnNameList);
+    	
+    	
 		return course;
-		
 	}
 
 

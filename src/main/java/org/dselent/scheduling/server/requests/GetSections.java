@@ -33,7 +33,7 @@ public class GetSections {
 	
 	public static enum BodyKey
 	{
-		COURSEID;
+		COURSE_ID;
 	}
 	
 

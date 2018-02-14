@@ -4,19 +4,28 @@ import javax.annotation.Generated;
 /**
  * DTO for bundling parameters when creating new courses.
  * @author Surya
+ * 
+ * -Noah - added DeptId and courseAbrv attribute. DID NOT update toString or hashcode functions, etc.
+ * -only getters and builder with functions added
  *
  */
 public class CreateCourseDto {
 	private final String courseName;
+	private final Integer deptId;
+	private final String courseAbrv;
 	private final String courseNumber;
 	private final String numberOfLectures;
 	private final String numberOfLabs;
 	private final String numberOfConferences;
 	
+	
+	
 	@Generated("SparkTools")
 	public CreateCourseDto(Builder builder) {
 		super();
 		this.courseName = builder.courseName;
+		this.deptId = builder.deptId;
+		this.courseAbrv = builder.courseAbrv;
 		this.courseNumber = builder.courseNumber;
 		this.numberOfLectures = builder.numberOfLectures;
 		this.numberOfLabs = builder.numberOfLabs;
@@ -40,13 +49,23 @@ public class CreateCourseDto {
 		else if(this.numberOfConferences == null)
 		{
 			throw new IllegalStateException("Num. Conferences cannot be null");
+		}else if(this.deptId == null) {
+			throw new IllegalStateException("deptId cannot be null!");
 		}
 	}
 
 	public String getCourseName() {
 		return courseName;
 	}
+	
+	public Integer getDeptId() {
+		return deptId;
+	}
 
+	public String getCourseAbrv() {
+		return courseAbrv;
+	}
+	
 	public String getCourseNumber() {
 		return courseNumber;
 	}
@@ -136,6 +155,8 @@ public class CreateCourseDto {
 	public static final class Builder
 	{
 		private String courseName;
+		private Integer deptId;
+		private String courseAbrv;
 		private String courseNumber;
 		private String numberOfLectures;
 		private String numberOfLabs;
@@ -148,6 +169,14 @@ public class CreateCourseDto {
 		public Builder withCourseName(String courseName)
 		{
 			this.courseName = courseName;
+			return this;
+		}
+		public Builder withDeptId(Integer deptId) {
+			this.deptId = deptId;
+			return this;
+		}
+		public Builder withCourseAbrv(String abrv) {
+			this.courseAbrv = abrv;
 			return this;
 		}
 		public Builder withCourseNumber(String courseNumber)

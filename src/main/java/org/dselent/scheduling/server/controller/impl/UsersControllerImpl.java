@@ -229,9 +229,15 @@ public class UsersControllerImpl implements UsersController
 			String response = "";
 			List<Object> success = new ArrayList<Object>();
 			
-			String userName = request.get(AccessInbox.getBodyName(AccessInbox.BodyKey.USERNAME));
+			String req = AccessInbox.getBodyName(AccessInbox.BodyKey.USER_NAME);
+			System.out.println("requesting username at value: "+req);
 			
-			userService.getInbox(userName);
+			String userName = request.get(AccessInbox.getBodyName(AccessInbox.BodyKey.USER_NAME));
+			
+			List<Message> inbox = userService.getInbox(userName);
+			
+			success.add(inbox);
+			
 			response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 			
 			return new ResponseEntity<String>(response, HttpStatus.OK);

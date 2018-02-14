@@ -37,8 +37,10 @@ public class SearchesControllerImpl implements SearchesController {
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
 		
+		System.out.println("[SearchesController] fetching value for key: "+Search.getBodyName(Search.BodyKey.REQUEST_TYPE));
 		String searchType = request.get(Search.getBodyName(Search.BodyKey.REQUEST_TYPE));
 		
+		System.out.println("[SearchesController] fetching value for key: "+Search.getBodyName(Search.BodyKey.KEY_VALUE));
 		String keyValue = request.get(Search.getBodyName(Search.BodyKey.KEY_VALUE));
 		
 		switch(searchType) {
@@ -66,7 +68,8 @@ public class SearchesControllerImpl implements SearchesController {
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
 		
-		String courseID = request.get(GetSections.getBodyName(GetSections.BodyKey.COURSEID)); 
+		
+		String courseID = request.get(GetSections.getBodyName(GetSections.BodyKey.COURSE_ID)); 
 		Integer id = Integer.parseInt(courseID);
 		
 		List<Section> sections = searchService.getSectionsByCourseID(id);

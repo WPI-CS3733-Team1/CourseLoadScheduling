@@ -33,7 +33,7 @@ public class GetCourses
 	
 	public static enum BodyKey
 	{
-		USERNAME;
+		USER_NAME;
 	}
 	
 

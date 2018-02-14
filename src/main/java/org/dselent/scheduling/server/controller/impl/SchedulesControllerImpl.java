@@ -36,10 +36,12 @@ public class SchedulesControllerImpl implements SchedulesController {
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
 
-		String userName = request.get(GetCourses.getBodyName(GetCourses.BodyKey.USERNAME));
+		String userName = request.get(GetCourses.getBodyName(GetCourses.BodyKey.USER_NAME));
 
 		List<Course> courses = scheduleService.getCoursesBySection(userName);
-
+		
+		System.out.println("[SchedulesController] size of list: "+courses.size());
+		
 		for(int i = 0; i < courses.size(); i++) {
 			success.add(courses.get(i).getName());
 		}
@@ -78,7 +80,7 @@ public class SchedulesControllerImpl implements SchedulesController {
 	@Override
 	public ResponseEntity<String> createSection(@RequestBody Map<String, String> request) throws Exception {
 		// Print is for testing purposes
-				System.out.println("Schedule controller reached; create section being called");
+				System.out.println("Schedule controller reached; create SECTION being called");
 		    	
 				// add any objects that need to be returned to the success list
 				String response = "";
@@ -122,11 +124,13 @@ public class SchedulesControllerImpl implements SchedulesController {
 	@Override
 	public ResponseEntity<String> createCourse(@RequestBody Map<String, String> request) throws Exception {
 		// Print is for testing purposes
-		System.out.println("Schedule controller reached; create section being called");
+		System.out.println("Schedule controller reached; create COURSE being called");
 		String response = "";
 		List<Object> success = new ArrayList<Object>();
 		
 		String courseName = request.get(CreateCourse.getBodyName(CreateCourse.BodyKey.NAME));
+		String deptId = request.get(CreateCourse.getBodyName(CreateCourse.BodyKey.DEPT_ID));
+		String courseAbrv = request.get(CreateCourse.getBodyName(CreateCourse.BodyKey.COURSE_ABRV));
 		String courseNumber  = request.get(CreateCourse.getBodyName(CreateCourse.BodyKey.COURSE_NUMBER));
 		String numberOfLectures = request.get(CreateCourse.getBodyName(CreateCourse.BodyKey.NUMBER_OF_LECTURES));
 		String numberOfLabs = request.get(CreateCourse.getBodyName(CreateCourse.BodyKey.NUMBER_OF_LABS));
@@ -134,7 +138,9 @@ public class SchedulesControllerImpl implements SchedulesController {
 		
 		CreateCourseDto.Builder builder = CreateCourseDto.builder();
 		CreateCourseDto createCourseDto = builder.withCourseName(courseName)
+		.withDeptId(Integer.parseInt(deptId)) //Noah
 		.withCourseNumber(courseNumber)
+		.withCourseAbrv(courseAbrv)
 		.withNumberOfLectures(numberOfLectures)
 		.withNumberOfLabs(numberOfLabs)
 		.withNumberOfConferences(numberOfConferences)
@@ -143,10 +149,7 @@ public class SchedulesControllerImpl implements SchedulesController {
 		scheduleService.createCourse(createCourseDto);
 		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
 		
-		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
-		
-		
-		return null;
+		return new ResponseEntity<String>(response, HttpStatus.OK);
 	}
 
 }

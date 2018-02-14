@@ -51,6 +51,7 @@ public class CoursesDaoImpl extends BaseDaoImpl<Course> implements CoursesDao {
 	private void addParameterMapValue(MapSqlParameterSource parameters, String insertColumnName, Course model) {
 		String parameterName = QueryStringBuilder.convertColumnName(insertColumnName, false);
 
+		//Noah - added these Integer.parseInt() calls so that insert would work! should eventually change getters in Model to return Integer...
 		if(insertColumnName.equals(Course.getColumnName(Course.Columns.ID))) {
 			parameters.addValue(parameterName, model.getId());
 		} else if(insertColumnName.equals(Course.getColumnName(Course.Columns.COURSE_ABRV))){
@@ -62,11 +63,11 @@ public class CoursesDaoImpl extends BaseDaoImpl<Course> implements CoursesDao {
 		} else if(insertColumnName.equals(Course.getColumnName(Course.Columns.COURSE_NUMBER))) {
 			parameters.addValue(parameterName, model.getCourseNum());
 		} else if(insertColumnName.equals(Course.getColumnName(Course.Columns.NUMBER_OF_LECTURES))) {
-			parameters.addValue(parameterName, model.getNumLectures());
+			parameters.addValue(parameterName, Integer.parseInt(model.getNumLectures()));
 		} else if(insertColumnName.equals(Course.getColumnName(Course.Columns.NUMBER_OF_LABS))) {
-			parameters.addValue(parameterName, model.getNumLabs());
+			parameters.addValue(parameterName, Integer.parseInt(model.getNumLabs()));
 		} else if(insertColumnName.equals(Course.getColumnName(Course.Columns.NUMBER_OF_CONFERENCES))) {
-			parameters.addValue(parameterName, model.getNumConferences());
+			parameters.addValue(parameterName, Integer.parseInt(model.getNumConferences()));
 		} else if(insertColumnName.equals(Course.getColumnName(Course.Columns.CREATED_AT))) {
 			parameters.addValue(parameterName, model.getCreatedAt());
 		} else if(insertColumnName.equals(Course.getColumnName(Course.Columns.UPDATED_AT))) {

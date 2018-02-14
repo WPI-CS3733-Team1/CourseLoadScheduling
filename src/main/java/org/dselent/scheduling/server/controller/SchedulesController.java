@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @RequestMapping("/schedule")
 public interface SchedulesController {
+	
 	@RequestMapping(method=RequestMethod.POST, value=GetCourses.REQUEST_NAME)
 	public ResponseEntity<String> getCourses(@RequestBody Map<String, String> request) throws Exception;
 	
@@ -26,7 +27,7 @@ public interface SchedulesController {
 	@RequestMapping(method=RequestMethod.POST, value=CreateCourse.REQUEST_NAME)
 	public ResponseEntity<String> createCourse(@RequestBody Map<String, String> request) throws Exception;
 	
-	@RequestMapping(method=RequestMethod.POST, value=ConfirmSchedule.REQUEST_NAME)
+	@RequestMapping(method=RequestMethod.POST, value=ConfirmSchedule.REQUEST_NAME) //Noah - still needs to be tested
 	public ResponseEntity<String> confirmSchedule(@RequestBody Map<String, String> request) throws Exception;
 
 }

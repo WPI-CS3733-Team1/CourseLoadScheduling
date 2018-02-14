@@ -68,7 +68,7 @@ public class SearchesControllerTest {
 	public void testSearchSections() throws Exception {
 		//test getting sections from courseid
 		JSONObject jsonObject = new JSONObject();
-    	jsonObject.put(GetSections.getBodyName(GetSections.BodyKey.COURSEID), "1");
+    	jsonObject.put(GetSections.getBodyName(GetSections.BodyKey.COURSE_ID), "1");
     	
     	String jsonString = jsonObject.toString();
     	

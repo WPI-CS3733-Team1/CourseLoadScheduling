@@ -23,7 +23,7 @@ public interface ScheduleService {
 	//this probably has to change to return list of CompleteSection
 	public List<Section> getSchedule(String userName, String academicTerm);
 	
-	public List<Course> getCoursesBySection(String userName);
+	public List<Course> getCoursesBySection(String userName) throws SQLException;
 	
 	public void confirmSchedule(String userName, List<String> removeSectionIdsList, List<String> addSectionIdsList);
 

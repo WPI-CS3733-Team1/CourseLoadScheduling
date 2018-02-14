@@ -74,10 +74,10 @@ public class SearchServiceImpl implements SearchService {
     	QueryTerm selectDeptIDTerm = new QueryTerm();
     	selectDeptIDTerm.setColumnName(selectColumnName);
     	selectDeptIDTerm.setComparisonOperator(ComparisonOperator.EQUAL);
-    	selectDeptIDTerm.setValue(selectID);
+    	selectDeptIDTerm.setValue(Integer.parseInt(selectID));
     	selectQueryTermList.add(selectDeptIDTerm);
     	
-    	List<String> selectColumnNameList = User.getColumnNameList();
+    	List<String> selectColumnNameList = Course.getColumnNameList();
     	
     	List<Pair<String, ColumnOrder>> orderByList = new ArrayList<>();
     	Pair<String, ColumnOrder> orderPair1 = new Pair<String, ColumnOrder>(selectColumnName, ColumnOrder.ASC);
@@ -109,7 +109,7 @@ public class SearchServiceImpl implements SearchService {
     	selectCourseIDTerm.setValue(selectCourseID);
     	selectQueryTermList.add(selectCourseIDTerm);
     	
-    	List<String> selectColumnNameList = User.getColumnNameList();
+    	List<String> selectColumnNameList = Section.getColumnNameList();
     	
     	List<Pair<String, ColumnOrder>> orderByList = new ArrayList<>();
     	Pair<String, ColumnOrder> orderPair1 = new Pair<String, ColumnOrder>(selectColumnName, ColumnOrder.ASC);

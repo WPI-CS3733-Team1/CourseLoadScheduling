@@ -407,10 +407,69 @@ public class UserServiceImpl implements UserService
 	}
 
 	@Override
-	public void getInbox(String username) {
-		String messagesID = Message.getColumnName(Message.Columns.ID);
-		getMessage(Integer.parseInt(messagesID));
+	public List<Message> getInbox(String username) {
 		
+		List<String> selectColumnNameList = new ArrayList<>();
+		selectColumnNameList = User.getColumnNameList();
+		List<QueryTerm> queryTermList = new ArrayList<>();
+		
+		QueryTerm selectUseNameTerm = new QueryTerm();
+		
+		String selectColumnName = User.getColumnName(User.Columns.USER_NAME);
+		String selectUserName = username;
+		
+		System.out.println("[UserService] fetching user data: "+username);
+		
+		selectUseNameTerm.setColumnName(selectColumnName);
+		selectUseNameTerm.setComparisonOperator(ComparisonOperator.EQUAL);
+		selectUseNameTerm.setValue(selectUserName);
+		queryTermList.add(selectUseNameTerm);
+		
+		List<Pair<String, ColumnOrder>> orderByList = new ArrayList<>();
+		Pair<String, ColumnOrder> orderPair1 = new Pair<String, ColumnOrder>(User.Columns.DEPT_ID.toString(), ColumnOrder.ASC);
+		orderByList.add(orderPair1);
+		
+		List<User> userDeptID = new ArrayList<>();
+		
+		try {
+			userDeptID = usersDao.select(selectColumnNameList, queryTermList, orderByList);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("The usersDao call failed!");
+		}
+		
+		Integer grabDeptID = userDeptID.get(0).getDeptId();
+		
+		List<String> selectColumnNameList2 = Message.getColumnNameList();
+		List<QueryTerm> queryTermList2 = new ArrayList<>();
+		
+		QueryTerm selectUseNameTerm2 = new QueryTerm();
+		
+		String selectColumnName2 = Message.getColumnName(Message.Columns.DEPT_ID);
+		Integer selectDeptID = grabDeptID;
+		
+		selectUseNameTerm2.setColumnName(selectColumnName2);
+		selectUseNameTerm2.setComparisonOperator(ComparisonOperator.EQUAL);
+		selectUseNameTerm2.setValue(selectDeptID);
+		
+		queryTermList2.add(selectUseNameTerm2);
+		
+		List<Pair<String, ColumnOrder>> orderByList2 = new ArrayList<>();
+		Pair<String, ColumnOrder> orderPair2 = new Pair<String, ColumnOrder>(Message.getColumnName(Message.Columns.DEPT_ID), ColumnOrder.ASC);
+		orderByList2.add(orderPair2);
+		
+		List<Message> userInbox = new ArrayList<>();
+		
+		try {
+			userInbox = messagesDao.select(selectColumnNameList2, queryTermList2, orderByList2);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("The messagesDao call failed!");
+		}
+		
+		return userInbox;
 	}
 
 	@Override

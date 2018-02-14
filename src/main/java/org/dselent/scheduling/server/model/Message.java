@@ -12,7 +12,7 @@ import java.util.Map;
 public class Message extends Model
 {
 	// table name
-	public static final String TABLE_NAME = "Inbox";
+	public static final String TABLE_NAME = "inbox";
 		
 	// column names
 	public static enum Columns
