@@ -85,7 +85,7 @@ public class ScheduleControllerTest {
 	@Test
 	public void testGetCourse() throws Exception {
 		JSONObject jsonObject = new JSONObject();
-		jsonObject.put(GetCourses.getBodyName(GetCourses.BodyKey.USERNAME), "cshue");
+		jsonObject.put(GetCourses.getBodyName(GetCourses.BodyKey.USER_NAME), "cshue");
 		
 		String jsonString = jsonObject.toString();
 		
