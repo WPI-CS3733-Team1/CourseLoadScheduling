@@ -11,7 +11,9 @@ import org.dselent.scheduling.server.dto.CreateCourseDto;
 import org.dselent.scheduling.server.dto.CreateSectionDto;
 import org.dselent.scheduling.server.service.ScheduleService;
 import org.dselent.scheduling.server.model.Course;
+import org.dselent.scheduling.server.model.Section;
 import org.dselent.scheduling.server.requests.GetCourses;
+import org.dselent.scheduling.server.requests.GetSchedule;
 import org.dselent.scheduling.server.requests.ConfirmSchedule;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
@@ -72,8 +74,22 @@ public class SchedulesControllerImpl implements SchedulesController {
 
 	@Override
 	public ResponseEntity<String> getSchedule(Map<String, String> request) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		
+		String response = "";
+		List<Object> success = new ArrayList<Object>();
+		
+		String userName = request.get(GetSchedule.getBodyName(GetSchedule.BodyKey.USER_NAME));
+		String term = request.get(GetSchedule.getBodyName(GetSchedule.BodyKey.ACADEMIC_TERM));
+		
+		
+		List<Section> schedule = scheduleService.getSchedule(userName, term);
+		
+		success.add(userName); //sticking this in there to link to specific request in front-end
+		success.add(schedule);
+		
+		
+		response = JsonResponseCreator.getJSONResponse(JsonResponseCreator.ResponseKey.SUCCESS, success);
+		return new ResponseEntity<String>(response, HttpStatus.OK);
 	}
 	
 	
